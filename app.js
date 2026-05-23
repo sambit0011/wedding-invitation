@@ -21,15 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Itinerary Elements (Full-Screen Swiper)
     const btnEnterInvite = document.getElementById('btn-enter-invite');
 
-    // Scratch Card Elements
-    const scratchCanvas = document.getElementById('scratch-canvas');
-    const scratchCtx = scratchCanvas.getContext('2d');
-    const successBtnContainer = document.querySelector('.scratch-success-btn-container');
+    // Reveal Box Elements
+    const revealDateBox = document.getElementById('reveal-date-box');
+    const cardOverlay = document.getElementById('card-overlay');
+    const revealedDatesContainer = document.getElementById('revealed-dates-container');
     const instructionLabel = document.getElementById('instruction-label');
-    let isScratchingDone = false;
-    let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
 
     // RSVP Form Elements
     const rsvpForm = document.getElementById('rsvp-form');
@@ -65,175 +61,31 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             envelope.classList.add('slide-card');
             // Change instruction text to prompt scratching
-            instructionLabel.innerText = "Scratch the card to reveal the couple!";
+            instructionLabel.innerText = "Tap the square box to reveal our dates!";
         }, 600);
     }
 
 
     // ================================================================
-    // 2. HTML5 CANVAS SCRATCH CARD LOGIC
+    // 2. CLICK-TO-REVEAL SQUARE BOX LOGIC
     // ================================================================
-    
-    // Initialize the Scratch Card Overlay Cover with a sparkling gold metallic texture
-    function initScratchCard() {
-        const w = scratchCanvas.width;
-        const h = scratchCanvas.height;
-
-        // Draw Gold linear gradient background
-        const goldGrad = scratchCtx.createLinearGradient(0, 0, w, h);
-        goldGrad.addColorStop(0, '#fce990');
-        goldGrad.addColorStop(0.3, '#d4af37');
-        goldGrad.addColorStop(0.7, '#aa7c11');
-        goldGrad.addColorStop(1, '#8c6408');
+    revealDateBox.addEventListener('click', () => {
+        // Step A: Hide the gift box smoothly
+        revealDateBox.style.opacity = '0';
+        revealDateBox.style.pointerEvents = 'none';
         
-        scratchCtx.fillStyle = goldGrad;
-        scratchCtx.fillRect(0, 0, w, h);
-
-        // Add subtle gold dust noise particles for physical metallic texture
-        scratchCtx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-        for (let i = 0; i < 500; i++) {
-            const x = Math.random() * w;
-            const y = Math.random() * h;
-            const size = Math.random() * 1.5;
-            scratchCtx.fillRect(x, y, size, size);
-        }
-
-        // Draw elegant circular border ring inside the scratch overlay
-        scratchCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-        scratchCtx.lineWidth = 1;
-        scratchCtx.strokeRect(10, 10, w - 20, h - 20);
-
-        // Add call-to-action text on top of the scratch coat
-        scratchCtx.fillStyle = '#2C1E43'; // deep purple/plum for readability
-        scratchCtx.font = "bold 15px 'Cormorant Garamond', serif";
-        scratchCtx.textAlign = 'center';
-        scratchCtx.textBaseline = 'middle';
-        scratchCtx.fillText('SCRATCH WITH YOUR COIN', w / 2, h / 2 - 12);
+        // Step B: Darken the image overlay to make the dates pop
+        cardOverlay.classList.add('darkened');
         
-        scratchCtx.fillStyle = '#aa7c11';
-        scratchCtx.font = "italic 12px 'Cormorant Garamond', serif";
-        scratchCtx.fillText('to reveal the couple!', w / 2, h / 2 + 10);
-    }
-
-    initScratchCard();
-
-    // Event handlers for Scratch Card drawing/scratching (Support Desktop & Mobile Touch)
-    scratchCanvas.addEventListener('mousedown', startScratch);
-    scratchCanvas.addEventListener('mousemove', scratch);
-    scratchCanvas.addEventListener('mouseup', endScratch);
-    scratchCanvas.addEventListener('mouseleave', endScratch);
-
-    scratchCanvas.addEventListener('touchstart', (e) => {
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        scratchCanvas.dispatchEvent(mouseEvent);
-        e.preventDefault();
-    }, { passive: false });
-
-    scratchCanvas.addEventListener('touchmove', (e) => {
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        scratchCanvas.dispatchEvent(mouseEvent);
-        e.preventDefault();
-    }, { passive: false });
-
-    scratchCanvas.addEventListener('touchend', () => {
-        const mouseEvent = new MouseEvent('mouseup', {});
-        scratchCanvas.dispatchEvent(mouseEvent);
-    });
-
-    function getCanvasCoordinates(e) {
-        const rect = scratchCanvas.getBoundingClientRect();
-        const scaleX = scratchCanvas.width / rect.width;
-        const scaleY = scratchCanvas.height / rect.height;
-        return {
-            x: (e.clientX - rect.left) * scaleX,
-            y: (e.clientY - rect.top) * scaleY
-        };
-    }
-
-    function startScratch(e) {
-        if (isScratchingDone || !envelope.classList.contains('slide-card')) return;
-        isDrawing = true;
-        const coords = getCanvasCoordinates(e);
-        lastX = coords.x;
-        lastY = coords.y;
-    }
-
-    function scratch(e) {
-        if (!isDrawing || isScratchingDone) return;
+        // Step C: Fade in the wedding dates and proceeding button
+        revealedDatesContainer.classList.add('active');
         
-        const coords = getCanvasCoordinates(e);
-        const currentX = coords.x;
-        const currentY = coords.y;
-
-        // Draw transparent circles to erase the canvas
-        scratchCtx.globalCompositeOperation = 'destination-out';
-        scratchCtx.beginPath();
-        
-        // Draw a thick line from the last coordinate to make erasing feel fluid and smooth
-        scratchCtx.lineWidth = 75; // increased thickness for easy 2-stroke scratch!
-        scratchCtx.lineCap = 'round';
-        scratchCtx.moveTo(lastX, lastY);
-        scratchCtx.lineTo(currentX, currentY);
-        scratchCtx.stroke();
-
-        lastX = currentX;
-        lastY = currentY;
-
-        // Perform threshold check to see if enough is cleared
-        checkScratchPercentage();
-    }
-
-    function endScratch() {
-        isDrawing = false;
-    }
-
-    // Measure cleared pixel ratio
-    function checkScratchPercentage() {
-        if (isScratchingDone) return;
-
-        const w = scratchCanvas.width;
-        const h = scratchCanvas.height;
-        const imgData = scratchCtx.getImageData(0, 0, w, h);
-        const data = imgData.data;
-        let transparentPixels = 0;
-        const totalPixels = data.length / 4;
-
-        // Check alpha channels (data[i + 3] holds transparency)
-        for (let i = 3; i < data.length; i += 4) {
-            if (data[i] === 0) {
-                transparentPixels++;
-            }
-        }
-
-        const percentage = (transparentPixels / totalPixels) * 100;
-
-        // Once 18% of the gold scratch card is cleared (easy 2-stroke trigger!), complete the reveal!
-        if (percentage >= 18) {
-            isScratchingDone = true;
-            revealDatesAndRainFlowers();
-        }
-    }
-
-    function revealDatesAndRainFlowers() {
-        // Fade out canvas completely
-        scratchCanvas.style.opacity = '0';
-        scratchCanvas.style.pointerEvents = 'none';
-        
-        // Show "Enter Invitation" button
-        successBtnContainer.classList.add('visible');
-        instructionLabel.innerText = "We're Getting Married! Welcome.";
-
-        // Trigger gorgeous flower rain particles
+        // Step D: Trigger the gorgeous animated flower rain!
         triggerFlowerRain();
-    }
+        
+        // Step E: Update the instruction text
+        instructionLabel.innerText = "We're Getting Married! Welcome.";
+    });
 
 
     // ================================================================

@@ -62,20 +62,30 @@
                 <!-- Flap Top (folds down/up) -->
                 <div class="envelope-flap-top"></div>
                 
-                <!-- Inner Card containing the SCRATCH BOX -->
+                <!-- Inner Card containing the Portrait + Reveal Box -->
                 <div class="envelope-card-preview" id="preview-card">
+                    <!-- The beautiful couple portrait (fully visible immediately) -->
+                    <img class="scratch-couple-portrait" src="assets/couple_portrait.jpg" alt="Sambit & Akanksha Portrait">
                     
-                    <!-- Reveal Layer (holds the beautiful couple portrait) -->
-                    <div class="scratch-reveal-layer">
-                        <img class="scratch-couple-portrait" src="assets/couple_portrait.jpg" alt="Sambit & Akanksha Portrait">
-                        <div class="scratch-success-btn-container">
+                    <!-- Color Tint Overlay -->
+                    <div class="card-overlay" id="card-overlay"></div>
+                    
+                    <!-- Centered Square Reveal Gift Box -->
+                    <div class="reveal-date-box" id="reveal-date-box" aria-label="Click to reveal wedding dates">
+                        <div class="box-ribbon-v"></div>
+                        <div class="box-ribbon-h"></div>
+                        <span class="box-text">REVEAL DATE</span>
+                    </div>
+
+                    <!-- Revealed Wedding Dates Details (initially hidden, fades in on box click) -->
+                    <div class="revealed-dates-container" id="revealed-dates-container">
+                        <span class="revealed-title">We're Getting Married!</span>
+                        <div class="revealed-dates">21 • 22 • 25</div>
+                        <div class="revealed-month">NOVEMBER 2026</div>
+                        <div class="scratch-success-btn-container visible">
                             <button type="button" class="btn btn-primary" id="btn-enter-invite">Enter Invitation</button>
                         </div>
                     </div>
-
-                    <!-- Scratch Card Canvas Cover -->
-                    <canvas id="scratch-canvas" class="scratch-canvas" width="300" height="200"></canvas>
-                    
                 </div>
                 
                 <!-- Flap Left & Right & Bottom (visually covers the front card) -->

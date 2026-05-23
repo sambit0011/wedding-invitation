@@ -337,18 +337,6 @@ h1, h2, h3, .preview-names, .footer-names, .slide-event-title {
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.1s;
 }
 
-.scratch-reveal-layer {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-}
-
 .scratch-couple-portrait {
     width: 100%;
     height: 100%;
@@ -359,16 +347,135 @@ h1, h2, h3, .preview-names, .footer-names, .slide-event-title {
     border-radius: 4px;
 }
 
-.scratch-reveal-layer::after {
-    content: '';
+/* Photo card shading overlay */
+.card-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(44, 30, 67, 0.35); /* soft royal shade overlay */
-    pointer-events: none;
+    background-color: rgba(44, 30, 67, 0.15); /* light tint at first */
+    transition: background-color 0.6s ease;
     z-index: 1;
+    pointer-events: none;
+}
+
+.card-overlay.darkened {
+    background-color: rgba(44, 30, 67, 0.7); /* dark elegant tint to pop dates */
+}
+
+/* Centered Square Reveal Gift Box */
+.reveal-date-box {
+    position: absolute;
+    width: 140px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #FAF6FB 0%, #E8DCF5 100%);
+    border: 2px solid var(--gold-primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 8px 24px rgba(93, 63, 155, 0.3);
+    transition: opacity 0.5s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.reveal-date-box:active {
+    transform: translate(-50%, -50%) scale(0.93);
+}
+
+.box-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--lavender-primary);
+    z-index: 3;
+    text-shadow: 0 1px 1px white;
+    background: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(170, 124, 17, 0.2);
+}
+
+.box-ribbon-v {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 16px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: var(--gold-gradient);
+    z-index: 2;
+}
+
+.box-ribbon-h {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    transform: translateY(-50%);
+    background: var(--gold-gradient);
+    z-index: 2;
+}
+
+/* Revealed dates styling inside card */
+.revealed-dates-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 4;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+.revealed-dates-container.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.revealed-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold-light);
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.revealed-dates {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.revealed-month {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 
 .scratch-success-btn-container {

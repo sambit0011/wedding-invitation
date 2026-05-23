@@ -337,59 +337,38 @@ h1, h2, h3, .preview-names, .footer-names, .slide-event-title {
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.1s;
 }
 
-/* The Reveal Content (dates layout) */
 .scratch-reveal-layer {
     width: 100%;
     height: 100%;
-    padding: 15px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: var(--lavender-deep);
+    position: relative;
 }
 
-.scratch-card-title {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    margin-bottom: 2px;
-}
-
-.scratch-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: var(--lavender-primary);
-    margin-bottom: 5px;
-}
-
-.scratch-dates {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid rgba(170, 124, 17, 0.25);
-    padding: 8px 15px;
+.scratch-couple-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
     border-radius: 4px;
-    background: #ffffff;
-    margin-bottom: 8px;
 }
 
-.date-large {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.15rem;
-    color: var(--gold-primary);
-    letter-spacing: 0.05em;
-    font-weight: bold;
-}
-
-.month-sub {
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    font-weight: 600;
+.scratch-reveal-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 30, 67, 0.35); /* soft royal shade overlay */
+    pointer-events: none;
+    z-index: 1;
 }
 
 .scratch-success-btn-container {

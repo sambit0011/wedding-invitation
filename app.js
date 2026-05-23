@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             envelope.classList.add('slide-card');
             // Change instruction text to prompt scratching
-            instructionLabel.innerText = "Scratch the card to reveal our dates!";
+            instructionLabel.innerText = "Scratch the card to reveal the couple!";
         }, 600);
     }
 
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         scratchCtx.fillStyle = '#aa7c11';
         scratchCtx.font = "italic 12px 'Cormorant Garamond', serif";
-        scratchCtx.fillText('to reveal our wedding dates', w / 2, h / 2 + 10);
+        scratchCtx.fillText('to reveal the couple!', w / 2, h / 2 + 10);
     }
 
     initScratchCard();
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scratchCtx.beginPath();
         
         // Draw a thick line from the last coordinate to make erasing feel fluid and smooth
-        scratchCtx.lineWidth = 36; // thickness of scratch/coin
+        scratchCtx.lineWidth = 75; // increased thickness for easy 2-stroke scratch!
         scratchCtx.lineCap = 'round';
         scratchCtx.moveTo(lastX, lastY);
         scratchCtx.lineTo(currentX, currentY);
@@ -215,8 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const percentage = (transparentPixels / totalPixels) * 100;
 
-        // Once 40% of the gold scratch card is cleared, complete the reveal!
-        if (percentage >= 40) {
+        // Once 18% of the gold scratch card is cleared (easy 2-stroke trigger!), complete the reveal!
+        if (percentage >= 18) {
             isScratchingDone = true;
             revealDatesAndRainFlowers();
         }
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Show "Enter Invitation" button
         successBtnContainer.classList.add('visible');
-        instructionLabel.innerText = "Dates Revealed! Welcome to our celebration.";
+        instructionLabel.innerText = "We're Getting Married! Welcome.";
 
         // Trigger gorgeous flower rain particles
         triggerFlowerRain();

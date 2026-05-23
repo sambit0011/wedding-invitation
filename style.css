@@ -467,105 +467,77 @@ h1, h2, h3, .preview-names, .footer-names {
 
 /* --- Section 1: Hero Cover --- */
 .hero-section {
-    padding: 3rem 1.5rem;
+    padding: 1.5rem 1.5rem;
+    /* 
+       NEW: Watercolor mandap card — classical columns, lavender & rose floral garlands,
+       flowing lavender curtains & purple alcohol ink splashes.
+    */
+    background: url('assets/hero_bg.jpg') no-repeat center center;
+    background-size: cover;
+    background-color: #f5f0eb; /* fallback cream */
 }
 
 .hero-bg-frame {
-    position: absolute;
-    top: 25px;
-    left: 20px;
-    right: 20px;
-    bottom: 25px;
-    border: 1.5px solid rgba(93, 63, 155, 0.12);
-    pointer-events: none;
-    border-radius: 4px;
-}
-
-/* Top Floral Garland Arch (Lavender & Pink watercolor theme) */
-.floral-arch-top {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    z-index: 5;
-    pointer-events: none;
-}
-
-/* Side hanging flower garlands wrapping left/right margins */
-.side-garland {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    width: 35px;
-    z-index: 5;
-    pointer-events: none;
-}
-
-.left-garland {
-    left: 6px;
-}
-
-.right-garland {
-    right: 6px;
+    /* frame hidden — the card image already has its own elegant border */
+    display: none;
 }
 
 .hero-content {
     z-index: 2;
     width: 100%;
+    /* Inset content inside the cream card center \u2014 clear of the column borders */
+    padding: 0 14% 0 14%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Sleek Luxury Editorial Top Header */
-.save-date-container {
-    margin-bottom: 1rem;
-    text-align: center;
-    z-index: 2;
-}
-
 .modern-header-container {
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.8rem;
     text-align: center;
     z-index: 2;
 }
 
 .modern-subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.35em;
-    color: var(--gold-primary);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.38em;
+    color: #8a6b2a;
     text-transform: uppercase;
     display: block;
     margin-bottom: 6px;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.9);
 }
 
 .modern-names {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 300;
-    font-style: italic; /* high-fashion luxury editorial feel */
+    font-size: 2.6rem;
+    font-weight: 600;
+    font-style: italic;
     line-height: 1.1;
-    color: var(--lavender-primary);
+    color: #4a2d7a;
     margin: 5px 0;
     letter-spacing: -0.01em;
+    text-shadow: 0 1px 4px rgba(255,255,255,0.8);
 }
 
 .modern-ampersand {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-weight: 300;
-    color: var(--gold-primary);
+    color: #8a6b2a;
 }
 
 .modern-date {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 400;
+    font-size: 0.82rem;
+    font-weight: 500;
     letter-spacing: 0.25em;
-    color: var(--text-muted);
+    color: #6b5080;
     margin-top: 5px;
-    opacity: 0.85;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.9);
 }
 
 .couple-names-container {
@@ -573,17 +545,16 @@ h1, h2, h3, .preview-names, .footer-names {
 }
 
 /* 
-   Couple Portrait Frame Container (BORDERLESS - BACKGROUND MATCHES PAGE BACKGROUND)
-   displays the FULL uncropped illustrated couple drawing without cuts!
+   Couple Portrait Frame Container — sized to fit cleanly inside the
+   cream oval center of the mandap card background
 */
 .portrait-frame-container {
     position: relative;
-    width: 250px;
-    height: 330px; /* plenty of vertical space to show full couple body sketch */
-    margin: 0.5rem auto 1rem;
+    width: 220px;
+    height: 290px;
+    margin: 0.2rem auto 0.5rem;
     overflow: hidden;
-    background-color: transparent; /* lets page background show through */
-    /* All oval shapes, gold rings, borders, and shadows completely removed */
+    background-color: transparent;
     border: none;
     outline: none;
     box-shadow: none;
@@ -594,23 +565,33 @@ h1, h2, h3, .preview-names, .footer-names {
 .couple-portrait {
     width: 100%;
     height: 100%;
-    object-fit: contain;          /* displays the entire image without any cropping! */
+    object-fit: contain;
     display: block;
-    mix-blend-mode: multiply;    /* keys out transparent background precisely */
-    /* Removed scale zooms to show full body */
+    mix-blend-mode: multiply;    /* keys out the cream parchment paper background */
     transform: none;
     transform-origin: center;
-    filter: contrast(1.04) brightness(1.02);
+    filter: contrast(1.05) brightness(1.03) saturate(1.05);
 }
 
 .hero-details {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.invite-tagline {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #5a4570;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+    max-width: 260px;
+    margin: 0 auto 0.5rem;
 }
 
 .wedding-location-string {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: #6b5080;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+    font-weight: 600;
 }
 
 .scroll-to-btn {

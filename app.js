@@ -18,12 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicToggle = document.getElementById('music-toggle');
     let isMusicPlaying = false;
 
-    // Countdown target date: November 21, 2026 at 10:00 AM (Engagement starts)
-    const weddingDate = new Date('November 21, 2026 10:00:00').getTime();
+    // Event Itinerary Elements (Full-Screen Swiper)
+    const btnEnterInvite = document.getElementById('btn-enter-invite');
 
-    // Event Itinerary Tabs
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const itineraryPanels = document.querySelectorAll('.itinerary-panel');
+    // Scratch Card Elements
+    const scratchCanvas = document.getElementById('scratch-canvas');
+    const scratchCtx = scratchCanvas.getContext('2d');
+    const successBtnContainer = document.querySelector('.scratch-success-btn-container');
+    const instructionLabel = document.getElementById('instruction-label');
+    let isScratchingDone = false;
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
 
     // RSVP Form Elements
     const rsvpForm = document.getElementById('rsvp-form');
@@ -38,48 +44,280 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Tapping the Wax Seal starts the beautiful unfolding sequence
     waxSeal.addEventListener('click', (e) => {
-        e.stopPropagation(); // prevent nested bubble events
-        openInvitation();
+        e.stopPropagation();
+        openEnvelope();
     });
 
-    // Also support tapping the envelope body to open
     envelope.addEventListener('click', () => {
         if (!envelope.classList.contains('open-flap')) {
-            openInvitation();
+            openEnvelope();
         }
     });
 
-    function openInvitation() {
+    function openEnvelope() {
         // Step A: Trigger flap fold
         envelope.classList.add('open-flap');
         
-        // Try playing background music immediately (user interaction gesture allows this now)
+        // Start background music context softly upon user gesture
         playMusic();
 
         // Step B: Slide the invitation card upwards from inside the envelope
         setTimeout(() => {
             envelope.classList.add('slide-card');
+            // Change instruction text to prompt scratching
+            instructionLabel.innerText = "Scratch the card to reveal our dates!";
         }, 600);
-
-        // Step C: Fade out the entire envelope screen overlay and fade in the main site
-        setTimeout(() => {
-            envelopeScreen.classList.add('fade-out');
-            mainInvitation.classList.add('fade-in');
-            
-            // Unlock scrolling on the body
-            bodyElement.classList.add('scrollable');
-            
-            // Initialize animations inside the hero view
-            document.querySelector('.hero-content').classList.add('animate-fade-in');
-        }, 1500);
     }
 
 
     // ================================================================
-    // 2. ROYAL BACKGROUND MUSIC PLAYER CONTROLS
+    // 2. HTML5 CANVAS SCRATCH CARD LOGIC
     // ================================================================
     
-    // Toggle music playback manually
+    // Initialize the Scratch Card Overlay Cover with a sparkling gold metallic texture
+    function initScratchCard() {
+        const w = scratchCanvas.width;
+        const h = scratchCanvas.height;
+
+        // Draw Gold linear gradient background
+        const goldGrad = scratchCtx.createLinearGradient(0, 0, w, h);
+        goldGrad.addColorStop(0, '#fce990');
+        goldGrad.addColorStop(0.3, '#d4af37');
+        goldGrad.addColorStop(0.7, '#aa7c11');
+        goldGrad.addColorStop(1, '#8c6408');
+        
+        scratchCtx.fillStyle = goldGrad;
+        scratchCtx.fillRect(0, 0, w, h);
+
+        // Add subtle gold dust noise particles for physical metallic texture
+        scratchCtx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+        for (let i = 0; i < 500; i++) {
+            const x = Math.random() * w;
+            const y = Math.random() * h;
+            const size = Math.random() * 1.5;
+            scratchCtx.fillRect(x, y, size, size);
+        }
+
+        // Draw elegant circular border ring inside the scratch overlay
+        scratchCtx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        scratchCtx.lineWidth = 1;
+        scratchCtx.strokeRect(10, 10, w - 20, h - 20);
+
+        // Add call-to-action text on top of the scratch coat
+        scratchCtx.fillStyle = '#2C1E43'; // deep purple/plum for readability
+        scratchCtx.font = "bold 15px 'Cormorant Garamond', serif";
+        scratchCtx.textAlign = 'center';
+        scratchCtx.textBaseline = 'middle';
+        scratchCtx.fillText('SCRATCH WITH YOUR COIN', w / 2, h / 2 - 12);
+        
+        scratchCtx.fillStyle = '#aa7c11';
+        scratchCtx.font = "italic 12px 'Cormorant Garamond', serif";
+        scratchCtx.fillText('to reveal our wedding dates', w / 2, h / 2 + 10);
+    }
+
+    initScratchCard();
+
+    // Event handlers for Scratch Card drawing/scratching (Support Desktop & Mobile Touch)
+    scratchCanvas.addEventListener('mousedown', startScratch);
+    scratchCanvas.addEventListener('mousemove', scratch);
+    scratchCanvas.addEventListener('mouseup', endScratch);
+    scratchCanvas.addEventListener('mouseleave', endScratch);
+
+    scratchCanvas.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousedown', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        scratchCanvas.dispatchEvent(mouseEvent);
+        e.preventDefault();
+    }, { passive: false });
+
+    scratchCanvas.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousemove', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        scratchCanvas.dispatchEvent(mouseEvent);
+        e.preventDefault();
+    }, { passive: false });
+
+    scratchCanvas.addEventListener('touchend', () => {
+        const mouseEvent = new MouseEvent('mouseup', {});
+        scratchCanvas.dispatchEvent(mouseEvent);
+    });
+
+    function getCanvasCoordinates(e) {
+        const rect = scratchCanvas.getBoundingClientRect();
+        const scaleX = scratchCanvas.width / rect.width;
+        const scaleY = scratchCanvas.height / rect.height;
+        return {
+            x: (e.clientX - rect.left) * scaleX,
+            y: (e.clientY - rect.top) * scaleY
+        };
+    }
+
+    function startScratch(e) {
+        if (isScratchingDone || !envelope.classList.contains('slide-card')) return;
+        isDrawing = true;
+        const coords = getCanvasCoordinates(e);
+        lastX = coords.x;
+        lastY = coords.y;
+    }
+
+    function scratch(e) {
+        if (!isDrawing || isScratchingDone) return;
+        
+        const coords = getCanvasCoordinates(e);
+        const currentX = coords.x;
+        const currentY = coords.y;
+
+        // Draw transparent circles to erase the canvas
+        scratchCtx.globalCompositeOperation = 'destination-out';
+        scratchCtx.beginPath();
+        
+        // Draw a thick line from the last coordinate to make erasing feel fluid and smooth
+        scratchCtx.lineWidth = 36; // thickness of scratch/coin
+        scratchCtx.lineCap = 'round';
+        scratchCtx.moveTo(lastX, lastY);
+        scratchCtx.lineTo(currentX, currentY);
+        scratchCtx.stroke();
+
+        lastX = currentX;
+        lastY = currentY;
+
+        // Perform threshold check to see if enough is cleared
+        checkScratchPercentage();
+    }
+
+    function endScratch() {
+        isDrawing = false;
+    }
+
+    // Measure cleared pixel ratio
+    function checkScratchPercentage() {
+        if (isScratchingDone) return;
+
+        const w = scratchCanvas.width;
+        const h = scratchCanvas.height;
+        const imgData = scratchCtx.getImageData(0, 0, w, h);
+        const data = imgData.data;
+        let transparentPixels = 0;
+        const totalPixels = data.length / 4;
+
+        // Check alpha channels (data[i + 3] holds transparency)
+        for (let i = 3; i < data.length; i += 4) {
+            if (data[i] === 0) {
+                transparentPixels++;
+            }
+        }
+
+        const percentage = (transparentPixels / totalPixels) * 100;
+
+        // Once 40% of the gold scratch card is cleared, complete the reveal!
+        if (percentage >= 40) {
+            isScratchingDone = true;
+            revealDatesAndRainFlowers();
+        }
+    }
+
+    function revealDatesAndRainFlowers() {
+        // Fade out canvas completely
+        scratchCanvas.style.opacity = '0';
+        scratchCanvas.style.pointerEvents = 'none';
+        
+        // Show "Enter Invitation" button
+        successBtnContainer.classList.add('visible');
+        instructionLabel.innerText = "Dates Revealed! Welcome to our celebration.";
+
+        // Trigger gorgeous flower rain particles
+        triggerFlowerRain();
+    }
+
+
+    // ================================================================
+    // 3. 3D FLOWER CONFETTI RAIN ENGINE
+    // ================================================================
+    const rainContainer = document.getElementById('flower-rain-container');
+    const petalColors = [
+        'rgba(243, 222, 244, 0.85)', // soft lavender
+        'rgba(255, 230, 240, 0.85)', // light pink
+        'rgba(254, 249, 218, 0.85)', // cream yellow
+        'rgba(212, 175, 55, 0.75)'   // gold leaves
+    ];
+
+    function triggerFlowerRain() {
+        // Spawn 45 unique falling flower petals
+        for (let i = 0; i < 45; i++) {
+            createPetal();
+        }
+    }
+
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+
+        // Randomized aesthetics for natural organic feel
+        const size = Math.random() * 16 + 10; // 10px to 26px
+        const left = Math.random() * 100; // 0vw to 100vw
+        const delay = Math.random() * 3; // 0s to 3s
+        const duration = Math.random() * 3 + 3; // 3s to 6s
+        const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        petal.style.left = `${left}vw`;
+        petal.style.backgroundColor = color;
+        petal.style.animationDelay = `${delay}s`;
+        petal.style.animationDuration = `${duration}s`;
+
+        // Varying petal rotation shapes
+        const rStyle = Math.random();
+        if (rStyle < 0.25) {
+            petal.style.borderRadius = '50% 0 50% 50%'; // rose shape
+        } else if (rStyle < 0.5) {
+            petal.style.borderRadius = '50% 50% 0 50%';
+        } else if (rStyle < 0.75) {
+            petal.style.borderRadius = '20px'; // blossom petal
+        } else {
+            petal.style.borderRadius = '50%'; // soft dot confetti
+        }
+
+        rainContainer.appendChild(petal);
+
+        // Remove element once animation completes
+        petal.addEventListener('animationend', () => {
+            petal.remove();
+        });
+    }
+
+
+    // ================================================================
+    // 4. TRANSITION TO SCROLL SNAP EVENT SLIDES
+    // ================================================================
+    
+    btnEnterInvite.addEventListener('click', () => {
+        // Step A: Fade out screen 1
+        envelopeScreen.classList.add('fade-out');
+        
+        // Step B: Set main swiper active
+        mainInvitation.classList.add('active');
+        
+        // Ensure background music is unmuted and playing
+        playMusic();
+
+        // Step C: Trigger a short secondary flower rain in the swiper to celebrate!
+        setTimeout(() => {
+            triggerFlowerRain();
+        }, 400);
+    });
+
+
+    // ================================================================
+    // 5. ROYAL BACKGROUND MUSIC CONTROLLER
+    // ================================================================
+    
     musicToggle.addEventListener('click', () => {
         if (isMusicPlaying) {
             pauseMusic();
@@ -96,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 musicToggle.classList.remove('paused');
             })
             .catch((error) => {
-                console.log("Audio autoplay prevented by browser safety policy.", error);
+                console.log("Autoplay context safety prevent.", error);
             });
     }
 
@@ -109,82 +347,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ================================================================
-    // 3. REAL-TIME COUNTDOWN TIMER
+    // 6. TACTILE RSVP SUBMISSION & LOCAL PERSISTENCE
     // ================================================================
     
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const difference = weddingDate - now;
-
-        // If the date has passed
-        if (difference < 0) {
-            document.getElementById('countdown-timer').innerHTML = `
-                <div style="grid-column: span 4; font-size: 1.2rem; color: #5D3F9B; font-weight:600;">
-                    The Celebration has Begun!
-                </div>
-            `;
-            return;
-        }
-
-        // Time calculations for days, hours, minutes and seconds
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        // Render to DOM (with leading zeros)
-        document.getElementById('days').innerText = String(days).padStart(2, '0');
-        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-    }
-
-    // Run timer immediately and update every second
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-
-    // ================================================================
-    // 4. DAY-BY-DAY TIMELINE TABS SELECTOR
-    // ================================================================
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetDay = button.getAttribute('data-day');
-
-            // Remove active classes from all tab buttons
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to current button
-            button.classList.add('active');
-
-            // Toggle panels
-            itineraryPanels.forEach(panel => {
-                panel.classList.remove('active');
-                if (panel.getAttribute('id') === targetDay) {
-                    panel.classList.add('active');
-                    
-                    // Add entry animations to children inside the newly opened panel
-                    const cards = panel.querySelectorAll('.event-card');
-                    cards.forEach((card, idx) => {
-                        card.classList.remove('animate-fade-in', 'delay-100');
-                        void card.offsetWidth; // Force CSS reflow to re-trigger transition
-                        if (idx === 0) {
-                            card.classList.add('animate-fade-in');
-                        } else {
-                            card.classList.add('animate-fade-in', 'delay-100');
-                        }
-                    });
-                }
-            });
-        });
-    });
-
-
-    // ================================================================
-    // 5. TACTILE RSVP SUBMISSION & PERSISTENCE
-    // ================================================================
-    
-    // Check if user has already RSVP'd before in this browser
     const existingRsvp = localStorage.getItem('wedding_rsvp');
     if (existingRsvp) {
         try {
@@ -195,35 +360,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Form Submission Handler
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Extract form values
         const name = document.getElementById('guest-name').value.trim();
         const phone = document.getElementById('guest-phone').value.trim();
         const count = document.getElementById('guest-count').value;
         const attendance = document.getElementById('guest-attendance').value;
         const wishes = document.getElementById('guest-wishes').value.trim();
 
-        // Build Response Object
         const rsvpData = { name, phone, count, attendance, wishes, date: new Date().toISOString() };
 
-        // Save locally to simulate remote database storage
         localStorage.setItem('wedding_rsvp', JSON.stringify(rsvpData));
 
-        // Format success banner response message
         if (attendance === 'attending') {
-            successMsg.innerHTML = `Thank you so much, <strong>${name}</strong>! We are absolutely thrilled to celebrate with you and your ${count > 1 ? (count - 1) + ' guest(s)' : 'company'} in Udaipur!`;
+            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! We are absolutely thrilled to celebrate with you and your ${count > 1 ? (count - 1) + ' guest(s)' : 'company'} in Udaipur!`;
+            // Trigger extra mini flower rain on successful attendance!
+            triggerFlowerRain();
         } else {
-            successMsg.innerHTML = `Thank you for letting us know, <strong>${name}</strong>. We will miss you dearly, but we deeply appreciate your warm wishes!`;
+            successMsg.innerHTML = `Thank you for letting us know, <strong>${name}</strong>. We will miss you dearly, but we deeply appreciate your blessings!`;
         }
 
-        // Animate overlay slide-up
         rsvpSuccess.classList.add('active');
     });
 
-    // Prefill form and show success screen if already submitted
     function prefillAndShowRsvp(data) {
         document.getElementById('guest-name').value = data.name;
         document.getElementById('guest-phone').value = data.phone;
@@ -240,28 +400,8 @@ document.addEventListener('DOMContentLoaded', () => {
         rsvpSuccess.classList.add('active');
     }
 
-    // Reset RSVP / Edit Response Button handler
     btnResetRsvp.addEventListener('click', () => {
-        // Slide down the overlay
         rsvpSuccess.classList.remove('active');
-    });
-
-
-    // ================================================================
-    // 6. EXTRA MOBILE OPTIMIZATIONS (TOUCH ANCHORS)
-    // ================================================================
-    
-    // Smooth scrolling anchors for buttons inside scroll containers
-    const scrollButtons = document.querySelectorAll('.scroll-to-btn');
-    scrollButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = btn.getAttribute('href');
-            const targetSec = document.querySelector(targetId);
-            if (targetSec) {
-                targetSec.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
     });
 
 });

@@ -1,7 +1,7 @@
 /* 
 ================================================================
    PREMIUM MOBILE WEDDING INVITATION STYLESHEET
-   Theme: Luxury Lavender, Soft Lilac & Pale Gold
+   Theme: Luxury Lavender, Light Pink & Champagne Gold
 ================================================================
 */
 
@@ -12,18 +12,18 @@
     --gold-dark: #8c6408;
     --gold-gradient: linear-gradient(135deg, #fce990 0%, #aa7c11 50%, #8c6408 100%);
     
-    /* New Light Theme: Lavender & Soft Lilac */
-    --lavender-deep: #FAF6FB;       /* soft luxurious lavender-tinted background */
-    --lavender-dark: #2C1E43;       /* rich deep contrast accent / main text */
-    --lavender-primary: #5D3F9B;    /* premium royal violet/plum highlight */
-    --lavender-light: #F3EEF9;      /* panel containers */
-    --pastel-pink: #FFEBF3;         /* highlight gradients */
+    /* Light Theme Palette */
+    --lavender-deep: #FAF6FB;       /* soft luxurious background */
+    --lavender-dark: #2C1E43;       /* rich deep contrast violet-black */
+    --lavender-primary: #5D3F9B;    /* premium royal plum highlight */
+    --lavender-light: #F3EEF9;      /* panel cards container */
+    --pastel-pink: #FFEBF3;         /* accent highlights */
     
     --text-main: #33224D;
     --text-muted: #6C5A87;
     --text-light: #ffffff;
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --card-shadow: 0 8px 25px rgba(93, 63, 155, 0.08);
+    --card-shadow: 0 10px 30px rgba(93, 63, 155, 0.1);
     --gold-shadow: 0 4px 15px rgba(170, 124, 17, 0.2);
 }
 
@@ -45,39 +45,24 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text-main);
     background-color: var(--lavender-deep);
-    overflow-x: hidden;
-    width: 100%;
-    /* Lock scrolling until envelope is opened */
-    position: fixed;
-    height: 100%;
-}
-
-body.scrollable {
-    position: relative;
-    height: auto;
-    overflow-y: auto;
+    overflow: hidden; /* Scroll lock, handled inside main-invitation */
+    width: 100vw;
+    height: 100vh;
 }
 
 /* --- Global Typography --- */
-h1, h2, h3, .preview-names, .footer-names {
+h1, h2, h3, .preview-names, .footer-names, .slide-event-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
 }
 
-.font-italic {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--lavender-primary);
-}
-
-/* --- Helper Classes & UI Elements --- */
+/* --- Buttons --- */
 .btn {
     display: inline-block;
-    padding: 1rem 2.5rem;
+    padding: 0.9rem 2.2rem;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -87,7 +72,6 @@ h1, h2, h3, .preview-names, .footer-names {
     text-decoration: none;
     text-align: center;
     transition: var(--transition-smooth);
-    width: 100%;
 }
 
 .btn-primary {
@@ -108,40 +92,81 @@ h1, h2, h3, .preview-names, .footer-names {
     color: var(--gold-primary);
 }
 
-.btn-gold-outline:active {
-    background: rgba(170, 124, 17, 0.08);
-    transform: scale(0.97);
-}
-
 .divider {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 }
 
 .divider-line {
-    height: 1.5px;
-    width: 60px;
+    height: 1px;
+    width: 50px;
     background: var(--gold-gradient);
 }
 
 .divider-dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background: var(--gold-primary);
     border-radius: 50%;
 }
 
-/* --- Floating Music Player --- */
+
+/* ================================================================
+   1. FLOWER PETAL RAIN ANIMATION logic
+   ================================================================
+*/
+.flower-rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Rain Petal elements */
+.petal {
+    position: absolute;
+    top: -40px;
+    border-radius: 50% 0 50% 50%;
+    animation: fallAndSway 6s linear forwards;
+    transform-origin: center;
+}
+
+@keyframes fallAndSway {
+    0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(105vh) rotate(540deg) translateX(80px);
+        opacity: 0;
+    }
+}
+
+
+/* ================================================================
+   2. FLOATING MUSIC SWITCH
+   ================================================================
+*/
 .music-toggle-btn {
     position: fixed;
     bottom: 25px;
     right: 25px;
     z-index: 999;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--gold-gradient);
     border: none;
@@ -150,7 +175,7 @@ h1, h2, h3, .preview-names, .footer-names {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(93, 63, 155, 0.25);
+    box-shadow: 0 4px 15px rgba(93, 63, 155, 0.2);
     outline: none;
 }
 
@@ -186,7 +211,7 @@ h1, h2, h3, .preview-names, .footer-names {
 
 
 /* ================================================================
-   1. ENVELOPE SCREEN (FIRST VIEWPORT - LIGHT LAVENDER EDITION)
+   3. SCREEN 1: ENVELOPE + VIEWPORT BORDER FLOWERS
    ================================================================
 */
 .envelope-screen {
@@ -201,16 +226,55 @@ h1, h2, h3, .preview-names, .footer-names {
     align-items: center;
     overflow: hidden;
     z-index: 1000;
-    transition: opacity 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: opacity 1s cubic-bezier(0.25, 0.8, 0.25, 1), transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .envelope-screen.fade-out {
     opacity: 0;
-    transform: scale(1.15);
+    transform: scale(1.1);
     pointer-events: none;
 }
 
-/* Subtle elegant floating background particles */
+/* Beautiful borders around Screen 1 */
+.screen-border {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 6;
+    pointer-events: none;
+}
+
+/* Elegant gold/lavender leaf vector corner details */
+.border-top-left {
+    top: 15px;
+    left: 15px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 50 Q 10 10, 50 10 M5 40 Q 40 40, 40 5' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3Cpath d='M25 25 Q 10 40, 5 50 Q 20 40, 25 25 Z' fill='%23C3B3DB' opacity='0.7'/%3E%3Cpath d='M35 15 Q 40 30, 50 35 Q 40 20, 35 15 Z' fill='%23aa7c11' opacity='0.8'/%3E%3C/svg%3E");
+}
+
+.border-top-right {
+    top: 15px;
+    right: 15px;
+    transform: rotate(90deg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 50 Q 10 10, 50 10 M5 40 Q 40 40, 40 5' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3Cpath d='M25 25 Q 10 40, 5 50 Q 20 40, 25 25 Z' fill='%23C3B3DB' opacity='0.7'/%3E%3Cpath d='M35 15 Q 40 30, 50 35 Q 40 20, 35 15 Z' fill='%23aa7c11' opacity='0.8'/%3E%3C/svg%3E");
+}
+
+.border-bottom-left {
+    bottom: 15px;
+    left: 15px;
+    transform: rotate(-90deg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 50 Q 10 10, 50 10 M5 40 Q 40 40, 40 5' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3Cpath d='M25 25 Q 10 40, 5 50 Q 20 40, 25 25 Z' fill='%23C3B3DB' opacity='0.7'/%3E%3Cpath d='M35 15 Q 40 30, 50 35 Q 40 20, 35 15 Z' fill='%23aa7c11' opacity='0.8'/%3E%3C/svg%3E");
+}
+
+.border-bottom-right {
+    bottom: 15px;
+    right: 15px;
+    transform: rotate(180deg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 50 Q 10 10, 50 10 M5 40 Q 40 40, 40 5' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3Cpath d='M25 25 Q 10 40, 5 50 Q 20 40, 25 25 Z' fill='%23C3B3DB' opacity='0.7'/%3E%3Cpath d='M35 15 Q 40 30, 50 35 Q 40 20, 35 15 Z' fill='%23aa7c11' opacity='0.8'/%3E%3C/svg%3E");
+}
+
+/* Stars background */
 .stars-bg {
     position: absolute;
     width: 100%;
@@ -218,102 +282,150 @@ h1, h2, h3, .preview-names, .footer-names {
     top: 0;
     left: 0;
     background-image: radial-gradient(var(--lavender-primary) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-size: 35px 35px;
     opacity: 0.08;
-    animation: slowPan 30s linear infinite;
-}
-
-@keyframes slowPan {
-    from { background-position: 0 0; }
-    to { background-position: 100% 100%; }
 }
 
 .envelope-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
     z-index: 5;
 }
 
-/* The Envelope Box (Lavender Leather theme) */
+/* Envelope Body */
 .envelope {
     position: relative;
     width: 320px;
     height: 220px;
     background-color: #C3B3DB;
     border-radius: 8px;
-    box-shadow: 0 15px 40px rgba(93, 63, 155, 0.2);
+    box-shadow: 0 12px 35px rgba(93, 63, 155, 0.15);
     perspective: 800px;
 }
 
-/* Flap Top Triangle */
+/* Top Flap */
 .envelope-flap-top {
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
-    border-top: 110px solid #CDBFE3; /* slightly lighter lilac */
+    border-top: 110px solid #CDBFE3;
     border-left: 160px solid transparent;
     border-right: 160px solid transparent;
     transform-origin: top;
     z-index: 4;
     transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.3s;
-    filter: drop-shadow(0 2px 4px rgba(93, 63, 155, 0.15));
+    filter: drop-shadow(0 2px 4px rgba(93, 63, 155, 0.12));
 }
 
-/* Inside Preview Invitation Card */
+/* Card housing the Scratch Card */
 .envelope-card-preview {
     position: absolute;
     top: 10px;
     left: 10px;
     width: 300px;
     height: 200px;
-    background: var(--lavender-deep);
+    background: #ffffff;
     border-radius: 6px;
     border: 2px solid var(--gold-primary);
     z-index: 2;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 15px rgba(93, 63, 155, 0.05);
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.1s;
 }
 
-.preview-content {
+/* The Reveal Content (dates layout) */
+.scratch-reveal-layer {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    border: 1px solid rgba(170, 124, 17, 0.3);
-    width: 100%;
-    height: 100%;
     justify-content: center;
-    padding: 10px;
+    text-align: center;
+    background: var(--lavender-deep);
 }
 
-.preview-heading {
-    font-size: 0.7rem;
+.scratch-card-title {
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: var(--text-muted);
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
-.preview-names {
-    font-size: 1.8rem;
+.scratch-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
     color: var(--lavender-primary);
     margin-bottom: 5px;
 }
 
-.preview-date {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    font-weight: 500;
+.scratch-dates {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(170, 124, 17, 0.25);
+    padding: 8px 15px;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-bottom: 8px;
 }
 
-/* Flaps Left & Right & Bottom */
+.date-large {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.15rem;
+    color: var(--gold-primary);
+    letter-spacing: 0.05em;
+    font-weight: bold;
+}
+
+.month-sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.scratch-success-btn-container {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    width: 100%;
+    pointer-events: none;
+}
+
+.scratch-success-btn-container.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.scratch-success-btn-container .btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.7rem;
+}
+
+/* Scratch Card Canvas overlay */
+.scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    border-radius: 4px;
+    touch-action: none; /* disables scrolling while scratching */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23aa7c11"><circle cx="12" cy="12" r="8" stroke="white" stroke-width="1.5"/><text x="12" y="15" font-size="8" text-anchor="middle" fill="white" font-weight="bold">S</text></svg>') 12 12, pointer;
+    transition: opacity 0.6s ease;
+}
+
+/* Left/Right/Bottom Flaps */
 .envelope-flap-left {
     position: absolute;
     top: 0;
@@ -350,7 +462,7 @@ h1, h2, h3, .preview-names, .footer-names {
     z-index: 3;
 }
 
-/* Gold Wax Seal Button */
+/* Wax Seal Coin */
 .wax-seal {
     position: absolute;
     top: 50%;
@@ -367,34 +479,10 @@ h1, h2, h3, .preview-names, .footer-names {
     height: 66px;
     border-radius: 50%;
     background: radial-gradient(circle, #fce990 0%, #aa7c11 70%, #8c6408 100%);
-    box-shadow: 0 4px 15px rgba(93, 63, 155, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(93, 63, 155, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3px;
-    border: 1px solid var(--gold-dark);
-}
-
-.seal-svg {
-    width: 100%;
-    height: 100%;
-}
-
-.seal-shine {
-    position: absolute;
-    top: 5%;
-    left: 15%;
-    width: 40%;
-    height: 40%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-/* Pulse Label */
-.envelope-instruction {
-    text-align: center;
-    margin-top: 10px;
 }
 
 .pulse-text {
@@ -403,7 +491,6 @@ h1, h2, h3, .preview-names, .footer-names {
     text-transform: uppercase;
     color: var(--lavender-primary);
     font-weight: 600;
-    text-shadow: 0 1px 3px rgba(255,255,255,0.8);
     animation: slowPulse 2s infinite ease-in-out;
 }
 
@@ -412,14 +499,14 @@ h1, h2, h3, .preview-names, .footer-names {
     50% { opacity: 1; transform: scale(1.03); }
 }
 
-/* --- Envelope Animation States (Triggered by JS) --- */
+/* Animation states triggered by JS */
 .envelope.open-flap .envelope-flap-top {
     transform: rotateX(180deg);
     z-index: 1;
 }
 
 .envelope.slide-card .envelope-card-preview {
-    transform: translateY(-90px);
+    transform: translateY(-95px);
     z-index: 4;
 }
 
@@ -431,144 +518,109 @@ h1, h2, h3, .preview-names, .footer-names {
 
 
 /* ================================================================
-   2. MAIN INVITATION DETAILS SCREEN
+   4. SCROLL SNAP EVENT VIEWPORT SLIDES
    ================================================================
 */
 .main-invitation {
-    width: 100%;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* smooth momentum scrolling on iOS */
+    display: none; /* Unlocked and set to block on enter button click */
     background-color: var(--lavender-deep);
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    padding-bottom: 40px;
 }
 
-.main-invitation.fade-in {
-    opacity: 1;
+.main-invitation.active {
+    display: block;
 }
 
-/* Core Section Setup */
-.section {
-    padding: 5rem 1.5rem;
+/* The vertical slide swiper standard slide frame */
+.event-slide {
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 30px 20px;
+    background-color: var(--lavender-deep);
+}
+
+.slide-content {
+    width: 100%;
+    max-width: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    position: relative;
-    max-width: 480px;
-    margin: 0 auto;
-    background: transparent;
+    z-index: 2;
 }
 
-.section-title {
-    font-size: 2.2rem;
-    color: var(--lavender-primary);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.section-subtitle {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    opacity: 0.8;
-    margin-bottom: 2.5rem;
-}
-
-/* --- Section 1: Hero Cover --- */
-.hero-section {
-    min-height: 100vh;
-    justify-content: center;
-    padding: 3rem 1.5rem;
-}
-
-.hero-bg-frame {
+/* Custom border elements on event slides */
+.slide-border {
     position: absolute;
-    top: 25px;
+    width: 80px;
+    height: 80px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.border-tl { top: 15px; left: 15px; }
+.border-tr { top: 15px; right: 15px; transform: scaleX(-1); }
+.border-bl { bottom: 15px; left: 15px; transform: scaleY(-1); }
+.border-br { bottom: 15px; right: 15px; transform: scale(-1); }
+
+
+/* ================================================================
+   5. BESPOKE SLIDE BORDER DECORATIONS (SVG FRAMES FOR EACH EVENT)
+   ================================================================
+*/
+
+/* SLIDE 1: HERO COVER (LAVENDER CORNERS) */
+.slide-hero {
+    background: linear-gradient(180deg, var(--lavender-deep) 0%, #f6eefb 100%);
+}
+
+.slide-hero .hero-bg-frame {
+    position: absolute;
+    top: 20px;
     left: 20px;
     right: 20px;
-    bottom: 25px;
-    border: 1.5px solid rgba(93, 63, 155, 0.15);
-    pointer-events: none;
-    border-radius: 4px;
-}
-
-.hero-bg-frame::before {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    bottom: 20px;
     border: 1px solid rgba(170, 124, 17, 0.15);
+    pointer-events: none;
+    border-radius: 6px;
 }
 
-.hero-content {
-    z-index: 2;
-    width: 100%;
+.slide-hero .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 30 Q 10 10, 30 10' fill='none' stroke='%23C3B3DB' stroke-width='2'/%3E%3Ccircle cx='30' cy='10' r='2' fill='%23aa7c11'/%3E%3Ccircle cx='10' cy='30' r='2' fill='%23aa7c11'/%3E%3C/svg%3E");
 }
 
-.monogram-banner {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.1rem;
-    color: var(--gold-primary);
-    letter-spacing: 0.25em;
-    margin-bottom: 1.5rem;
-}
-
-.wedding-title {
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-    opacity: 0.9;
-    margin-bottom: 1rem;
-}
-
-.couple-names-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    margin-bottom: 1.5rem;
-}
-
-.name-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3.8rem;
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--lavender-primary);
-    text-shadow: 0 2px 4px rgba(93,63,155,0.05);
-}
-
-.and-symbol {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 2.2rem;
-    color: var(--gold-primary);
-    margin: 3px 0;
-}
-
-/* Couple Portrait Frame Styling */
 .portrait-frame-container {
     position: relative;
-    width: 250px;
-    height: 330px;
-    margin: 1.5rem auto 2.5rem;
-    border-radius: 16px;
+    width: 170px;
+    height: 230px;
+    margin: 1rem auto 1.5rem;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 12px 35px rgba(93, 63, 155, 0.18);
-    border: 3.5px solid #FAF6FB;
-    outline: 1.5px solid var(--gold-primary);
-    z-index: 3;
+    box-shadow: 0 8px 25px rgba(93, 63, 155, 0.12);
+    border: 3px solid #ffffff;
+    outline: 1px solid var(--gold-primary);
 }
 
 .couple-portrait {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
 }
 
 .portrait-gold-ring {
@@ -577,359 +629,233 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 0;
     width: 100%;
     height: 100%;
-    border: 2px solid var(--gold-primary);
+    border: 1.5px solid var(--gold-primary);
     pointer-events: none;
     z-index: 4;
-    border-radius: 12px;
+    border-radius: 9px;
     margin: 1px;
 }
 
-.hero-details {
-    margin-bottom: 2.5rem;
-}
-
-.invite-tagline {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-    max-width: 280px;
-    margin: 0 auto;
-}
-
-.wedding-date-string {
-    font-size: 0.9rem;
-    letter-spacing: 0.15em;
-    color: var(--lavender-primary);
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-}
-
-.wedding-location-string {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-}
-
-.scroll-to-btn {
-    max-width: 220px;
-}
-
-/* --- Section 2: Countdown Timer --- */
-.countdown-section {
-    background: linear-gradient(180deg, #F3EEF9 0%, rgba(250,246,251,0) 100%);
-    border-top: 1.5px solid rgba(93, 63, 155, 0.08);
-}
-
-.countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    width: 100%;
-    max-width: 380px;
-}
-
-.countdown-item {
-    background: #ffffff;
-    border: 1.5px solid rgba(93, 63, 155, 0.2);
-    border-radius: 8px;
-    padding: 12px 6px;
-    box-shadow: var(--card-shadow);
-}
-
-.countdown-number {
-    font-size: 1.8rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
-    color: var(--lavender-primary);
-    line-height: 1;
-    margin-bottom: 5px;
-}
-
-.countdown-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-}
-
-/* --- Section 3: Story Section --- */
-.story-section {
-    background-color: rgba(243, 238, 249, 0.4);
-}
-
-.ornament-top, .ornament-bottom {
-    margin-bottom: 1.5rem;
-}
-
-.ornament-bottom {
-    margin-top: 1.5rem;
-    margin-bottom: 0;
-}
-
-.story-content-box {
-    max-width: 320px;
-}
-
-.story-text {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: var(--text-main);
-    opacity: 0.9;
-    margin-bottom: 1.5rem;
-}
-
-.story-text:last-child {
-    margin-bottom: 0;
-}
-
-/* --- Section 4: 3-Day Event Schedule --- */
-.itinerary-section {
-    width: 100%;
-}
-
-.tabs-container {
-    display: flex;
-    width: 100%;
-    max-width: 380px;
-    background: #ffffff;
-    border-radius: 50px;
-    padding: 4px;
-    border: 1px solid rgba(93, 63, 155, 0.15);
-    margin-bottom: 2rem;
-    box-shadow: var(--card-shadow);
-}
-
-.tab-btn {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    border-radius: 50px;
-    padding: 8px 2px;
-    cursor: pointer;
-    transition: var(--transition-smooth);
+.scroll-cue {
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 4px;
 }
 
-.tab-btn .tab-day {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
-.tab-btn .tab-date {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    opacity: 0.7;
-    margin-top: 2px;
-}
-
-.tab-btn.active {
-    background: var(--lavender-primary);
-}
-
-.tab-btn.active .tab-day {
-    color: var(--text-light);
-    opacity: 1;
-}
-
-.tab-btn.active .tab-date {
-    color: var(--text-light);
-    opacity: 0.9;
-}
-
-/* Panel Content Toggling */
-.itinerary-content {
-    width: 100%;
-    max-width: 380px;
-}
-
-.itinerary-panel {
-    display: none;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-}
-
-.itinerary-panel.active {
-    display: flex;
-}
-
-/* Event Detail Card */
-.event-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 24px;
-    text-align: left;
-    box-shadow: var(--card-shadow);
-    border-left: 4px solid var(--lavender-primary);
-    position: relative;
-    overflow: hidden;
-    border-top: 1px solid rgba(93,63,155,0.06);
-    border-right: 1px solid rgba(93,63,155,0.06);
-    border-bottom: 1px solid rgba(93,63,155,0.06);
-}
-
-.event-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgba(93, 63, 155, 0.08);
+.scroll-arrow {
+    font-size: 1.2rem;
     color: var(--lavender-primary);
+    animation: bounceDown 1.5s infinite ease-in-out;
+}
+
+.scroll-cue-text {
     font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 0.1em;
-    padding: 6px 12px;
-    border-bottom-left-radius: 8px;
-}
-
-.event-badge.main-badge {
-    background: var(--gold-gradient);
-    color: #ffffff;
-}
-
-.event-name {
-    font-size: 1.4rem;
-    color: var(--lavender-dark);
-    margin-bottom: 12px;
-    font-weight: 700;
-    padding-right: 40px; /* spacing for badge */
-}
-
-.event-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 15px;
-    font-size: 0.8rem;
+    text-transform: uppercase;
     color: var(--text-muted);
 }
 
-.event-time, .event-venue {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
 }
 
-.meta-icon {
-    flex-shrink: 0;
-    color: var(--gold-primary);
-    margin-top: 1px;
+
+/* SLIDE 2: ENGAGEMENT (GOLD LACE CORNERS) */
+.slide-engagement .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M5 45 Q 45 45, 45 5' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3Ccircle cx='45' cy='5' r='3' fill='%23aa7c11'/%3E%3Ccircle cx='5' cy='45' r='3' fill='%23aa7c11'/%3E%3Cpath d='M15 15 Q 30 15, 30 30 Q 15 30, 15 15 Z' fill='%23E7DEF3' opacity='0.7'/%3E%3C/svg%3E");
 }
 
-.event-desc {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: var(--text-main);
-    opacity: 0.9;
-    margin-bottom: 15px;
+
+/* SLIDE 3: HALDI (MARIGOLD / GENDA PHOOL GARLANDS) */
+.slide-haldi .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 5 Q 10 35, 40 35 M20 5 Q 20 25, 40 25' fill='none' stroke='%23FF9F00' stroke-width='3' stroke-dasharray='6, 6'/%3E%3Ccircle cx='10' cy='20' r='5' fill='%23FFD700'/%3E%3Ccircle cx='20' cy='15' r='4' fill='%23FF9F00'/%3E%3Ccircle cx='30' cy='25' r='5' fill='%23FFD700'/%3E%3C/svg%3E");
 }
 
-.dress-code {
-    background: #F8F5FC;
-    border-radius: 6px;
-    padding: 12px;
-    font-size: 0.75rem;
-    line-height: 1.4;
-    color: var(--lavender-dark);
-    margin-bottom: 15px;
-    border: 1px dashed rgba(93, 63, 155, 0.15);
+
+/* SLIDE 4: LUNCH (BANANA LEAF CORNERS) */
+.slide-lunch .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M5 5 C 20 15, 35 35, 35 60 C 25 50, 15 25, 5 5' fill='%238EB073' opacity='0.75'/%3E%3Cpath d='M5 5 C 15 20, 20 40, 20 60 Q 40 40, 5 5' fill='%2374945C' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-.dress-theme {
-    margin-bottom: 4px;
-    color: var(--lavender-primary);
+
+/* SLIDE 5: MEHNDI (HENNA / PAISLEY MANDALAS) */
+.slide-mehendi .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M5 45 C 5 20, 20 5, 45 5 C 45 25, 25 45, 5 45 Z' fill='none' stroke='%237D6E9B' stroke-width='1.5' stroke-dasharray='3, 3'/%3E%3Cpath d='M15 15 C 10 25, 25 40, 30 30 C 20 20, 15 15, 15 15' fill='%237D6E9B' opacity='0.25'/%3E%3Ccircle cx='25' cy='25' r='4' fill='%237D6E9B' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-.maps-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gold-primary);
-    text-decoration: none;
-    transition: var(--transition-smooth);
+
+/* SLIDE 6: SANGEET (GLOWING TWINKLE NEON STARS) */
+.slide-sangeet {
+    background: linear-gradient(180deg, #F3EEF9 0%, #E8DCF5 100%);
 }
 
-.maps-link:active {
-    opacity: 0.7;
+.slide-sangeet .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 20 L 25 25 L 20 30 L 15 25 Z' fill='%23FFD700'/%3E%3Ccircle cx='40' cy='15' r='3' fill='%23C3B3DB'/%3E%3Ccircle cx='15' cy='45' r='2' fill='%23FFD700'/%3E%3Cpath d='M10 10 L 12 15 L 17 17 L 12 19 L 10 24 L 8 19 L 3 17 L 8 15 Z' fill='%235D3F9B' opacity='0.4'/%3E%3C/svg%3E");
 }
 
-/* Micro-animations for panel switches */
-.animate-fade-in {
-    animation: cardFadeIn 0.5s ease-out forwards;
+
+/* SLIDE 7: BARAAT / WEDDING (PALACE ARCHES + ROSE VINES) */
+.slide-wedding .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M5 50 L 5 5 Q 50 5, 50 50' fill='none' stroke='%23aa7c11' stroke-width='2'/%3E%3Ccircle cx='20' cy='20' r='5' fill='%23D14D62'/%3E%3Ccircle cx='35' cy='35' r='4' fill='%23aa7c11'/%3E%3Cpath d='M10 15 Q 15 10, 20 15 T 30 15' fill='none' stroke='%23aa7c11' stroke-width='1'/%3E%3C/svg%3E");
 }
 
-.delay-100 {
-    animation-delay: 0.15s;
-    opacity: 0; /* starts transparent, visual reveal on delay */
+
+/* SLIDE 8: RECEPTION (CHAMPAGNE GOLD BUBBLES) */
+.slide-reception .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='20' cy='20' r='6' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3Ccircle cx='35' cy='15' r='4' fill='none' stroke='%23aa7c11' stroke-width='1'/%3E%3Ccircle cx='15' cy='35' r='3' fill='%23aa7c11' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-@keyframes cardFadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+
+/* SLIDE 9: RSVP SCREEN */
+.slide-rsvp .slide-border {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M5 5 L 5 40 M 5 5 L 40 5' fill='none' stroke='%23aa7c11' stroke-width='1.5'/%3E%3C/svg%3E");
 }
 
 
 /* ================================================================
-   3. RSVP FORM & CONTAINER
+   6. EVENT DETAIL CARD LAYOUT IN SLIDES
    ================================================================
 */
-.rsvp-section {
+.event-slide-badge {
+    background: rgba(93, 63, 155, 0.08);
+    color: var(--lavender-primary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(93, 63, 155, 0.15);
+}
+
+.slide-event-title {
+    font-size: 2.2rem;
+    color: var(--lavender-primary);
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.slide-event-time-venue {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+}
+
+.slide-event-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 20px;
+    box-shadow: var(--card-shadow);
+    border: 1.5px solid rgba(93, 63, 155, 0.1);
+    border-top: 4px solid var(--lavender-primary);
     width: 100%;
 }
 
+.slide-event-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    opacity: 0.9;
+    margin-bottom: 18px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.slide-dress-box {
+    background: #F8F5FC;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--lavender-dark);
+    margin-bottom: 18px;
+    border: 1.5px dashed rgba(93, 63, 155, 0.15);
+    text-align: left;
+}
+
+.s-theme {
+    margin-bottom: 4px;
+    color: var(--lavender-primary);
+}
+
+.slide-maps-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 50px;
+    background: var(--lavender-light);
+    color: var(--lavender-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid rgba(93, 63, 155, 0.15);
+    transition: var(--transition-smooth);
+}
+
+.slide-maps-btn:active {
+    background: #E5DCF2;
+    transform: scale(0.98);
+}
+
+
+/* ================================================================
+   7. RSVP FORM SLIDE
+   ================================================================
+*/
 .rsvp-card {
     background: var(--lavender-light);
     border: 1.5px solid rgba(93, 63, 155, 0.18);
     border-radius: 16px;
-    padding: 30px 20px;
+    padding: 24px 20px;
     width: 100%;
-    max-width: 380px;
     box-shadow: var(--card-shadow);
     position: relative;
     overflow: hidden;
 }
 
 .rsvp-card .section-title {
+    font-size: 1.8rem;
     color: var(--lavender-primary);
+    margin-bottom: 2px;
 }
 
 .rsvp-card .section-subtitle {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.7rem;
 }
 
 .rsvp-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
     text-align: left;
-    width: 100%;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
 }
 
 label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     color: var(--lavender-primary);
     font-weight: 600;
 }
@@ -939,13 +865,13 @@ input[type="tel"],
 select,
 textarea {
     width: 100%;
-    padding: 12px;
+    padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid rgba(93, 63, 155, 0.2);
+    border: 1px solid rgba(93, 63, 155, 0.15);
     background: #ffffff;
     color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     transition: var(--transition-smooth);
     outline: none;
 }
@@ -964,22 +890,18 @@ textarea:focus {
     box-shadow: 0 0 8px rgba(93, 63, 155, 0.15);
 }
 
-textarea {
-    resize: none;
-}
-
 select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235D3F9B'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
-    background-size: 20px;
-    padding-right: 30px;
+    background-size: 18px;
+    padding-right: 25px;
 }
 
 .btn-block {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 /* Custom Success Overlay */
@@ -991,7 +913,7 @@ select {
     height: 100%;
     background: var(--lavender-deep);
     z-index: 10;
-    padding: 30px 20px;
+    padding: 24px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1007,84 +929,54 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     text-align: center;
-    width: 100%;
 }
 
 .success-icon {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: rgba(93, 63, 155, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid var(--lavender-primary);
-    box-shadow: var(--card-shadow);
 }
 
 .success-content h3 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--lavender-primary);
 }
 
 .success-content p {
-    font-size: 0.85rem;
-    line-height: 1.6;
+    font-size: 0.8rem;
+    line-height: 1.5;
     color: var(--text-main);
-    opacity: 0.9;
     max-width: 280px;
 }
 
-
-/* ================================================================
-   4. INVITATION FOOTER
-   ================================================================
-*/
-.wedding-footer {
-    padding: 4rem 1.5rem 6rem;
+.slide-footer-summary {
+    margin-top: 1.5rem;
     text-align: center;
-    color: var(--text-main);
-    border-top: 1.5px solid rgba(93, 63, 155, 0.08);
-    background: linear-gradient(180deg, rgba(250,246,251,0) 0%, #F3EEF9 100%);
-    max-width: 480px;
-    margin: 0 auto;
 }
 
-.footer-names {
-    font-size: 2.4rem;
-    color: var(--lavender-primary);
-    margin-bottom: 0.5rem;
-}
-
-.footer-blurb {
+.f-hashtag {
     font-size: 0.8rem;
-    opacity: 0.8;
-    margin-bottom: 1.5rem;
-    max-width: 240px;
-    margin: 0 auto 1.5rem;
-    line-height: 1.5;
-}
-
-.footer-hashtag {
-    font-size: 0.9rem;
     color: var(--gold-primary);
     font-weight: 600;
-    letter-spacing: 0.1em;
-    margin-bottom: 2rem;
+    margin-bottom: 2px;
 }
 
-.footer-credits {
-    font-size: 0.65rem;
+.f-credits {
+    font-size: 0.6rem;
     opacity: 0.5;
-    letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
 
 /* ================================================================
-   5. RESPONSIVE MEDIA QUERIES (ADAPTIVE ADJUSTMENTS)
+   8. RESPONSIVE MEDIA QUERIES
    ================================================================
 */
 @media (max-width: 350px) {
@@ -1120,22 +1012,25 @@ select {
         transform: translateY(-80px);
     }
     .name-text {
-        font-size: 3.2rem;
+        font-size: 3.1rem;
     }
     .portrait-frame-container {
-        width: 210px;
-        height: 280px;
+        width: 140px;
+        height: 190px;
     }
-    .section-title {
+    .slide-event-title {
         font-size: 1.8rem;
     }
-    .countdown-grid {
-        gap: 8px;
+    .slide-event-card {
+        padding: 16px 12px;
     }
-    .countdown-item {
-        padding: 8px 4px;
+    .slide-event-desc {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
     }
-    .countdown-number {
-        font-size: 1.4rem;
+    .slide-dress-box {
+        padding: 8px;
+        font-size: 0.7rem;
+        margin-bottom: 12px;
     }
 }

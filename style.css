@@ -481,22 +481,33 @@ h1, h2, h3, .preview-names, .footer-names {
     border-radius: 4px;
 }
 
-/* Side curtain drapes with hanging flower garlands */
-.side-garland {
+/* Traditional Indian Marriage Mandap Arch (Top center of 1st screen) */
+.mandap-arch {
     position: absolute;
     top: 0;
-    bottom: 0;
-    height: 100%;
-    width: 35px;
+    left: 0;
+    width: 100%;
+    height: 80px;
     z-index: 5;
     pointer-events: none;
 }
 
-.left-garland {
+/* Mandap Side Pillars wrapping margins of 1st screen */
+.mandap-pillar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 40px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.left-pillar {
     left: 6px;
 }
 
-.right-garland {
+.right-pillar {
     right: 6px;
 }
 
@@ -505,73 +516,73 @@ h1, h2, h3, .preview-names, .footer-names {
     width: 100%;
 }
 
-/* Redesigned 1st Screen Headers */
-.save-date-container {
+/* Sleek Luxury Editorial Top Header */
+.modern-header-container {
     margin-bottom: 1.2rem;
     text-align: center;
+    z-index: 2;
 }
 
-.top-save-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--gold-primary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-
-.top-date-banner {
+.modern-subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: var(--gold-primary);
     text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.modern-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    font-style: italic; /* high-fashion luxury editorial feel */
+    line-height: 1.1;
+    color: var(--lavender-primary);
+    margin: 5px 0;
+    letter-spacing: -0.01em;
+}
+
+.modern-ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-primary);
+}
+
+.modern-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
     color: var(--text-muted);
-    opacity: 0.9;
+    margin-top: 5px;
+    opacity: 0.85;
 }
 
 .couple-names-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    margin-bottom: 1.2rem;
-}
-
-.name-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--lavender-primary);
-    text-shadow: 0 2px 4px rgba(93,63,155,0.05);
-}
-
-.and-symbol {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 2rem;
-    color: var(--gold-primary);
-    margin: 2px 0;
+    display: none; /* hidden in favor of editorial modern header */
 }
 
 /* 
-   Couple Portrait Oval Medallion Frame
-   ZOOM ACTION: scale(1.48) centered at 50% 32% crops out 
-   the drawing's built-in frame, showcasing only the couple!
+   Couple Portrait Medallion Frame (BORDER REMOVED - BACKGROUND PURE WHITE)
+   Bleach filters contrast cream background paper texture to 100% solid white,
+   merging with the container cleanly!
 */
 .portrait-frame-container {
     position: relative;
     width: 220px;
     height: 290px;
-    margin: 1rem auto 1.5rem;
-    border-radius: 110px / 145px; /* smooth vertical oval medallion */
+    margin: 1.5rem auto 1.5rem;
     overflow: hidden;
-    background-color: #fbf8f2;   /* matches sketch paper color precisely */
-    /* All outer borders and gold lines removed */
+    background-color: #ffffff; /* Pure white backdrop */
+    /* All frames, gold circles, outlines, and oval curves completely removed */
     border: none;
     outline: none;
-    box-shadow: 0 10px 30px rgba(93, 63, 155, 0.08);
+    box-shadow: none;
+    border-radius: 0; /* clean boundary-free rectangular scale container */
     z-index: 3;
 }
 
@@ -580,10 +591,11 @@ h1, h2, h3, .preview-names, .footer-names {
     height: 100%;
     object-fit: cover;
     display: block;
-    mix-blend-mode: multiply;    /* Keys out transparent white background! */
-    transform: scale(1.48);       /* CROP: zooms in to cut out the drawing's roses border */
-    transform-origin: 50% 32%;    /* Focuses perfectly on bride and groom's faces/attire */
-    filter: contrast(1.05) brightness(1.01);
+    /* BLEACH FILTER: forces cream canvas to pure white #ffffff,
+       eliminating sketch box background and keeping lines deep and vivid! */
+    filter: brightness(1.15) contrast(1.35) saturate(1.05);
+    transform: scale(1.48);       /* zooms to crop sketch outer floral borders */
+    transform-origin: 50% 32%;    /* focuses perfectly on faces and attire */
 }
 
 .hero-details {
@@ -594,10 +606,6 @@ h1, h2, h3, .preview-names, .footer-names {
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     color: var(--text-muted);
-}
-
-.scroll-to-btn {
-    max-width: 220px;
 }
 
 /* --- Section 2: Countdown Timer --- */

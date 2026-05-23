@@ -23,7 +23,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -115,90 +115,65 @@
     <!-- MAIN SCREEN: SCROLLABLE INVITATION DETAILS (SNAP SCROLLING ENABLED) -->
     <div class="main-invitation" id="main-invitation">
         
-        <!-- SECTION 1: HERO COVER (REDESIGNED 1ST SCREEN) -->
+        <!-- SECTION 1: HERO COVER (1ST SCREEN - REDESIGNED MANDAP STYLE) -->
         <header class="section hero-section" id="sec-hero">
             <div class="hero-bg-frame"></div>
             
-            <!-- Elegant Side Garlands & Curtain Decos on Both Sides -->
-            <svg class="side-garland left-garland" viewBox="0 0 40 800" preserveAspectRatio="none">
-                <!-- Drapery wave guides -->
-                <path d="M0,0 Q25,80 12,220 T20,450 T8,680 T15,800" fill="none" stroke="#aa7c11" stroke-width="1" opacity="0.25"/>
-                <path d="M0,0 Q35,120 18,340 T28,620 T10,800" fill="none" stroke="#5D3F9B" stroke-width="0.8" opacity="0.15"/>
-                <!-- Alternating Marigolds, Roses, and Buds -->
-                <g class="garland-blooms">
-                    <!-- Top drapery arch segment -->
-                    <path d="M0,10 Q20,30 40,10" fill="none" stroke="#FFA500" stroke-width="3" stroke-dasharray="4,6"/>
-                    <!-- Hanging flowers -->
-                    <circle cx="10" cy="50" r="5" fill="#FFA500" />
-                    <circle cx="15" cy="90" r="7" fill="#D32F2F" />
-                    <circle cx="12" cy="140" r="6" fill="#FFA500" />
-                    <circle cx="16" cy="190" r="5" fill="#5D3F9B" />
-                    <circle cx="10" cy="240" r="7" fill="#D32F2F" />
-                    <circle cx="14" cy="290" r="6" fill="#FFA500" />
-                    <circle cx="18" cy="345" r="5" fill="#5D3F9B" />
-                    <circle cx="12" cy="400" r="7" fill="#FFA500" />
-                    <circle cx="15" cy="450" r="6" fill="#D32F2F" />
-                    <circle cx="10" cy="500" r="5" fill="#FFA500" />
-                    <circle cx="16" cy="550" r="7" fill="#5D3F9B" />
-                    <circle cx="12" cy="600" r="6" fill="#D32F2F" />
-                    <circle cx="14" cy="650" r="5" fill="#FFA500" />
-                    <circle cx="18" cy="700" r="7" fill="#5D3F9B" />
-                    <circle cx="10" cy="750" r="6" fill="#D32F2F" />
-                </g>
-                <!-- Mango / Ashoka leaf contours draping from marigolds -->
-                <g fill="none" stroke="#2E7D32" stroke-width="1.2" opacity="0.7">
-                    <path d="M10,50 C2,60 5,75 10,80 C12,75 15,60 10,50" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M12,140 C4,150 7,165 12,170 C14,165 17,150 12,140" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M14,290 C6,300 9,315 14,320 C16,315 19,300 14,290" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M10,500 C2,510 5,525 10,530 C12,525 15,510 10,500" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M14,650 C6,660 9,675 14,680 C16,675 19,660 14,650" fill="#2E7D32" fill-opacity="0.1"/>
+            <!-- Traditional Indian Marriage Mandap Arch (Top Center) -->
+            <svg class="mandap-arch" viewBox="0 0 400 80" preserveAspectRatio="none">
+                <!-- Red draped valance -->
+                <path d="M0,0 L400,0 L400,15 Q300,38 200,15 Q100,38 0,15 Z" fill="#D32F2F" opacity="0.85" />
+                <path d="M0,15 Q100,38 200,15 Q300,38 400,15" stroke="#aa7c11" stroke-width="2" fill="none" />
+                <!-- Gold scallops/hanging marigolds loops -->
+                <path d="M10,15 Q30,28 50,15 T90,15 T130,15 T170,15 T210,15 T250,15 T290,15 T330,15 T370,15" fill="none" stroke="#FFA500" stroke-width="3" stroke-dasharray="2, 5" stroke-linecap="round" />
+                <path d="M20,15 Q50,33 80,15 T140,15 T200,15 T260,15 T320,15 T380,15" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-dasharray="1, 4" stroke-linecap="round" />
+            </svg>
+            
+            <!-- Mandap Pillars (Left and Right Margins) -->
+            <svg class="mandap-pillar left-pillar" viewBox="0 0 40 800" preserveAspectRatio="none">
+                <!-- Golden column core -->
+                <rect x="15" y="0" width="10" height="800" fill="url(#goldGradient)" opacity="0.25" />
+                <line x1="15" y1="0" x2="15" y2="800" stroke="#aa7c11" stroke-width="1" />
+                <line x1="25" y1="0" x2="25" y2="800" stroke="#aa7c11" stroke-width="1" />
+                <!-- Spiralling marigold garland -->
+                <path d="M15,10 Q25,30 15,50 T15,90 T15,130 T15,170 T15,210 T15,250 T15,290 T15,330 T15,370 T15,410 T15,450 T15,490 T15,530 T15,570 T15,610 T15,650 T15,690 T15,730 T15,770" fill="none" stroke="#FFA500" stroke-width="4.5" stroke-linecap="round" />
+                <path d="M15,10 Q25,30 15,50 T15,90 T15,130 T15,170 T15,210 T15,250 T15,290 T15,330 T15,370 T15,410 T15,450 T15,490 T15,530 T15,570 T15,610 T15,650 T15,690 T15,730 T15,770" fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="2, 5" />
+                <!-- Leaves -->
+                <g fill="#2E7D32" opacity="0.6">
+                    <circle cx="28" cy="70" r="3.5" /> <circle cx="28" cy="190" r="3.5" /> <circle cx="28" cy="310" r="3.5" /> <circle cx="28" cy="430" r="3.5" /> <circle cx="28" cy="550" r="3.5" /> <circle cx="28" cy="670" r="3.5" />
                 </g>
             </svg>
             
-            <svg class="side-garland right-garland" viewBox="0 0 40 800" preserveAspectRatio="none">
-                <path d="M40,0 Q15,80 28,220 T20,450 T32,680 T25,800" fill="none" stroke="#aa7c11" stroke-width="1" opacity="0.25"/>
-                <path d="M40,0 Q5,120 22,340 T12,620 T30,800" fill="none" stroke="#5D3F9B" stroke-width="0.8" opacity="0.15"/>
-                <g class="garland-blooms">
-                    <path d="M40,10 Q20,30 0,10" fill="none" stroke="#FFA500" stroke-width="3" stroke-dasharray="4,6"/>
-                    <circle cx="30" cy="50" r="5" fill="#FFA500" />
-                    <circle cx="25" cy="90" r="7" fill="#D32F2F" />
-                    <circle cx="28" cy="140" r="6" fill="#FFA500" />
-                    <circle cx="24" cy="190" r="5" fill="#5D3F9B" />
-                    <circle cx="30" cy="240" r="7" fill="#D32F2F" />
-                    <circle cx="26" cy="290" r="6" fill="#FFA500" />
-                    <circle cx="22" cy="345" r="5" fill="#5D3F9B" />
-                    <circle cx="28" cy="400" r="7" fill="#FFA500" />
-                    <circle cx="25" cy="450" r="6" fill="#D32F2F" />
-                    <circle cx="30" cy="500" r="5" fill="#FFA500" />
-                    <circle cx="24" cy="550" r="7" fill="#5D3F9B" />
-                    <circle cx="28" cy="600" r="6" fill="#D32F2F" />
-                    <circle cx="26" cy="650" r="5" fill="#FFA500" />
-                    <circle cx="22" cy="700" r="7" fill="#5D3F9B" />
-                    <circle cx="30" cy="750" r="6" fill="#D32F2F" />
+            <svg class="mandap-pillar right-pillar" viewBox="0 0 40 800" preserveAspectRatio="none">
+                <!-- Golden column core -->
+                <rect x="15" y="0" width="10" height="800" fill="url(#goldGradient)" opacity="0.25" />
+                <line x1="15" y1="0" x2="15" y2="800" stroke="#aa7c11" stroke-width="1" />
+                <line x1="25" y1="0" x2="25" y2="800" stroke="#aa7c11" stroke-width="1" />
+                <!-- Spiralling marigold garland -->
+                <path d="M15,10 Q25,30 15,50 T15,90 T15,130 T15,170 T15,210 T15,250 T15,290 T15,330 T15,370 T15,410 T15,450 T15,490 T15,530 T15,570 T15,610 T15,650 T15,690 T15,730 T15,770" fill="none" stroke="#FFA500" stroke-width="4.5" stroke-linecap="round" />
+                <path d="M15,10 Q25,30 15,50 T15,90 T15,130 T15,170 T15,210 T15,250 T15,290 T15,330 T15,370 T15,410 T15,450 T15,490 T15,530 T15,570 T15,610 T15,650 T15,690 T15,730 T15,770" fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="2, 5" />
+                <!-- Leaves -->
+                <g fill="#2E7D32" opacity="0.6">
+                    <circle cx="28" cy="70" r="3.5" /> <circle cx="28" cy="190" r="3.5" /> <circle cx="28" cy="310" r="3.5" /> <circle cx="28" cy="430" r="3.5" /> <circle cx="28" cy="550" r="3.5" /> <circle cx="28" cy="670" r="3.5" />
                 </g>
-                <g fill="none" stroke="#2E7D32" stroke-width="1.2" opacity="0.7">
-                    <path d="M30,50 C38,60 35,75 30,80 C28,75 25,60 30,50" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M28,140 C36,150 33,165 28,170 C26,165 23,150 28,140" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M26,290 C34,300 31,315 26,320 C24,315 21,300 26,290" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M30,500 C38,510 35,525 30,530 C28,525 25,510 30,500" fill="#2E7D32" fill-opacity="0.1"/>
-                    <path d="M26,650 C34,660 31,675 26,680 C24,675 21,660 26,650" fill="#2E7D32" fill-opacity="0.1"/>
-                </g>
+                <defs>
+                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fff6cc" />
+                        <stop offset="50%" stop-color="#d4af37" />
+                        <stop offset="100%" stop-color="#aa7c11" />
+                    </linearGradient>
+                </defs>
             </svg>
             
             <div class="hero-content">
-                <!-- Redesigned Top Header: Save the Date & Wedding Date -->
-                <div class="save-date-container animate-fade-in">
-                    <h2 class="top-save-title">Save the Date</h2>
-                    <div class="top-date-banner">22nd November 2026</div>
-                </div>
-
-                <div class="couple-names-container">
-                    <span class="name-text">Sambit</span>
-                    <span class="and-symbol">&</span>
-                    <span class="name-text">Akanksha</span>
+                <!-- Redesigned Minimalist Contemporary Top Header -->
+                <div class="modern-header-container animate-fade-in">
+                    <span class="modern-subtitle">S A V E   T H E   D A T E</span>
+                    <h1 class="modern-names">Sambit <span class="modern-ampersand">&</span> Akanksha</h1>
+                    <div class="modern-date">22 . 11 . 26</div>
                 </div>
                 
-                <!-- Couple Portrait Sketch Oval Medallion (BORDER REMOVED - CENTER CROP ACTIVE) -->
+                <!-- Couple Portrait (BORDER REMOVED - BACKGROUND PURE WHITE) -->
                 <div class="portrait-frame-container">
                     <img class="couple-portrait" src="assets/couple_portrait.jpg" alt="Sambit and Akanksha Portrait">
                 </div>
@@ -212,8 +187,6 @@
                     </div>
                     <p class="wedding-location-string">UDAIPUR, RAJASTHAN</p>
                 </div>
-                
-                <a href="#sec-engagement" class="btn btn-primary scroll-to-btn">View Invitation</a>
             </div>
         </header>
 

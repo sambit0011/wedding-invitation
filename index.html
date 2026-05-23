@@ -115,41 +115,101 @@
     <!-- MAIN SCREEN: SCROLLABLE INVITATION DETAILS (SNAP SCROLLING ENABLED) -->
     <div class="main-invitation" id="main-invitation">
         
-        <!-- SECTION 1: HERO COVER (SNAP-ALIGN: START) -->
+        <!-- SECTION 1: HERO COVER (REDESIGNED 1ST SCREEN) -->
         <header class="section hero-section" id="sec-hero">
             <div class="hero-bg-frame"></div>
             
-            <!-- Hero Corner Decos -->
-            <svg class="corner-deco top-left" viewBox="0 0 100 100" width="60" height="60" fill="none" stroke="#5D3F9B" opacity="0.25">
-                <path d="M10,10 H90 M10,10 V90" />
+            <!-- Elegant Side Garlands & Curtain Decos on Both Sides -->
+            <svg class="side-garland left-garland" viewBox="0 0 40 800" preserveAspectRatio="none">
+                <!-- Drapery wave guides -->
+                <path d="M0,0 Q25,80 12,220 T20,450 T8,680 T15,800" fill="none" stroke="#aa7c11" stroke-width="1" opacity="0.25"/>
+                <path d="M0,0 Q35,120 18,340 T28,620 T10,800" fill="none" stroke="#5D3F9B" stroke-width="0.8" opacity="0.15"/>
+                <!-- Alternating Marigolds, Roses, and Buds -->
+                <g class="garland-blooms">
+                    <!-- Top drapery arch segment -->
+                    <path d="M0,10 Q20,30 40,10" fill="none" stroke="#FFA500" stroke-width="3" stroke-dasharray="4,6"/>
+                    <!-- Hanging flowers -->
+                    <circle cx="10" cy="50" r="5" fill="#FFA500" />
+                    <circle cx="15" cy="90" r="7" fill="#D32F2F" />
+                    <circle cx="12" cy="140" r="6" fill="#FFA500" />
+                    <circle cx="16" cy="190" r="5" fill="#5D3F9B" />
+                    <circle cx="10" cy="240" r="7" fill="#D32F2F" />
+                    <circle cx="14" cy="290" r="6" fill="#FFA500" />
+                    <circle cx="18" cy="345" r="5" fill="#5D3F9B" />
+                    <circle cx="12" cy="400" r="7" fill="#FFA500" />
+                    <circle cx="15" cy="450" r="6" fill="#D32F2F" />
+                    <circle cx="10" cy="500" r="5" fill="#FFA500" />
+                    <circle cx="16" cy="550" r="7" fill="#5D3F9B" />
+                    <circle cx="12" cy="600" r="6" fill="#D32F2F" />
+                    <circle cx="14" cy="650" r="5" fill="#FFA500" />
+                    <circle cx="18" cy="700" r="7" fill="#5D3F9B" />
+                    <circle cx="10" cy="750" r="6" fill="#D32F2F" />
+                </g>
+                <!-- Mango / Ashoka leaf contours draping from marigolds -->
+                <g fill="none" stroke="#2E7D32" stroke-width="1.2" opacity="0.7">
+                    <path d="M10,50 C2,60 5,75 10,80 C12,75 15,60 10,50" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M12,140 C4,150 7,165 12,170 C14,165 17,150 12,140" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M14,290 C6,300 9,315 14,320 C16,315 19,300 14,290" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M10,500 C2,510 5,525 10,530 C12,525 15,510 10,500" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M14,650 C6,660 9,675 14,680 C16,675 19,660 14,650" fill="#2E7D32" fill-opacity="0.1"/>
+                </g>
             </svg>
-            <svg class="corner-deco top-right" viewBox="0 0 100 100" width="60" height="60" fill="none" stroke="#5D3F9B" opacity="0.25">
-                <path d="M90,10 H10 M90,10 V90" />
+            
+            <svg class="side-garland right-garland" viewBox="0 0 40 800" preserveAspectRatio="none">
+                <path d="M40,0 Q15,80 28,220 T20,450 T32,680 T25,800" fill="none" stroke="#aa7c11" stroke-width="1" opacity="0.25"/>
+                <path d="M40,0 Q5,120 22,340 T12,620 T30,800" fill="none" stroke="#5D3F9B" stroke-width="0.8" opacity="0.15"/>
+                <g class="garland-blooms">
+                    <path d="M40,10 Q20,30 0,10" fill="none" stroke="#FFA500" stroke-width="3" stroke-dasharray="4,6"/>
+                    <circle cx="30" cy="50" r="5" fill="#FFA500" />
+                    <circle cx="25" cy="90" r="7" fill="#D32F2F" />
+                    <circle cx="28" cy="140" r="6" fill="#FFA500" />
+                    <circle cx="24" cy="190" r="5" fill="#5D3F9B" />
+                    <circle cx="30" cy="240" r="7" fill="#D32F2F" />
+                    <circle cx="26" cy="290" r="6" fill="#FFA500" />
+                    <circle cx="22" cy="345" r="5" fill="#5D3F9B" />
+                    <circle cx="28" cy="400" r="7" fill="#FFA500" />
+                    <circle cx="25" cy="450" r="6" fill="#D32F2F" />
+                    <circle cx="30" cy="500" r="5" fill="#FFA500" />
+                    <circle cx="24" cy="550" r="7" fill="#5D3F9B" />
+                    <circle cx="28" cy="600" r="6" fill="#D32F2F" />
+                    <circle cx="26" cy="650" r="5" fill="#FFA500" />
+                    <circle cx="22" cy="700" r="7" fill="#5D3F9B" />
+                    <circle cx="30" cy="750" r="6" fill="#D32F2F" />
+                </g>
+                <g fill="none" stroke="#2E7D32" stroke-width="1.2" opacity="0.7">
+                    <path d="M30,50 C38,60 35,75 30,80 C28,75 25,60 30,50" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M28,140 C36,150 33,165 28,170 C26,165 23,150 28,140" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M26,290 C34,300 31,315 26,320 C24,315 21,300 26,290" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M30,500 C38,510 35,525 30,530 C28,525 25,510 30,500" fill="#2E7D32" fill-opacity="0.1"/>
+                    <path d="M26,650 C34,660 31,675 26,680 C24,675 21,660 26,650" fill="#2E7D32" fill-opacity="0.1"/>
+                </g>
             </svg>
             
             <div class="hero-content">
-                <div class="monogram-banner">S & A</div>
-                <h1 class="wedding-title">Are Getting Married</h1>
-                
+                <!-- Redesigned Top Header: Save the Date & Wedding Date -->
+                <div class="save-date-container animate-fade-in">
+                    <h2 class="top-save-title">Save the Date</h2>
+                    <div class="top-date-banner">22nd November 2026</div>
+                </div>
+
                 <div class="couple-names-container">
                     <span class="name-text">Sambit</span>
                     <span class="and-symbol">&</span>
                     <span class="name-text">Akanksha</span>
                 </div>
                 
-                <!-- Couple Portrait Illustration Frame (NEW TRANSPARENT BLENDED PORTRAIT) -->
+                <!-- Couple Portrait Sketch Oval Medallion (BORDER REMOVED - CENTER CROP ACTIVE) -->
                 <div class="portrait-frame-container">
-                    <div class="portrait-gold-ring"></div>
                     <img class="couple-portrait" src="assets/couple_portrait.jpg" alt="Sambit and Akanksha Portrait">
                 </div>
                 
                 <div class="hero-details">
+                    <p class="invite-tagline">We request the pleasure of your company as we celebrate our love and union</p>
                     <div class="divider">
                         <span class="divider-dot"></span>
                         <span class="divider-line"></span>
                         <span class="divider-dot"></span>
                     </div>
-                    <p class="wedding-date-string">SATURDAY, NOVEMBER 21, 2026</p>
                     <p class="wedding-location-string">UDAIPUR, RAJASTHAN</p>
                 </div>
                 
@@ -236,7 +296,7 @@
             <div class="event-slide-card">
                 <div class="event-meta-row">
                     <span class="slide-meta-item">🕒 10:00 AM</span>
-                    <span class="slide-meta-item">📍 Durbar Hall, Udaipur</span>
+                    <span class="slide-meta-item">📍 Mewar Durbar Hall, Udaipur</span>
                 </div>
                 
                 <p class="event-slide-desc">Join us as we exchange rings and officially begin our sacred journey to forever.</p>
@@ -524,7 +584,7 @@
                     <span class="slide-meta-item">📍 The Mewar Ballroom, Chunda Palace</span>
                 </div>
                 
-                <p class="event-slide-desc">Join us for a grand evening of toasts, live band performances, laughter, and a gala feast to raise a glass to our new beginnings.</p>
+                <p class="event-slide-desc">Join us for a grand evening of toasts, live band performances, laughter, and a gala feast to celebrate our new beginnings.</p>
                 
                 <div class="dress-code">
                     <div class="dress-theme"><strong>Theme:</strong> A grand toast to the new Mr. & Mrs.</div>

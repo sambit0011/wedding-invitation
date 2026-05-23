@@ -12,20 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const waxSeal = document.getElementById('wax-seal');
     const mainInvitation = document.getElementById('main-invitation');
     const bodyElement = document.body;
-    
-    // Audio Player
-    const bgMusic = document.getElementById('bg-music');
-    const musicToggle = document.getElementById('music-toggle');
-    let isMusicPlaying = false;
 
-    // Event Itinerary Elements (Full-Screen Swiper)
-    const btnEnterInvite = document.getElementById('btn-enter-invite');
-
-    // Reveal Box Elements
-    const revealDateBox = document.getElementById('reveal-date-box');
-    const cardOverlay = document.getElementById('card-overlay');
-    const revealedDatesContainer = document.getElementById('revealed-dates-container');
-    const instructionLabel = document.getElementById('instruction-label');
+    // Countdown target date: November 21, 2026 at 10:00 AM (Engagement starts)
+    const weddingDate = new Date('November 21, 2026 10:00:00').getTime();
 
     // RSVP Form Elements
     const rsvpForm = document.getElementById('rsvp-form');
@@ -40,168 +29,81 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Tapping the Wax Seal starts the beautiful unfolding sequence
     waxSeal.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openEnvelope();
+        e.stopPropagation(); // prevent nested bubble events
+        openInvitation();
     });
 
+    // Also support tapping the envelope body to open
     envelope.addEventListener('click', () => {
         if (!envelope.classList.contains('open-flap')) {
-            openEnvelope();
+            openInvitation();
         }
     });
 
-    function openEnvelope() {
+    function openInvitation() {
         // Step A: Trigger flap fold
         envelope.classList.add('open-flap');
-        
-        // Start background music context softly upon user gesture
-        playMusic();
 
         // Step B: Slide the invitation card upwards from inside the envelope
         setTimeout(() => {
             envelope.classList.add('slide-card');
-            // Change instruction text to prompt scratching
-            instructionLabel.innerText = "Tap the square box to reveal our dates!";
         }, 600);
-    }
 
-
-    // ================================================================
-    // 2. CLICK-TO-REVEAL SQUARE BOX LOGIC
-    // ================================================================
-    revealDateBox.addEventListener('click', () => {
-        // Step A: Hide the gift box smoothly
-        revealDateBox.style.opacity = '0';
-        revealDateBox.style.pointerEvents = 'none';
-        
-        // Step B: Darken the image overlay to make the dates pop
-        cardOverlay.classList.add('darkened');
-        
-        // Step C: Fade in the wedding dates and proceeding button
-        revealedDatesContainer.classList.add('active');
-        
-        // Step D: Trigger the gorgeous animated flower rain!
-        triggerFlowerRain();
-        
-        // Step E: Update the instruction text
-        instructionLabel.innerText = "We're Getting Married! Welcome.";
-    });
-
-
-    // ================================================================
-    // 3. 3D FLOWER CONFETTI RAIN ENGINE
-    // ================================================================
-    const rainContainer = document.getElementById('flower-rain-container');
-    const petalColors = [
-        'rgba(243, 222, 244, 0.85)', // soft lavender
-        'rgba(255, 230, 240, 0.85)', // light pink
-        'rgba(254, 249, 218, 0.85)', // cream yellow
-        'rgba(212, 175, 55, 0.75)'   // gold leaves
-    ];
-
-    function triggerFlowerRain() {
-        // Spawn 45 unique falling flower petals
-        for (let i = 0; i < 45; i++) {
-            createPetal();
-        }
-    }
-
-    function createPetal() {
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
-
-        // Randomized aesthetics for natural organic feel
-        const size = Math.random() * 16 + 10; // 10px to 26px
-        const left = Math.random() * 100; // 0vw to 100vw
-        const delay = Math.random() * 3; // 0s to 3s
-        const duration = Math.random() * 3 + 3; // 3s to 6s
-        const color = petalColors[Math.floor(Math.random() * petalColors.length)];
-
-        petal.style.width = `${size}px`;
-        petal.style.height = `${size}px`;
-        petal.style.left = `${left}vw`;
-        petal.style.backgroundColor = color;
-        petal.style.animationDelay = `${delay}s`;
-        petal.style.animationDuration = `${duration}s`;
-
-        // Varying petal rotation shapes
-        const rStyle = Math.random();
-        if (rStyle < 0.25) {
-            petal.style.borderRadius = '50% 0 50% 50%'; // rose shape
-        } else if (rStyle < 0.5) {
-            petal.style.borderRadius = '50% 50% 0 50%';
-        } else if (rStyle < 0.75) {
-            petal.style.borderRadius = '20px'; // blossom petal
-        } else {
-            petal.style.borderRadius = '50%'; // soft dot confetti
-        }
-
-        rainContainer.appendChild(petal);
-
-        // Remove element once animation completes
-        petal.addEventListener('animationend', () => {
-            petal.remove();
-        });
-    }
-
-
-    // ================================================================
-    // 4. TRANSITION TO SCROLL SNAP EVENT SLIDES
-    // ================================================================
-    
-    btnEnterInvite.addEventListener('click', () => {
-        // Step A: Fade out screen 1
-        envelopeScreen.classList.add('fade-out');
-        
-        // Step B: Set main swiper active
-        mainInvitation.classList.add('active');
-        
-        // Ensure background music is unmuted and playing
-        playMusic();
-
-        // Step C: Trigger a short secondary flower rain in the swiper to celebrate!
+        // Step C: Fade out the entire envelope screen overlay and fade in the main site
         setTimeout(() => {
-            triggerFlowerRain();
-        }, 400);
-    });
+            envelopeScreen.classList.add('fade-out');
+            mainInvitation.classList.add('fade-in');
+            
+            // Unlock scrolling on the body
+            bodyElement.classList.add('scrollable');
+            
+            // Initialize animations inside the hero view
+            document.querySelector('.hero-content').classList.add('animate-fade-in');
+        }, 1500);
+    }
 
 
     // ================================================================
-    // 5. ROYAL BACKGROUND MUSIC CONTROLLER
+    // 2. REAL-TIME COUNTDOWN TIMER
     // ================================================================
     
-    musicToggle.addEventListener('click', () => {
-        if (isMusicPlaying) {
-            pauseMusic();
-        } else {
-            playMusic();
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = weddingDate - now;
+
+        // If the date has passed
+        if (difference < 0) {
+            document.getElementById('countdown-timer').innerHTML = `
+                <div style="grid-column: span 4; font-size: 1.2rem; color: #5D3F9B; font-weight:600;">
+                    The Celebration has Begun!
+                </div>
+            `;
+            return;
         }
-    });
 
-    function playMusic() {
-        bgMusic.play()
-            .then(() => {
-                isMusicPlaying = true;
-                musicToggle.classList.add('playing');
-                musicToggle.classList.remove('paused');
-            })
-            .catch((error) => {
-                console.log("Autoplay context safety prevent.", error);
-            });
+        // Time calculations for days, hours, minutes and seconds
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        // Render to DOM (with leading zeros)
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
     }
 
-    function pauseMusic() {
-        bgMusic.pause();
-        isMusicPlaying = false;
-        musicToggle.classList.remove('playing');
-        musicToggle.classList.add('paused');
-    }
+    // Run timer immediately and update every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
 
     // ================================================================
-    // 6. TACTILE RSVP SUBMISSION & LOCAL PERSISTENCE
+    // 3. TACTILE RSVP SUBMISSION & PERSISTENCE
     // ================================================================
     
+    // Check if user has already RSVP'd before in this browser
     const existingRsvp = localStorage.getItem('wedding_rsvp');
     if (existingRsvp) {
         try {
@@ -212,30 +114,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Form Submission Handler
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        // Extract form values
         const name = document.getElementById('guest-name').value.trim();
         const phone = document.getElementById('guest-phone').value.trim();
         const count = document.getElementById('guest-count').value;
         const attendance = document.getElementById('guest-attendance').value;
         const wishes = document.getElementById('guest-wishes').value.trim();
 
+        // Build Response Object
         const rsvpData = { name, phone, count, attendance, wishes, date: new Date().toISOString() };
 
+        // Save locally to simulate remote database storage
         localStorage.setItem('wedding_rsvp', JSON.stringify(rsvpData));
 
+        // Format success banner response message
         if (attendance === 'attending') {
-            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! We are absolutely thrilled to celebrate with you and your ${count > 1 ? (count - 1) + ' guest(s)' : 'company'} in Udaipur!`;
-            // Trigger extra mini flower rain on successful attendance!
-            triggerFlowerRain();
+            successMsg.innerHTML = `Thank you so much, <strong>${name}</strong>! We are absolutely thrilled to celebrate with you and your ${count > 1 ? (count - 1) + ' guest(s)' : 'company'} in Udaipur!`;
         } else {
-            successMsg.innerHTML = `Thank you for letting us know, <strong>${name}</strong>. We will miss you dearly, but we deeply appreciate your blessings!`;
+            successMsg.innerHTML = `Thank you for letting us know, <strong>${name}</strong>. We will miss you dearly, but we deeply appreciate your warm wishes!`;
         }
 
+        // Animate overlay slide-up
         rsvpSuccess.classList.add('active');
     });
 
+    // Prefill form and show success screen if already submitted
     function prefillAndShowRsvp(data) {
         document.getElementById('guest-name').value = data.name;
         document.getElementById('guest-phone').value = data.phone;
@@ -252,8 +159,28 @@ document.addEventListener('DOMContentLoaded', () => {
         rsvpSuccess.classList.add('active');
     }
 
+    // Reset RSVP / Edit Response Button handler
     btnResetRsvp.addEventListener('click', () => {
+        // Slide down the overlay
         rsvpSuccess.classList.remove('active');
+    });
+
+
+    // ================================================================
+    // 4. EXTRA MOBILE OPTIMIZATIONS (TOUCH ANCHORS)
+    // ================================================================
+    
+    // Smooth scrolling anchors for buttons inside scroll containers
+    const scrollButtons = document.querySelectorAll('.scroll-to-btn');
+    scrollButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = btn.getAttribute('href');
+            const targetSec = document.querySelector(targetId);
+            if (targetSec) {
+                targetSec.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
 
 });

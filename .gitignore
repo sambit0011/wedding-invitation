@@ -1,0 +1,15 @@
+# macOS System files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+
+# ThumbsDB files
+Thumbs.db
+ehthumbs.db
+
+# Project folders
+.idea/
+.vscode/
+*.log

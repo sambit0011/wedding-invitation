@@ -467,30 +467,81 @@ h1, h2, h3, .preview-names, .footer-names {
 
 /* --- Section 1: Hero Cover --- */
 .hero-section {
-    padding: 1.5rem 1.5rem;
-    /* 
-       NEW: Watercolor mandap card — classical columns, lavender & rose floral garlands,
-       flowing lavender curtains & purple alcohol ink splashes.
-    */
+    /* full 100vh snap section */
+    padding: 0;
     background: url('assets/hero_bg.jpg') no-repeat center center;
     background-size: cover;
-    background-color: #f5f0eb; /* fallback cream */
-}
-
-.hero-bg-frame {
-    /* frame hidden — the card image already has its own elegant border */
-    display: none;
-}
-
-.hero-content {
-    z-index: 2;
-    width: 100%;
-    /* Inset content inside the cream card center \u2014 clear of the column borders */
-    padding: 0 14% 0 14%;
-    display: flex;
-    flex-direction: column;
+    background-color: #f5f0eb;
+    /* allow couple to overflow bottom */
+    overflow: visible;
+    justify-content: flex-start;
     align-items: center;
 }
+
+/* Top text block — sits inside the floral garland area at top of card */
+.hero-top-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    /* Push down from top to sit below the floral arch (≈30% of card) */
+    margin-top: 32vh;
+    padding: 0 18%;
+    width: 100%;
+}
+
+/* Couple portrait: positioned at bottom, rising up from below the screen */
+.couple-bottom-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 78%;
+    max-width: 320px;
+    z-index: 5;
+    pointer-events: none;
+    /* subtle fade-in-up animation */
+    animation: riseUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.4s;
+}
+
+.couple-portrait-bottom {
+    width: 100%;
+    display: block;
+    /* multiply removes the white background so couple floats transparently */
+    mix-blend-mode: multiply;
+    filter: contrast(1.06) brightness(1.02) saturate(1.1);
+    /* No bottom margin — couple sits flush at bottom edge */
+    margin-bottom: 0;
+}
+
+@keyframes riseUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Fade-in for top text */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeInDown 1s ease both;
+    animation-delay: 0.1s;
+}
+
+/* Old hero-content, portrait-frame, couple-portrait, hero-details — all replaced by new layout above */
+.hero-content { display: none; }
+.portrait-frame-container { display: none; }
+.couple-portrait { display: none; }
+.hero-details { display: none; }
+.invite-tagline { display: none; }
+
 
 /* Sleek Luxury Editorial Top Header */
 .modern-header-container {

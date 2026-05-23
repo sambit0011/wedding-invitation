@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicToggle = document.getElementById('music-toggle');
     let isMusicPlaying = false;
 
-    // Countdown target date: December 18, 2026 at 16:30 (Baraat starts)
-    const weddingDate = new Date('December 18, 2026 16:30:00').getTime();
+    // Countdown target date: November 21, 2026 at 10:00 AM (Engagement starts)
+    const weddingDate = new Date('November 21, 2026 10:00:00').getTime();
 
     // Event Itinerary Tabs
     const tabButtons = document.querySelectorAll('.tab-btn');
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // If the date has passed
         if (difference < 0) {
             document.getElementById('countdown-timer').innerHTML = `
-                <div style="grid-column: span 4; font-size: 1.2rem; color: #d4af37; font-weight:600;">
+                <div style="grid-column: span 4; font-size: 1.2rem; color: #5D3F9B; font-weight:600;">
                     The Celebration has Begun!
                 </div>
             `;

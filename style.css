@@ -1,26 +1,30 @@
 /* 
 ================================================================
    PREMIUM MOBILE WEDDING INVITATION STYLESHEET
-   Theme: Luxury Emerald Green & Champagne Gold
+   Theme: Luxury Lavender, Soft Lilac & Pale Gold
 ================================================================
 */
 
 /* --- Design Tokens & Variables --- */
 :root {
-    --gold-primary: #d4af37;
-    --gold-light: #fff6cc;
-    --gold-dark: #aa7c11;
-    --gold-gradient: linear-gradient(135deg, #fff6cc 0%, #d4af37 40%, #aa7c11 80%, #d4af37 100%);
-    --emerald-deep: #0B2F23;
-    --emerald-dark: #061e16;
-    --emerald-light: #144937;
-    --warm-cream: #FAF6F0;
-    --text-main: #2b2b2b;
-    --text-muted: #5e5e5e;
+    --gold-primary: #aa7c11;
+    --gold-light: #fce990;
+    --gold-dark: #8c6408;
+    --gold-gradient: linear-gradient(135deg, #fce990 0%, #aa7c11 50%, #8c6408 100%);
+    
+    /* New Light Theme: Lavender & Soft Lilac */
+    --lavender-deep: #FAF6FB;       /* soft luxurious lavender-tinted background */
+    --lavender-dark: #2C1E43;       /* rich deep contrast accent / main text */
+    --lavender-primary: #5D3F9B;    /* premium royal violet/plum highlight */
+    --lavender-light: #F3EEF9;      /* panel containers */
+    --pastel-pink: #FFEBF3;         /* highlight gradients */
+    
+    --text-main: #33224D;
+    --text-muted: #6C5A87;
     --text-light: #ffffff;
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    --gold-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+    --card-shadow: 0 8px 25px rgba(93, 63, 155, 0.08);
+    --gold-shadow: 0 4px 15px rgba(170, 124, 17, 0.2);
 }
 
 /* --- Reset & Base Setup --- */
@@ -34,13 +38,13 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
-    background-color: var(--emerald-deep);
+    background-color: var(--lavender-deep);
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text-main);
-    background-color: var(--emerald-deep);
+    background-color: var(--lavender-deep);
     overflow-x: hidden;
     width: 100%;
     /* Lock scrolling until envelope is opened */
@@ -58,14 +62,14 @@ body.scrollable {
 h1, h2, h3, .preview-names, .footer-names {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
 }
 
 .font-italic {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-weight: 400;
-    color: var(--gold-dark);
+    color: var(--lavender-primary);
 }
 
 /* --- Helper Classes & UI Elements --- */
@@ -88,7 +92,7 @@ h1, h2, h3, .preview-names, .footer-names {
 
 .btn-primary {
     background: var(--gold-gradient);
-    color: var(--emerald-dark);
+    color: #ffffff;
     box-shadow: var(--gold-shadow);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -105,7 +109,7 @@ h1, h2, h3, .preview-names, .footer-names {
 }
 
 .btn-gold-outline:active {
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(170, 124, 17, 0.08);
     transform: scale(0.97);
 }
 
@@ -118,7 +122,7 @@ h1, h2, h3, .preview-names, .footer-names {
 }
 
 .divider-line {
-    height: 1px;
+    height: 1.5px;
     width: 60px;
     background: var(--gold-gradient);
 }
@@ -141,12 +145,12 @@ h1, h2, h3, .preview-names, .footer-names {
     border-radius: 50%;
     background: var(--gold-gradient);
     border: none;
-    color: var(--emerald-deep);
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(93, 63, 155, 0.25);
     outline: none;
 }
 
@@ -182,7 +186,7 @@ h1, h2, h3, .preview-names, .footer-names {
 
 
 /* ================================================================
-   1. ENVELOPE SCREEN (FIRST VIEWPORT)
+   1. ENVELOPE SCREEN (FIRST VIEWPORT - LIGHT LAVENDER EDITION)
    ================================================================
 */
 .envelope-screen {
@@ -191,7 +195,7 @@ h1, h2, h3, .preview-names, .footer-names {
     height: 100vh;
     top: 0;
     left: 0;
-    background: linear-gradient(135deg, var(--emerald-dark) 0%, var(--emerald-deep) 100%);
+    background: linear-gradient(135deg, var(--lavender-deep) 0%, #E7DEF3 50%, #FFE9F3 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -213,9 +217,9 @@ h1, h2, h3, .preview-names, .footer-names {
     height: 100%;
     top: 0;
     left: 0;
-    background-image: radial-gradient(var(--gold-primary) 1px, transparent 1px);
+    background-image: radial-gradient(var(--lavender-primary) 1px, transparent 1px);
     background-size: 40px 40px;
-    opacity: 0.15;
+    opacity: 0.08;
     animation: slowPan 30s linear infinite;
 }
 
@@ -232,14 +236,14 @@ h1, h2, h3, .preview-names, .footer-names {
     z-index: 5;
 }
 
-/* The Envelope Box */
+/* The Envelope Box (Lavender Leather theme) */
 .envelope {
     position: relative;
     width: 320px;
     height: 220px;
-    background-color: var(--emerald-light);
+    background-color: #C3B3DB;
     border-radius: 8px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 40px rgba(93, 63, 155, 0.2);
     perspective: 800px;
 }
 
@@ -250,13 +254,13 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 0;
     width: 0;
     height: 0;
-    border-top: 110px solid #144f3b; /* slightly lighter emerald */
+    border-top: 110px solid #CDBFE3; /* slightly lighter lilac */
     border-left: 160px solid transparent;
     border-right: 160px solid transparent;
     transform-origin: top;
     z-index: 4;
     transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 0.3s;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25));
+    filter: drop-shadow(0 2px 4px rgba(93, 63, 155, 0.15));
 }
 
 /* Inside Preview Invitation Card */
@@ -266,7 +270,7 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 10px;
     width: 300px;
     height: 200px;
-    background: var(--warm-cream);
+    background: var(--lavender-deep);
     border-radius: 6px;
     border: 2px solid var(--gold-primary);
     z-index: 2;
@@ -282,7 +286,7 @@ h1, h2, h3, .preview-names, .footer-names {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(170, 124, 17, 0.3);
     width: 100%;
     height: 100%;
     justify-content: center;
@@ -299,7 +303,7 @@ h1, h2, h3, .preview-names, .footer-names {
 
 .preview-names {
     font-size: 1.8rem;
-    color: var(--gold-dark);
+    color: var(--lavender-primary);
     margin-bottom: 5px;
 }
 
@@ -316,7 +320,7 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid #0d3b2c;
+    border-left: 160px solid #B4A2CD;
     border-top: 110px solid transparent;
     border-bottom: 110px solid transparent;
     z-index: 3;
@@ -328,7 +332,7 @@ h1, h2, h3, .preview-names, .footer-names {
     right: 0;
     width: 0;
     height: 0;
-    border-right: 160px solid #0d3b2c;
+    border-right: 160px solid #B4A2CD;
     border-top: 110px solid transparent;
     border-bottom: 110px solid transparent;
     z-index: 3;
@@ -340,7 +344,7 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 0;
     width: 0;
     height: 0;
-    border-bottom: 110px solid #08291e;
+    border-bottom: 110px solid #A693C1;
     border-left: 160px solid transparent;
     border-right: 160px solid transparent;
     z-index: 3;
@@ -363,7 +367,7 @@ h1, h2, h3, .preview-names, .footer-names {
     height: 66px;
     border-radius: 50%;
     background: radial-gradient(circle, #fce990 0%, #aa7c11 70%, #8c6408 100%);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(93, 63, 155, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -397,9 +401,9 @@ h1, h2, h3, .preview-names, .footer-names {
     font-size: 0.85rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--gold-primary);
-    font-weight: 500;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    color: var(--lavender-primary);
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.8);
     animation: slowPulse 2s infinite ease-in-out;
 }
 
@@ -433,7 +437,7 @@ h1, h2, h3, .preview-names, .footer-names {
 .main-invitation {
     width: 100%;
     min-height: 100vh;
-    background-color: var(--emerald-deep);
+    background-color: var(--lavender-deep);
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
     padding-bottom: 40px;
@@ -458,7 +462,7 @@ h1, h2, h3, .preview-names, .footer-names {
 
 .section-title {
     font-size: 2.2rem;
-    color: var(--gold-primary);
+    color: var(--lavender-primary);
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
@@ -467,8 +471,8 @@ h1, h2, h3, .preview-names, .footer-names {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--warm-cream);
-    opacity: 0.7;
+    color: var(--text-muted);
+    opacity: 0.8;
     margin-bottom: 2.5rem;
 }
 
@@ -485,7 +489,7 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 20px;
     right: 20px;
     bottom: 25px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    border: 1.5px solid rgba(93, 63, 155, 0.15);
     pointer-events: none;
     border-radius: 4px;
 }
@@ -497,22 +501,7 @@ h1, h2, h3, .preview-names, .footer-names {
     left: 5px;
     right: 5px;
     bottom: 5px;
-    border: 1px solid rgba(212, 175, 55, 0.15);
-}
-
-/* Apply generated luxury watercolor florals */
-.hero-section::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('assets/floral_bg.png') no-repeat center center;
-    background-size: cover;
-    opacity: 0.12; /* elegant subtle layering overlay */
-    pointer-events: none;
-    z-index: 1;
+    border: 1px solid rgba(170, 124, 17, 0.15);
 }
 
 .hero-content {
@@ -525,41 +514,74 @@ h1, h2, h3, .preview-names, .footer-names {
     font-size: 1.1rem;
     color: var(--gold-primary);
     letter-spacing: 0.25em;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .wedding-title {
     font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--warm-cream);
+    color: var(--text-muted);
     opacity: 0.9;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .couple-names-container {
     display: flex;
     flex-direction: column;
     gap: 0px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .name-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
+    font-size: 3.8rem;
     font-weight: 700;
     line-height: 1.1;
-    color: var(--gold-primary);
-    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    color: var(--lavender-primary);
+    text-shadow: 0 2px 4px rgba(93,63,155,0.05);
 }
 
 .and-symbol {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 2.5rem;
-    color: var(--warm-cream);
-    margin: 5px 0;
-    opacity: 0.8;
+    font-size: 2.2rem;
+    color: var(--gold-primary);
+    margin: 3px 0;
+}
+
+/* Couple Portrait Frame Styling */
+.portrait-frame-container {
+    position: relative;
+    width: 250px;
+    height: 330px;
+    margin: 1.5rem auto 2.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(93, 63, 155, 0.18);
+    border: 3.5px solid #FAF6FB;
+    outline: 1.5px solid var(--gold-primary);
+    z-index: 3;
+}
+
+.couple-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.portrait-gold-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--gold-primary);
+    pointer-events: none;
+    z-index: 4;
+    border-radius: 12px;
+    margin: 1px;
 }
 
 .hero-details {
@@ -569,8 +591,7 @@ h1, h2, h3, .preview-names, .footer-names {
 .invite-tagline {
     font-size: 0.85rem;
     line-height: 1.6;
-    color: var(--warm-cream);
-    opacity: 0.8;
+    color: var(--text-muted);
     max-width: 280px;
     margin: 0 auto;
 }
@@ -578,7 +599,7 @@ h1, h2, h3, .preview-names, .footer-names {
 .wedding-date-string {
     font-size: 0.9rem;
     letter-spacing: 0.15em;
-    color: var(--gold-primary);
+    color: var(--lavender-primary);
     font-weight: 600;
     margin-bottom: 0.3rem;
 }
@@ -586,8 +607,7 @@ h1, h2, h3, .preview-names, .footer-names {
 .wedding-location-string {
     font-size: 0.8rem;
     letter-spacing: 0.1em;
-    color: var(--warm-cream);
-    opacity: 0.75;
+    color: var(--text-muted);
 }
 
 .scroll-to-btn {
@@ -596,8 +616,8 @@ h1, h2, h3, .preview-names, .footer-names {
 
 /* --- Section 2: Countdown Timer --- */
 .countdown-section {
-    background: linear-gradient(180deg, rgba(6,30,22,0.5) 0%, rgba(11,47,35,0) 100%);
-    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    background: linear-gradient(180deg, #F3EEF9 0%, rgba(250,246,251,0) 100%);
+    border-top: 1.5px solid rgba(93, 63, 155, 0.08);
 }
 
 .countdown-grid {
@@ -609,19 +629,18 @@ h1, h2, h3, .preview-names, .footer-names {
 }
 
 .countdown-item {
-    background: rgba(20, 73, 55, 0.4);
-    border: 1.5px solid rgba(212, 175, 55, 0.25);
+    background: #ffffff;
+    border: 1.5px solid rgba(93, 63, 155, 0.2);
     border-radius: 8px;
     padding: 12px 6px;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
 }
 
 .countdown-number {
     font-size: 1.8rem;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
-    color: var(--gold-primary);
+    color: var(--lavender-primary);
     line-height: 1;
     margin-bottom: 5px;
 }
@@ -630,13 +649,12 @@ h1, h2, h3, .preview-names, .footer-names {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--warm-cream);
-    opacity: 0.8;
+    color: var(--text-muted);
 }
 
 /* --- Section 3: Story Section --- */
 .story-section {
-    background-color: rgba(6, 30, 22, 0.3);
+    background-color: rgba(243, 238, 249, 0.4);
 }
 
 .ornament-top, .ornament-bottom {
@@ -655,8 +673,8 @@ h1, h2, h3, .preview-names, .footer-names {
 .story-text {
     font-size: 0.9rem;
     line-height: 1.8;
-    color: var(--warm-cream);
-    opacity: 0.85;
+    color: var(--text-main);
+    opacity: 0.9;
     margin-bottom: 1.5rem;
 }
 
@@ -664,7 +682,7 @@ h1, h2, h3, .preview-names, .footer-names {
     margin-bottom: 0;
 }
 
-/* --- Section 4: Day-by-Day Itinerary --- */
+/* --- Section 4: 3-Day Event Schedule --- */
 .itinerary-section {
     width: 100%;
 }
@@ -673,11 +691,12 @@ h1, h2, h3, .preview-names, .footer-names {
     display: flex;
     width: 100%;
     max-width: 380px;
-    background: rgba(6, 30, 22, 0.5);
+    background: #ffffff;
     border-radius: 50px;
     padding: 4px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(93, 63, 155, 0.15);
     margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
 }
 
 .tab-btn {
@@ -686,7 +705,7 @@ h1, h2, h3, .preview-names, .footer-names {
     border: none;
     outline: none;
     border-radius: 50px;
-    padding: 8px 4px;
+    padding: 8px 2px;
     cursor: pointer;
     transition: var(--transition-smooth);
     display: flex;
@@ -698,31 +717,30 @@ h1, h2, h3, .preview-names, .footer-names {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1rem;
     font-weight: 700;
-    color: var(--warm-cream);
-    opacity: 0.7;
+    color: var(--text-muted);
 }
 
 .tab-btn .tab-date {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--warm-cream);
-    opacity: 0.5;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    opacity: 0.7;
     margin-top: 2px;
 }
 
 .tab-btn.active {
-    background: var(--gold-gradient);
+    background: var(--lavender-primary);
 }
 
 .tab-btn.active .tab-day {
-    color: var(--emerald-dark);
+    color: var(--text-light);
     opacity: 1;
 }
 
 .tab-btn.active .tab-date {
-    color: var(--emerald-dark);
-    opacity: 0.8;
+    color: var(--text-light);
+    opacity: 0.9;
 }
 
 /* Panel Content Toggling */
@@ -744,22 +762,25 @@ h1, h2, h3, .preview-names, .footer-names {
 
 /* Event Detail Card */
 .event-card {
-    background: var(--warm-cream);
+    background: #ffffff;
     border-radius: 12px;
     padding: 24px;
     text-align: left;
     box-shadow: var(--card-shadow);
-    border-left: 4px solid var(--gold-primary);
+    border-left: 4px solid var(--lavender-primary);
     position: relative;
     overflow: hidden;
+    border-top: 1px solid rgba(93,63,155,0.06);
+    border-right: 1px solid rgba(93,63,155,0.06);
+    border-bottom: 1px solid rgba(93,63,155,0.06);
 }
 
 .event-badge {
     position: absolute;
     top: 0;
     right: 0;
-    background: rgba(20, 73, 55, 0.1);
-    color: var(--emerald-light);
+    background: rgba(93, 63, 155, 0.08);
+    color: var(--lavender-primary);
     font-size: 0.65rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -770,12 +791,12 @@ h1, h2, h3, .preview-names, .footer-names {
 
 .event-badge.main-badge {
     background: var(--gold-gradient);
-    color: var(--emerald-dark);
+    color: #ffffff;
 }
 
 .event-name {
     font-size: 1.4rem;
-    color: var(--emerald-dark);
+    color: var(--lavender-dark);
     margin-bottom: 12px;
     font-weight: 700;
     padding-right: 40px; /* spacing for badge */
@@ -798,7 +819,7 @@ h1, h2, h3, .preview-names, .footer-names {
 
 .meta-icon {
     flex-shrink: 0;
-    color: var(--gold-dark);
+    color: var(--gold-primary);
     margin-top: 1px;
 }
 
@@ -811,13 +832,19 @@ h1, h2, h3, .preview-names, .footer-names {
 }
 
 .dress-code {
-    background: #f3ece0;
+    background: #F8F5FC;
     border-radius: 6px;
-    padding: 10px 12px;
+    padding: 12px;
     font-size: 0.75rem;
     line-height: 1.4;
-    color: var(--emerald-dark);
+    color: var(--lavender-dark);
     margin-bottom: 15px;
+    border: 1px dashed rgba(93, 63, 155, 0.15);
+}
+
+.dress-theme {
+    margin-bottom: 4px;
+    color: var(--lavender-primary);
 }
 
 .maps-link {
@@ -826,7 +853,7 @@ h1, h2, h3, .preview-names, .footer-names {
     gap: 6px;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--gold-dark);
+    color: var(--gold-primary);
     text-decoration: none;
     transition: var(--transition-smooth);
 }
@@ -860,19 +887,19 @@ h1, h2, h3, .preview-names, .footer-names {
 }
 
 .rsvp-card {
-    background: var(--emerald-light);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: var(--lavender-light);
+    border: 1.5px solid rgba(93, 63, 155, 0.18);
     border-radius: 16px;
     padding: 30px 20px;
     width: 100%;
     max-width: 380px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--card-shadow);
     position: relative;
     overflow: hidden;
 }
 
 .rsvp-card .section-title {
-    color: var(--gold-primary);
+    color: var(--lavender-primary);
 }
 
 .rsvp-card .section-subtitle {
@@ -903,8 +930,8 @@ label {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--gold-light);
-    font-weight: 500;
+    color: var(--lavender-primary);
+    font-weight: 600;
 }
 
 input[type="text"],
@@ -914,9 +941,9 @@ textarea {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    background: rgba(6, 30, 22, 0.6);
-    color: var(--text-light);
+    border: 1px solid rgba(93, 63, 155, 0.2);
+    background: #ffffff;
+    color: var(--text-main);
     font-family: 'Montserrat', sans-serif;
     font-size: 0.85rem;
     transition: var(--transition-smooth);
@@ -926,16 +953,15 @@ textarea {
 input[type="text"]::placeholder,
 input[type="tel"]::placeholder,
 textarea::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: #A396B8;
 }
 
 input[type="text"]:focus,
 input[type="tel"]:focus,
 select:focus,
 textarea:focus {
-    border-color: var(--gold-primary);
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-    background: rgba(6, 30, 22, 0.8);
+    border-color: var(--lavender-primary);
+    box-shadow: 0 0 8px rgba(93, 63, 155, 0.15);
 }
 
 textarea {
@@ -944,7 +970,7 @@ textarea {
 
 select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235D3F9B'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 20px;
@@ -963,7 +989,7 @@ select {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--emerald-deep);
+    background: var(--lavender-deep);
     z-index: 10;
     padding: 30px 20px;
     display: flex;
@@ -990,23 +1016,23 @@ select {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(93, 63, 155, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--gold-primary);
-    box-shadow: var(--gold-shadow);
+    border: 2px solid var(--lavender-primary);
+    box-shadow: var(--card-shadow);
 }
 
 .success-content h3 {
     font-size: 1.8rem;
-    color: var(--gold-primary);
+    color: var(--lavender-primary);
 }
 
 .success-content p {
     font-size: 0.85rem;
     line-height: 1.6;
-    color: var(--warm-cream);
+    color: var(--text-main);
     opacity: 0.9;
     max-width: 280px;
 }
@@ -1019,22 +1045,22 @@ select {
 .wedding-footer {
     padding: 4rem 1.5rem 6rem;
     text-align: center;
-    color: var(--warm-cream);
-    border-top: 1px solid rgba(212, 175, 55, 0.15);
-    background: linear-gradient(180deg, rgba(11,47,35,0) 0%, rgba(6,30,22,0.8) 100%);
+    color: var(--text-main);
+    border-top: 1.5px solid rgba(93, 63, 155, 0.08);
+    background: linear-gradient(180deg, rgba(250,246,251,0) 0%, #F3EEF9 100%);
     max-width: 480px;
     margin: 0 auto;
 }
 
 .footer-names {
     font-size: 2.4rem;
-    color: var(--gold-primary);
+    color: var(--lavender-primary);
     margin-bottom: 0.5rem;
 }
 
 .footer-blurb {
     font-size: 0.8rem;
-    opacity: 0.75;
+    opacity: 0.8;
     margin-bottom: 1.5rem;
     max-width: 240px;
     margin: 0 auto 1.5rem;
@@ -1051,7 +1077,7 @@ select {
 
 .footer-credits {
     font-size: 0.65rem;
-    opacity: 0.45;
+    opacity: 0.5;
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -1095,6 +1121,10 @@ select {
     }
     .name-text {
         font-size: 3.2rem;
+    }
+    .portrait-frame-container {
+        width: 210px;
+        height: 280px;
     }
     .section-title {
         font-size: 1.8rem;

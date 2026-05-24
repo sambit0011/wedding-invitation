@@ -4,70 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Wedding Invitation | Sambit & Akanksha</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal. Join us for the celebrations on November 21-25, 2026.">
-    <meta name="theme-color" content="#FAF6FB">
-    
-    <!-- Open Graph -->
+    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal. November 21-25, 2026.">
+    <meta name="theme-color" content="#0e0812">
     <meta property="og:title" content="Wedding Invitation - Sambit & Akanksha">
-    <meta property="og:description" content="We invite you to join us in celebrating our love. Click to open our interactive wedding invitation.">
+    <meta property="og:description" content="We invite you to join us in celebrating our love.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="assets/slide1_married.jpg">
-    
-    <!-- iOS Web App -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="S&A Wedding">
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ===== SCREEN 1: ENVELOPE + WAX SEAL ===== -->
+    <!-- ===== SCREEN 1: ENVELOPE ===== -->
     <div class="envelope-screen" id="envelope-screen">
         <div class="stars-bg"></div>
-        
-        <!-- Decorative border corners -->
+
+        <!-- Corner decorations -->
         <div class="screen-border-deco">
             <svg class="corner-deco top-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M10,10 L90,10 M10,10 L10,90" />
                 <path d="M20,20 Q40,20 40,40 Q20,40 20,20 Z" />
-                <path d="M15,15 L35,35" />
-                <circle cx="40" cy="40" r="3" fill="#aa7c11" />
+                <path d="M15,15 L35,35" /><circle cx="40" cy="40" r="3" fill="#aa7c11" />
             </svg>
             <svg class="corner-deco top-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M90,10 L10,10 M90,10 L90,90" />
                 <path d="M80,20 Q60,20 60,40 Q80,40 80,20 Z" />
-                <path d="M85,15 L65,35" />
-                <circle cx="60" cy="40" r="3" fill="#aa7c11" />
+                <path d="M85,15 L65,35" /><circle cx="60" cy="40" r="3" fill="#aa7c11" />
             </svg>
             <svg class="corner-deco bottom-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M10,90 L90,90 M10,90 L10,10" />
                 <path d="M20,80 Q40,80 40,60 Q20,60 20,80 Z" />
-                <path d="M15,85 L35,65" />
-                <circle cx="40" cy="60" r="3" fill="#aa7c11" />
+                <path d="M15,85 L35,65" /><circle cx="40" cy="60" r="3" fill="#aa7c11" />
             </svg>
             <svg class="corner-deco bottom-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M90,90 L10,90 M90,90 L90,10" />
                 <path d="M80,80 Q60,80 60,60 Q80,60 80,80 Z" />
-                <path d="M85,85 L65,65" />
-                <circle cx="60" cy="60" r="3" fill="#aa7c11" />
+                <path d="M85,85 L65,65" /><circle cx="60" cy="60" r="3" fill="#aa7c11" />
             </svg>
         </div>
 
         <div class="envelope-container">
             <div class="envelope" id="interactive-envelope">
-                <!-- Flap Top -->
                 <div class="envelope-flap-top"></div>
-                
-                <!-- Inner Card Preview -->
                 <div class="envelope-card-preview">
                     <div class="preview-content">
                         <span class="preview-heading">Save Our Date</span>
@@ -75,25 +58,23 @@
                         <span class="preview-date">21 . 11 . 26</span>
                     </div>
                 </div>
-                
-                <!-- Side & Bottom Flaps -->
                 <div class="envelope-flap-bottom"></div>
                 <div class="envelope-flap-left"></div>
                 <div class="envelope-flap-right"></div>
-                
-                <!-- Golden Wax Seal -->
-                <div class="wax-seal" id="wax-seal" aria-label="Click to open the wedding invitation">
+                <div class="wax-seal" id="wax-seal" aria-label="Tap to open invitation">
                     <div class="seal-inner">
                         <svg class="seal-svg" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="43" stroke="#aa7c11" stroke-width="2" fill="none" stroke-dasharray="2, 2" />
-                            <circle cx="50" cy="50" r="40" stroke="#aa7c11" stroke-width="1.5" fill="none" />
-                            <path d="M 37 48 C 30 38, 48 30, 50 48 C 52 30, 70 38, 63 48 C 55 57, 50 63, 50 63 Z" fill="#aa7c11" opacity="0.15"/>
-                            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-size="18" font-weight="bold" fill="url(#goldGradient)">S&amp;A</text>
+                            <circle cx="50" cy="50" r="43" stroke="#aa7c11" stroke-width="2" fill="none" stroke-dasharray="2,2"/>
+                            <circle cx="50" cy="50" r="40" stroke="#aa7c11" stroke-width="1.5" fill="none"/>
+                            <path d="M37 48 C30 38,48 30,50 48 C52 30,70 38,63 48 C55 57,50 63,50 63 Z" fill="#aa7c11" opacity="0.15"/>
+                            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                                  font-family="'Cinzel Decorative',serif" font-size="18" font-weight="bold"
+                                  fill="url(#g1)">S&amp;A</text>
                             <defs>
-                                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#fff6cc" />
-                                    <stop offset="50%" stop-color="#d4af37" />
-                                    <stop offset="100%" stop-color="#aa7c11" />
+                                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%"   stop-color="#fff6cc"/>
+                                    <stop offset="50%"  stop-color="#d4af37"/>
+                                    <stop offset="100%" stop-color="#aa7c11"/>
                                 </linearGradient>
                             </defs>
                         </svg>
@@ -101,195 +82,101 @@
                     </div>
                 </div>
             </div>
-            
             <div class="envelope-instruction">
                 <span class="pulse-text">Tap the Golden Seal to Open</span>
             </div>
         </div>
     </div>
 
-    <!-- ===== SCREEN 2: SCROLLABLE INVITATION GALLERY ===== -->
+    <!-- ===== SCREEN 2: PHOTO GALLERY ===== -->
     <div class="gallery-screen" id="gallery-screen">
-        
-        <!-- Fixed Header Bar -->
-        <div class="gallery-header">
+
+        <!-- Sticky top bar -->
+        <div class="gallery-header" id="gallery-header">
             <div class="gallery-header-names">Sambit &amp; Akanksha</div>
             <div class="gallery-header-date">21 · 22 · 25 November 2026</div>
         </div>
 
-        <!-- Scrollable Image Stack -->
+        <!-- Scrollable container -->
         <div class="gallery-scroll" id="gallery-scroll">
 
-            <!-- Slide 1: We Are Getting Married -->
-            <div class="gallery-slide" id="slide-1">
-                <div class="slide-image-wrapper">
-                    <img 
-                        src="assets/slide1_married.jpg" 
-                        alt="We are getting married - Sambit & Akanksha"
-                        class="slide-image"
-                        loading="eager"
-                    >
-                </div>
-                <div class="slide-label">
-                    <span class="slide-number">01</span>
-                    <span class="slide-caption">We are getting married</span>
+            <!-- SLIDE 1: We Are Getting Married -->
+            <div class="gallery-slide" id="slide-1" data-index="0">
+                <img src="assets/slide1_married.jpg"
+                     alt="We are getting married - Sambit & Akanksha"
+                     class="slide-img" loading="eager">
+                <div class="slide-caption-bar">
+                    <span class="slide-num">01</span>
+                    <span class="slide-label">We Are Getting Married</span>
                 </div>
             </div>
 
-            <!-- Slide 2: Engagement & Haldi -->
-            <div class="gallery-slide" id="slide-2">
-                <div class="slide-image-wrapper">
-                    <img 
-                        src="assets/slide2_engagement_haldi.jpg" 
-                        alt="Engagement & Haldi - 21st November"
-                        class="slide-image"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="slide-label">
-                    <span class="slide-number">02</span>
-                    <span class="slide-caption">Engagement &amp; Haldi · 21st Nov</span>
+            <!-- SLIDE 2: Engagement & Haldi -->
+            <div class="gallery-slide" id="slide-2" data-index="1">
+                <img src="assets/slide2_engagement_haldi.jpg"
+                     alt="Engagement & Haldi - 21st November"
+                     class="slide-img" loading="lazy">
+                <div class="slide-caption-bar">
+                    <span class="slide-num">02</span>
+                    <span class="slide-label">Engagement &amp; Haldi · 21 Nov</span>
                 </div>
             </div>
 
-            <!-- Slide 3: Mehendi & Sangeet -->
-            <div class="gallery-slide" id="slide-3">
-                <div class="slide-image-wrapper">
-                    <img 
-                        src="assets/slide3_mehendi_sangeet.jpg" 
-                        alt="Mehendi & Sangeet - 21st November"
-                        class="slide-image"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="slide-label">
-                    <span class="slide-number">03</span>
-                    <span class="slide-caption">Mehendi &amp; Sangeet · 21st Nov</span>
+            <!-- SLIDE 3: Mehendi & Sangeet -->
+            <div class="gallery-slide" id="slide-3" data-index="2">
+                <img src="assets/slide3_mehendi_sangeet.jpg"
+                     alt="Mehendi & Sangeet - 21st November"
+                     class="slide-img" loading="lazy">
+                <div class="slide-caption-bar">
+                    <span class="slide-num">03</span>
+                    <span class="slide-label">Mehendi &amp; Sangeet · 21 Nov</span>
                 </div>
             </div>
 
-            <!-- Slide 4: Wedding -->
-            <div class="gallery-slide" id="slide-4">
-                <div class="slide-image-wrapper">
-                    <img 
-                        src="assets/slide4_wedding.jpg" 
-                        alt="Wedding - 22nd November"
-                        class="slide-image"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="slide-label">
-                    <span class="slide-number">04</span>
-                    <span class="slide-caption">The Wedding · 22nd Nov</span>
+            <!-- SLIDE 4: Wedding -->
+            <div class="gallery-slide" id="slide-4" data-index="3">
+                <img src="assets/slide4_wedding.jpg"
+                     alt="The Wedding - 22nd November"
+                     class="slide-img" loading="lazy">
+                <div class="slide-caption-bar">
+                    <span class="slide-num">04</span>
+                    <span class="slide-label">The Wedding · 22 Nov</span>
                 </div>
             </div>
 
-            <!-- Slide 5: Reception -->
-            <div class="gallery-slide" id="slide-5">
-                <div class="slide-image-wrapper">
-                    <img 
-                        src="assets/slide5_reception.jpg" 
-                        alt="Reception - 25th November"
-                        class="slide-image"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="slide-label">
-                    <span class="slide-number">05</span>
-                    <span class="slide-caption">Grand Reception · 25th Nov</span>
+            <!-- SLIDE 5: Reception -->
+            <div class="gallery-slide" id="slide-5" data-index="4">
+                <img src="assets/slide5_reception.jpg"
+                     alt="Grand Reception - 25th November"
+                     class="slide-img" loading="lazy">
+                <div class="slide-caption-bar">
+                    <span class="slide-num">05</span>
+                    <span class="slide-label">Grand Reception · 25 Nov</span>
                 </div>
             </div>
 
-            <!-- RSVP Footer Slide -->
-            <div class="gallery-slide rsvp-slide" id="slide-rsvp">
-                <div class="rsvp-card">
-                    <div class="rsvp-ornament">
-                        <svg viewBox="0 0 200 30" width="160" height="24">
-                            <path d="M10,15 Q50,5 100,15 Q150,25 190,15" fill="none" stroke="#aa7c11" stroke-width="1.5"/>
-                            <circle cx="100" cy="15" r="4" fill="#aa7c11"/>
-                            <circle cx="30" cy="13" r="2" fill="#aa7c11" opacity="0.5"/>
-                            <circle cx="170" cy="17" r="2" fill="#aa7c11" opacity="0.5"/>
-                        </svg>
-                    </div>
-                    <h2 class="rsvp-title">Kindly RSVP</h2>
-                    <p class="rsvp-subtitle">Please respond by November 05, 2026</p>
-                    
-                    <form id="rsvp-form" class="rsvp-form">
-                        <div class="form-group">
-                            <label for="guest-name">Full Name</label>
-                            <input type="text" id="guest-name" name="name" placeholder="Your name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="guest-phone">Phone Number</label>
-                            <input type="tel" id="guest-phone" name="phone" placeholder="Your contact number" required>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="guest-count">Guests</label>
-                                <select id="guest-count" name="count">
-                                    <option value="1">1 Person</option>
-                                    <option value="2">2 People</option>
-                                    <option value="3">3 People</option>
-                                    <option value="4">4 People</option>
-                                    <option value="5">5+ People</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="guest-attendance">Attending?</label>
-                                <select id="guest-attendance" name="attendance" required>
-                                    <option value="attending">Joyfully Accept</option>
-                                    <option value="declined">Regretfully Decline</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="guest-wishes">Warm Wishes</label>
-                            <textarea id="guest-wishes" name="wishes" rows="3" placeholder="Send a message to the couple..."></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="rsvp-submit">Send Response 💌</button>
-                    </form>
-
-                    <div class="rsvp-success-overlay" id="rsvp-success">
-                        <div class="success-content">
-                            <div class="success-icon">
-                                <svg viewBox="0 0 24 24" width="48" height="48" fill="#5D3F9B">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                            </div>
-                            <h3>Response Received!</h3>
-                            <p id="success-msg">Thank you so much. We cannot wait to celebrate with you!</p>
-                            <button type="button" class="btn btn-gold-outline" id="btn-reset-rsvp">Edit Response</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-block">
-                    <p class="footer-names">Sambit &amp; Akanksha</p>
-                    <p class="footer-hashtag">#AkankshaGotSambit</p>
-                    <p class="footer-credits">Designed with love · 2026</p>
-                </div>
+            <!-- SLIDE 6: Thank You (ending) -->
+            <div class="gallery-slide last-slide" id="slide-6" data-index="5">
+                <img src="assets/slide6_thankyou.jpg"
+                     alt="Thank You - Venue & Contact Details"
+                     class="slide-img" loading="lazy">
+                <!-- No caption bar on last slide — image already has all info -->
             </div>
 
         </div>
 
-        <!-- Scroll Progress Dots -->
+        <!-- Progress dots -->
         <div class="scroll-dots" id="scroll-dots">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-            <span class="dot" data-slide="3"></span>
-            <span class="dot" data-slide="4"></span>
-            <span class="dot" data-slide="5"></span>
+            <span class="dot active" data-idx="0" aria-label="Slide 1"></span>
+            <span class="dot" data-idx="1" aria-label="Slide 2"></span>
+            <span class="dot" data-idx="2" aria-label="Slide 3"></span>
+            <span class="dot" data-idx="3" aria-label="Slide 4"></span>
+            <span class="dot" data-idx="4" aria-label="Slide 5"></span>
+            <span class="dot" data-idx="5" aria-label="Slide 6"></span>
         </div>
 
     </div>
 
-    <!-- Script -->
     <script src="app.js"></script>
 </body>
 </html>

@@ -1,145 +1,91 @@
 /* ================================================================
-   WEDDING INVITATION APP.JS
-   Envelope → Photo Gallery Flow
+   WEDDING INVITATION — app.js
+   Envelope Open → Photo Gallery (Full Image Scroll)
 ================================================================ */
-
 'use strict';
 
-// ── DOM References ──────────────────────────────────────────────
-const envelopeScreen  = document.getElementById('envelope-screen');
-const galleryScreen   = document.getElementById('gallery-screen');
-const interactiveEnv  = document.getElementById('interactive-envelope');
-const waxSeal         = document.getElementById('wax-seal');
-const galleryScroll   = document.getElementById('gallery-scroll');
-const scrollDots      = document.getElementById('scroll-dots');
-const dots            = scrollDots ? scrollDots.querySelectorAll('.dot') : [];
-
-const rsvpForm            = document.getElementById('rsvp-form');
-const rsvpSuccess         = document.getElementById('rsvp-success');
-const successMsg          = document.getElementById('success-msg');
-const btnResetRsvp        = document.getElementById('btn-reset-rsvp');
+// ── Elements ────────────────────────────────────────────────────
+const envelopeScreen = document.getElementById('envelope-screen');
+const galleryScreen  = document.getElementById('gallery-screen');
+const envelope       = document.getElementById('interactive-envelope');
+const waxSeal        = document.getElementById('wax-seal');
+const galleryScroll  = document.getElementById('gallery-scroll');
+const scrollDots     = document.getElementById('scroll-dots');
+const allDots        = scrollDots ? Array.from(scrollDots.querySelectorAll('.dot')) : [];
+const allSlides      = galleryScroll ? Array.from(galleryScroll.querySelectorAll('.gallery-slide')) : [];
 
 let isOpened = false;
 
-// ── Wax Seal Click → Open Envelope → Show Gallery ───────────────
-if (waxSeal) {
-    waxSeal.addEventListener('click', openInvitation);
-    waxSeal.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        openInvitation();
-    });
-}
-
+// ── Open Invitation ─────────────────────────────────────────────
 function openInvitation() {
     if (isOpened) return;
     isOpened = true;
 
-    // Step 1: Open the flap
-    interactiveEnv.classList.add('open-flap');
+    // Step 1: flip the flap open
+    envelope.classList.add('open-flap');
 
-    // Step 2: Slide card up after a short delay
-    setTimeout(() => {
-        interactiveEnv.classList.add('slide-card');
-    }, 400);
+    // Step 2: slide inner card up
+    setTimeout(() => envelope.classList.add('slide-card'), 400);
 
-    // Step 3: Fade out envelope, fade in gallery
+    // Step 3: crossfade to gallery
     setTimeout(() => {
         envelopeScreen.classList.add('fade-out');
         galleryScreen.classList.add('visible');
         scrollDots.classList.add('visible');
     }, 1200);
 
-    // Step 4: Remove envelope from DOM after transition
+    // Step 4: remove envelope from layout
     setTimeout(() => {
         envelopeScreen.style.display = 'none';
-    }, 2500);
+    }, 2600);
 }
 
-// ── Scroll Progress Dots ─────────────────────────────────────────
-function updateDots() {
-    if (!galleryScroll || dots.length === 0) return;
-
-    const slideHeight = galleryScroll.clientHeight;
-    const scrollTop   = galleryScroll.scrollTop;
-    const slideIndex  = Math.round(scrollTop / slideHeight);
-
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === slideIndex);
-    });
+if (waxSeal) {
+    waxSeal.addEventListener('click', openInvitation);
+    waxSeal.addEventListener('touchend', e => { e.preventDefault(); openInvitation(); });
 }
 
-if (galleryScroll) {
-    galleryScroll.addEventListener('scroll', updateDots, { passive: true });
+// ── Dot progress tracking via IntersectionObserver ──────────────
+// We watch each slide — when it's ≥50% visible, mark that dot active.
+// This works even when images have varying heights.
+
+if (allSlides.length > 0 && allDots.length > 0) {
+    const dotObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = parseInt(entry.target.dataset.index ?? '0', 10);
+                    allDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                }
+            });
+        },
+        {
+            root: galleryScroll,
+            threshold: 0.4   // trigger when 40% of slide is visible
+        }
+    );
+    allSlides.forEach(slide => dotObserver.observe(slide));
 }
 
-// Dot click → scroll to that slide
-dots.forEach((dot, i) => {
+// ── Dot click → scroll to that slide ───────────────────────────
+allDots.forEach((dot, idx) => {
     dot.addEventListener('click', () => {
-        const slideHeight = galleryScroll.clientHeight;
-        galleryScroll.scrollTo({
-            top: i * slideHeight,
-            behavior: 'smooth'
-        });
+        const target = allSlides[idx];
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     });
 });
 
-// ── RSVP Form ───────────────────────────────────────────────────
-if (rsvpForm) {
-    rsvpForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const name       = document.getElementById('guest-name').value.trim();
-        const attendance = document.getElementById('guest-attendance').value;
-
-        // Save to localStorage
-        const rsvpData = {
-            name:       name,
-            phone:      document.getElementById('guest-phone').value.trim(),
-            count:      document.getElementById('guest-count').value,
-            attendance: attendance,
-            wishes:     document.getElementById('guest-wishes').value.trim(),
-            timestamp:  new Date().toISOString()
-        };
-
-        try {
-            localStorage.setItem('wedding_rsvp_' + name.replace(/\s/g,'_'), JSON.stringify(rsvpData));
-        } catch(err) { /* storage full or private mode */ }
-
-        // Show success message
-        const isAttending = attendance === 'attending';
-        if (successMsg) {
-            successMsg.textContent = isAttending
-                ? `Thank you, ${name || 'dear guest'}! We're so thrilled you'll be joining us. See you at the celebrations! 🎉`
-                : `We'll miss you, ${name || 'dear guest'}. Thank you for letting us know. We hope to celebrate with you soon! 💐`;
-        }
-
-        if (rsvpSuccess) {
-            rsvpSuccess.classList.add('active');
-        }
-    });
-}
-
-if (btnResetRsvp) {
-    btnResetRsvp.addEventListener('click', function() {
-        rsvpForm.reset();
-        rsvpSuccess.classList.remove('active');
-    });
-}
-
-// ── Preload images for smooth scroll ────────────────────────────
-const imageSlides = [
+// ── Preload remaining images after brief delay ──────────────────
+const toPreload = [
     'assets/slide2_engagement_haldi.jpg',
     'assets/slide3_mehendi_sangeet.jpg',
     'assets/slide4_wedding.jpg',
-    'assets/slide5_reception.jpg'
+    'assets/slide5_reception.jpg',
+    'assets/slide6_thankyou.jpg'
 ];
 
-function preloadImages(urls) {
-    urls.forEach(url => {
-        const img = new Image();
-        img.src = url;
-    });
-}
-
-// Preload after a small delay to not block initial render
-setTimeout(() => preloadImages(imageSlides), 500);
+setTimeout(() => {
+    toPreload.forEach(src => { const i = new Image(); i.src = src; });
+}, 600);

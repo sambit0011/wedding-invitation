@@ -293,13 +293,13 @@ html, body {
   position: absolute;
   inset: 0;
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.2s ease;
   transform: scale(1.06);
-  background: #f5ecd8;
 }
 #gallery::-webkit-scrollbar { display:none; }
 #gallery.show {
@@ -309,21 +309,77 @@ html, body {
   transition: opacity 1.2s ease, transform 1s cubic-bezier(.25,.8,.25,1);
 }
 
-/* Screen container matches the image natural size */
+/* Viewport-locked, snap scroll screens with premium soft linen gradient backing */
 .screen {
   width: 100%;
-  height: auto;
+  height: 100vh;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   position: relative;
   overflow: hidden;
-  background: #f5ecd8;
-  display: block;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 50% 50%, #fcf8ee 0%, #f4e8cb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Image fills screen width, height scales automatically to maintain aspect ratio */
-.screen img {
+/* Premium hand-crafted card frame with sketchy organic borders */
+.card-frame {
+  position: relative;
+  width: min(380px, 90vw);
+  height: min(670px, 84vh);
+  height: min(670px, 84dvh);
+  background: #fdfaf2;
+  /* Beautiful sketched double border mimicking organic hand-painted gold brushwork */
+  border: 2px solid #aa7c11;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  box-shadow: 
+    0 20px 45px rgba(93, 63, 155, 0.15),
+    0 5px 15px rgba(170, 124, 17, 0.08),
+    inset 0 0 40px rgba(244, 232, 203, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  transition: transform 0.3s ease;
+}
+
+/* Slightly offset outer sketched gold outline for an artistic, layered draft look */
+.card-frame::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid rgba(170, 124, 17, 0.35);
+  border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
+  pointer-events: none;
+}
+
+/* Overlaying soft watercolor blending texture onto the card background */
+.card-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/watercolor_card_bg.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+/* Complete image containment inside the premium border frame, zero cropping/zooming */
+.card-frame img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
   display: block;
+  z-index: 1;
+  border-radius: 4px;
 }
 
 /* ── Dot progress ── */
@@ -419,27 +475,39 @@ html, body {
   <div id="gallery">
 
     <div class="screen" id="s1" data-i="0">
-      <img src="assets/slide1_married.jpg?v=3" alt="We are getting married" loading="eager">
+      <div class="card-frame">
+        <img src="assets/slide1_married.jpg?v=3" alt="We are getting married" loading="eager">
+      </div>
     </div>
 
     <div class="screen" id="s2" data-i="1">
-      <img src="assets/slide2_engagement_haldi.jpg?v=3" alt="Engagement & Haldi" loading="lazy">
+      <div class="card-frame">
+        <img src="assets/slide2_engagement_haldi.jpg?v=3" alt="Engagement & Haldi" loading="lazy">
+      </div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
-      <img src="assets/slide3_mehendi_sangeet.jpg?v=3" alt="Mehendi & Sangeet" loading="lazy">
+      <div class="card-frame">
+        <img src="assets/slide3_mehendi_sangeet.jpg?v=3" alt="Mehendi & Sangeet" loading="lazy">
+      </div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
-      <img src="assets/slide4_wedding.jpg?v=3" alt="The Wedding" loading="lazy">
+      <div class="card-frame">
+        <img src="assets/slide4_wedding.jpg?v=3" alt="The Wedding" loading="lazy">
+      </div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
-      <img src="assets/slide5_reception.jpg?v=3" alt="Grand Reception" loading="lazy">
+      <div class="card-frame">
+        <img src="assets/slide5_reception.jpg?v=3" alt="Grand Reception" loading="lazy">
+      </div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
-      <img src="assets/slide6_thankyou.jpg?v=3" alt="Thank You" loading="lazy">
+      <div class="card-frame">
+        <img src="assets/slide6_thankyou.jpg?v=3" alt="Thank You" loading="lazy">
+      </div>
     </div>
 
   </div>

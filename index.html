@@ -1,205 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Wedding Invitation | Sambit &amp; Akanksha</title>
-    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal — November 2026, Bhubaneswar.">
-    <meta name="theme-color" content="#0e0812">
-    <meta property="og:title" content="Wedding Invitation — Sambit &amp; Akanksha">
-    <meta property="og:image" content="assets/slide1_married.jpg">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sambit & Akanksha Wedding</title>
+<style>
+
+/* ── Reset ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── Page background (desktop sees this) ── */
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+/* ── Phone container — always 9:16 portrait ── */
+#app {
+  position: relative;
+  width: 100vw;
+  max-width: 430px;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0e0812;
+}
+
+/* ================================================================
+   ENVELOPE SCREEN
+================================================================ */
+#env {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #faf6fb, #e7def3, #ffe9f3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 100;
+  transition: opacity 1s ease, transform 1s ease;
+}
+#env.out { opacity: 0; transform: scale(1.08); pointer-events: none; }
+
+/* gold frame */
+#env::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid rgba(170,124,17,0.3);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* floating dots */
+#env::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#8b5cf6 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* Envelope box */
+.box {
+  position: relative;
+  width: min(300px, 80vw);
+  height: min(200px, 53vw);
+  background: #c3b3db;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(93,63,155,0.3);
+  perspective: 800px;
+}
+
+/* Flap top */
+.flap-t {
+  position: absolute; top: 0; left: 0;
+  border-top: min(100px,26.5vw) solid #cdbfe3;
+  border-left: min(150px,40vw) solid transparent;
+  border-right: min(150px,40vw) solid transparent;
+  transform-origin: top center;
+  z-index: 4;
+  transition: transform .65s ease;
+}
+.flap-l {
+  position: absolute; top: 0; left: 0;
+  border-left: min(150px,40vw) solid #b4a2cd;
+  border-top: min(100px,26.5vw) solid transparent;
+  border-bottom: min(100px,26.5vw) solid transparent;
+  z-index: 3;
+}
+.flap-r {
+  position: absolute; top: 0; right: 0;
+  border-right: min(150px,40vw) solid #b4a2cd;
+  border-top: min(100px,26.5vw) solid transparent;
+  border-bottom: min(100px,26.5vw) solid transparent;
+  z-index: 3;
+}
+.flap-b {
+  position: absolute; bottom: 0; left: 0;
+  border-bottom: min(100px,26.5vw) solid #a693c1;
+  border-left: min(150px,40vw) solid transparent;
+  border-right: min(150px,40vw) solid transparent;
+  z-index: 3;
+}
+
+/* Inner card */
+.inner-card {
+  position: absolute;
+  top: 8px; left: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  background: #faf6fb;
+  border: 2px solid #aa7c11;
+  border-radius: 5px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform .8s ease;
+}
+.inner-card span { display: block; text-align: center; }
+.ic-small {
+  font-family: 'Georgia', serif;
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #6c5a87;
+}
+.ic-big {
+  font-family: 'Georgia', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #5d3f9b;
+}
+.ic-date {
+  font-size: .65rem;
+  letter-spacing: .12em;
+  color: #6c5a87;
+}
+
+/* Wax seal */
+.seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 5;
+  width: 64px; height: 64px;
+  cursor: pointer;
+  transition: transform .5s cubic-bezier(.175,.885,.32,1.275), opacity .4s;
+}
+.seal svg { width: 100%; height: 100%; }
+
+/* Open states */
+.box.open .flap-t  { transform: rotateX(180deg); z-index: 1; }
+.box.open .inner-card { transform: translateY(-88%); z-index: 5; }
+.box.open .seal { transform: translate(-50%,-50%) scale(0) rotate(90deg); opacity: 0; pointer-events: none; }
+
+.tap-label {
+  font-family: 'Georgia', serif;
+  font-size: .75rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #5d3f9b;
+  font-weight: 600;
+  animation: blink 2s infinite ease-in-out;
+}
+@keyframes blink {
+  0%,100% { opacity: .5; }
+  50%      { opacity: 1; }
+}
+
+
+/* ================================================================
+   GALLERY — 6 portrait screens, scroll-snap
+================================================================ */
+#gallery {
+  position: absolute;
+  inset: 0;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+#gallery::-webkit-scrollbar { display: none; }
+#gallery.show { opacity: 1; pointer-events: all; }
+
+/* Each screen = one full portrait viewport */
+.screen {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Image fills entire portrait screen */
+.screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Bottom caption overlay */
+.cap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 48px 18px 16px;
+  background: linear-gradient(transparent, rgba(10,5,18,.85));
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.cap-n {
+  font-family: 'Georgia', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgba(170,124,17,.45);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.cap-t {
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  color: #f5e9d5;
+  line-height: 1.3;
+}
+.cap-s {
+  font-size: .58rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(245,233,213,.6);
+}
+
+/* No overlay on last slide — image has all info */
+.screen.last .cap { display: none; }
+
+/* Side dots */
+#dots {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity .4s;
+}
+#dots.show { opacity: 1; }
+
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  border: 1.5px solid rgba(255,255,255,.4);
+  cursor: pointer;
+  transition: all .3s;
+}
+.dot.on {
+  background: #aa7c11;
+  border-color: #aa7c11;
+  transform: scale(1.4);
+  box-shadow: 0 0 8px rgba(170,124,17,.7);
+}
+
+</style>
 </head>
 <body>
 
-<!-- ============================================================
-     SCREEN 1 — ENVELOPE
-============================================================ -->
-<div class="envelope-screen" id="env-screen">
-    <div class="stars-bg"></div>
-    <div class="env-border"></div>
+<div id="app">
 
-    <!-- Corner accents -->
-    <svg class="corner-deco tl" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
-        <path d="M6,6 L70,6 M6,6 L6,70"/>
-        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
-        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
-    </svg>
-    <svg class="corner-deco tr" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
-        <path d="M6,6 L70,6 M6,6 L6,70"/>
-        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
-        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
-    </svg>
-    <svg class="corner-deco bl" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
-        <path d="M6,6 L70,6 M6,6 L6,70"/>
-        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
-        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
-    </svg>
-    <svg class="corner-deco br" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
-        <path d="M6,6 L70,6 M6,6 L6,70"/>
-        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
-        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
-    </svg>
+  <!-- ── Envelope Screen ── -->
+  <div id="env">
+    <div class="box" id="box">
+      <div class="flap-t"></div>
+      <div class="inner-card">
+        <span class="ic-small">Save Our Date</span>
+        <span class="ic-big">S &amp; A</span>
+        <span class="ic-date">21 · 11 · 26</span>
+      </div>
+      <div class="flap-b"></div>
+      <div class="flap-l"></div>
+      <div class="flap-r"></div>
 
-    <!-- Envelope -->
-    <div class="envelope" id="envelope">
-        <div class="env-flap-top"></div>
-        <div class="env-card">
-            <div class="env-card-inner">
-                <span class="card-eyebrow">Save Our Date</span>
-                <span class="card-monogram">S &amp; A</span>
-                <span class="card-date">21 · 11 · 26</span>
-            </div>
-        </div>
-        <div class="env-flap-bottom"></div>
-        <div class="env-flap-left"></div>
-        <div class="env-flap-right"></div>
-
-        <!-- Gold Wax Seal -->
-        <div class="wax-seal" id="wax-seal" role="button" aria-label="Tap to open invitation">
-            <div class="seal-body">
-                <svg viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="44" stroke="#aa7c11" stroke-width="2" fill="none" stroke-dasharray="2,2"/>
-                    <circle cx="50" cy="50" r="40" stroke="#aa7c11" stroke-width="1.5" fill="none"/>
-                    <path d="M37 48 C30 38,48 30,50 48 C52 30,70 38,63 48 C55 57,50 63,50 63Z"
-                          fill="#aa7c11" opacity="0.18"/>
-                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
-                          font-family="'Cinzel Decorative',serif" font-size="19" font-weight="bold"
-                          fill="url(#seal-grad)">S&amp;A</text>
-                    <defs>
-                        <radialGradient id="seal-grad" cx="40%" cy="35%" r="65%">
-                            <stop offset="0%"   stop-color="#fff8d0"/>
-                            <stop offset="50%"  stop-color="#d4af37"/>
-                            <stop offset="100%" stop-color="#8c6408"/>
-                        </radialGradient>
-                    </defs>
-                </svg>
-                <div class="seal-glare"></div>
-            </div>
-        </div>
-    </div><!-- /envelope -->
-
-    <span class="tap-hint">Tap the Golden Seal to Open</span>
-</div><!-- /env-screen -->
-
-
-<!-- ============================================================
-     SCREEN 2 — PORTRAIT PHOTO GALLERY
-============================================================ -->
-<div class="gallery-screen" id="gallery-screen">
-
-    <!-- Floating header (overlay on top of images) -->
-    <div class="g-header">
-        <div class="g-header-name">Sambit &amp; Akanksha</div>
-        <div class="g-header-date">21 · 22 · 25 &nbsp;November 2026</div>
+      <!-- Gold Wax Seal -->
+      <div class="seal" id="seal">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <radialGradient id="g" cx="38%" cy="35%" r="65%">
+              <stop offset="0%"   stop-color="#fff8d0"/>
+              <stop offset="55%"  stop-color="#d4af37"/>
+              <stop offset="100%" stop-color="#8c6408"/>
+            </radialGradient>
+          </defs>
+          <circle cx="50" cy="50" r="48" fill="url(#g)"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#8c6408" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#8c6408" stroke-width="1"/>
+          <path d="M37 48 C30 37,48 29,50 47 C52 29,70 37,63 48 C55 58,50 64,50 64Z"
+                fill="#6b3c00" opacity=".2"/>
+          <text x="50" y="56" text-anchor="middle" dominant-baseline="middle"
+                font-family="Georgia,serif" font-size="20" font-weight="bold"
+                fill="#3d1f00" opacity=".85">S&amp;A</text>
+          <!-- shine -->
+          <ellipse cx="38" cy="38" rx="10" ry="7" fill="rgba(255,255,255,.35)" transform="rotate(-30 38 38)"/>
+        </svg>
+      </div>
     </div>
 
-    <!-- Full-screen snap scroll container -->
-    <div class="g-scroll" id="g-scroll">
+    <span class="tap-label">Tap the seal to open</span>
+  </div>
 
-        <!-- ── Slide 1: We Are Getting Married ── -->
-        <div class="g-slide" id="s1" data-idx="0">
-            <img src="assets/slide1_married.jpg"
-                 alt="We are getting married — Sambit & Akanksha"
-                 loading="eager">
-            <div class="g-caption">
-                <span class="g-num">01</span>
-                <div class="g-text">
-                    <span class="g-title">We Are Getting Married</span>
-                    <span class="g-sub">Sambit &amp; Akanksha · 2026</span>
-                </div>
-            </div>
+
+  <!-- ── Gallery: 6 Portrait Screens ── -->
+  <div id="gallery">
+
+    <div class="screen" data-i="0">
+      <img src="assets/slide1_married.jpg" alt="We are getting married">
+      <div class="cap">
+        <span class="cap-n">01</span>
+        <div>
+          <div class="cap-t">We Are Getting Married</div>
+          <div class="cap-s">Sambit &amp; Akanksha · 2026</div>
         </div>
-
-        <!-- ── Slide 2: Engagement & Haldi ── -->
-        <div class="g-slide" id="s2" data-idx="1">
-            <img src="assets/slide2_engagement_haldi.jpg"
-                 alt="Engagement & Haldi — 21st November"
-                 loading="lazy">
-            <div class="g-caption">
-                <span class="g-num">02</span>
-                <div class="g-text">
-                    <span class="g-title">Engagement &amp; Haldi</span>
-                    <span class="g-sub">21st November · DM Convention, Patrapada</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Slide 3: Mehendi & Sangeet ── -->
-        <div class="g-slide" id="s3" data-idx="2">
-            <img src="assets/slide3_mehendi_sangeet.jpg"
-                 alt="Mehendi & Sangeet — 21st November"
-                 loading="lazy">
-            <div class="g-caption">
-                <span class="g-num">03</span>
-                <div class="g-text">
-                    <span class="g-title">Mehendi &amp; Sangeet</span>
-                    <span class="g-sub">21st November · DM Convention, Patrapada</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Slide 4: The Wedding ── -->
-        <div class="g-slide" id="s4" data-idx="3">
-            <img src="assets/slide4_wedding.jpg"
-                 alt="The Wedding — 22nd November"
-                 loading="lazy">
-            <div class="g-caption">
-                <span class="g-num">04</span>
-                <div class="g-text">
-                    <span class="g-title">The Wedding</span>
-                    <span class="g-sub">22nd November · Shreenika DM Signature</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Slide 5: Grand Reception ── -->
-        <div class="g-slide" id="s5" data-idx="4">
-            <img src="assets/slide5_reception.jpg"
-                 alt="Grand Reception — 25th November"
-                 loading="lazy">
-            <div class="g-caption">
-                <span class="g-num">05</span>
-                <div class="g-text">
-                    <span class="g-title">Grand Reception</span>
-                    <span class="g-sub">25th November · Shreenika DM Signature</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Slide 6: Thank You ── -->
-        <div class="g-slide no-caption" id="s6" data-idx="5">
-            <img src="assets/slide6_thankyou.jpg"
-                 alt="Thank You — Venue & Contact Details"
-                 loading="lazy">
-            <!-- No caption — the image itself contains all venue & contact info -->
-        </div>
-
-    </div><!-- /g-scroll -->
-
-    <!-- Progress dots -->
-    <div class="g-dots" id="g-dots">
-        <span class="g-dot on"  data-go="0"></span>
-        <span class="g-dot"     data-go="1"></span>
-        <span class="g-dot"     data-go="2"></span>
-        <span class="g-dot"     data-go="3"></span>
-        <span class="g-dot"     data-go="4"></span>
-        <span class="g-dot"     data-go="5"></span>
+      </div>
     </div>
 
-    <!-- Swipe down hint (auto-hides) -->
-    <div class="swipe-hint" id="swipe-hint">
-        <div class="swipe-arrow"></div>
-        <span class="swipe-text">Swipe</span>
+    <div class="screen" data-i="1">
+      <img src="assets/slide2_engagement_haldi.jpg" alt="Engagement & Haldi">
+      <div class="cap">
+        <span class="cap-n">02</span>
+        <div>
+          <div class="cap-t">Engagement &amp; Haldi</div>
+          <div class="cap-s">21 Nov · DM Convention, Patrapada</div>
+        </div>
+      </div>
     </div>
 
-</div><!-- /gallery-screen -->
+    <div class="screen" data-i="2">
+      <img src="assets/slide3_mehendi_sangeet.jpg" alt="Mehendi & Sangeet">
+      <div class="cap">
+        <span class="cap-n">03</span>
+        <div>
+          <div class="cap-t">Mehendi &amp; Sangeet</div>
+          <div class="cap-s">21 Nov · DM Convention, Patrapada</div>
+        </div>
+      </div>
+    </div>
 
-<script src="app.js"></script>
+    <div class="screen" data-i="3">
+      <img src="assets/slide4_wedding.jpg" alt="The Wedding">
+      <div class="cap">
+        <span class="cap-n">04</span>
+        <div>
+          <div class="cap-t">The Wedding</div>
+          <div class="cap-s">22 Nov · Shreenika DM Signature</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" data-i="4">
+      <img src="assets/slide5_reception.jpg" alt="Grand Reception">
+      <div class="cap">
+        <span class="cap-n">05</span>
+        <div>
+          <div class="cap-t">Grand Reception</div>
+          <div class="cap-s">25 Nov · Shreenika DM Signature</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen last" data-i="5">
+      <img src="assets/slide6_thankyou.jpg" alt="Thank You">
+      <div class="cap"></div>
+    </div>
+
+  </div><!-- /gallery -->
+
+  <!-- Progress dots -->
+  <div id="dots">
+    <div class="dot on"  data-go="0"></div>
+    <div class="dot"     data-go="1"></div>
+    <div class="dot"     data-go="2"></div>
+    <div class="dot"     data-go="3"></div>
+    <div class="dot"     data-go="4"></div>
+    <div class="dot"     data-go="5"></div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+const env     = document.getElementById('env');
+const box     = document.getElementById('box');
+const seal    = document.getElementById('seal');
+const gallery = document.getElementById('gallery');
+const dotsEl  = document.getElementById('dots');
+const screens = Array.from(gallery.querySelectorAll('.screen'));
+const dots    = Array.from(dotsEl.querySelectorAll('.dot'));
+let opened    = false;
+
+/* Open envelope on seal tap */
+function openEnvelope() {
+  if (opened) return;
+  opened = true;
+  box.classList.add('open');
+  setTimeout(() => {
+    env.classList.add('out');
+    gallery.classList.add('show');
+    dotsEl.classList.add('show');
+  }, 1000);
+  setTimeout(() => { env.style.display = 'none'; }, 2200);
+}
+
+seal.addEventListener('click', openEnvelope);
+seal.addEventListener('touchend', e => { e.preventDefault(); openEnvelope(); });
+
+/* Dot sync */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const i = parseInt(entry.target.dataset.i);
+      dots.forEach((d,j) => d.classList.toggle('on', i === j));
+    }
+  });
+}, { root: gallery, threshold: 0.5 });
+
+screens.forEach(s => obs.observe(s));
+
+/* Dot click → jump */
+dots.forEach((d, i) => {
+  d.addEventListener('click', () => {
+    screens[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
 </body>
 </html>

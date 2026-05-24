@@ -59,9 +59,9 @@ html, body {
   -webkit-mask-position: 100% 100%;
   mask-position: 100% 100%;
   
-  transition: opacity 3.2s cubic-bezier(0.25, 1, 0.5, 1),
-              -webkit-mask-position 3.2s cubic-bezier(0.25, 1, 0.5, 1),
-              mask-position 3.2s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 2.2s cubic-bezier(0.25, 1, 0.5, 1),
+              -webkit-mask-position 2.2s cubic-bezier(0.25, 1, 0.5, 1),
+              mask-position 2.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 #env.out { 
   opacity: 0; 
@@ -212,44 +212,36 @@ html, body {
   display: block;
 }
 
-/* Staggered curtain reveal */
-.curtain-container {
+/* Double door reveal */
+.door-container {
   position: absolute;
   inset: 0;
   display: flex;
   z-index: 10;
   pointer-events: none;
 }
-.curtain {
-  flex: 1;
+.door {
+  width: 50%;
   height: 100%;
   background: #3e040c; /* Crimson envelope color */
-  transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-  transform: translateY(0);
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateX(0);
 }
-.c-left {
-  box-shadow: 5px 0 15px rgba(0,0,0,0.4);
-  z-index: 1;
-}
-.c-center {
-  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+.d-left {
+  box-shadow: 8px 0 16px rgba(0,0,0,0.5);
   z-index: 2;
 }
-.c-right {
-  box-shadow: -5px 0 15px rgba(0,0,0,0.4);
-  z-index: 1;
+.d-right {
+  box-shadow: -8px 0 16px rgba(0,0,0,0.5);
+  z-index: 2;
 }
-#gallery.show .c-left {
-  transform: translateY(-100%);
-  transition-delay: 3.0s;
+#gallery.show .d-left {
+  transform: translateX(-100%);
+  transition-delay: 1.8s;
 }
-#gallery.show .c-center {
-  transform: translateY(100%);
-  transition-delay: 3.4s;
-}
-#gallery.show .c-right {
-  transform: translateY(-100%);
-  transition-delay: 3.8s;
+#gallery.show .d-right {
+  transform: translateX(100%);
+  transition-delay: 1.8s;
 }
 
 /* ── Dot progress ── */
@@ -305,11 +297,10 @@ html, body {
 
     <div class="screen" id="s1" data-i="0">
       <img src="assets/slide1_married.jpg?v=5" alt="We are getting married" loading="eager">
-      <!-- Staggered reveal curtains -->
-      <div class="curtain-container">
-        <div class="c-left curtain"></div>
-        <div class="c-center curtain"></div>
-        <div class="c-right curtain"></div>
+      <!-- Double door reveal panels -->
+      <div class="door-container">
+        <div class="d-left door"></div>
+        <div class="d-right door"></div>
       </div>
     </div>
 
@@ -359,108 +350,13 @@ const screens  = Array.from(gallery.querySelectorAll('.screen'));
 const dots     = Array.from(dotsEl.querySelectorAll('.dot'));
 let opened     = false;
 
-/* ── Particles ── */
+/* ── Particles (Inert) ── */
 canvas.width  = canvas.offsetWidth  || window.innerWidth;
 canvas.height = canvas.offsetHeight || window.innerHeight;
 window.addEventListener('resize', () => {
   canvas.width  = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
 });
-
-const particles = [];
-let showerEndTime = 0;
-
-function spawnFlowerShower() {
-  showerEndTime = Date.now() + 5500; // Flower shower runs for 5.5 seconds
-  canvas.style.opacity = 1;
-  canvas.style.zIndex = 250;
-  animateFlowers();
-}
-
-function animateFlowers() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  // Continuous spawning of petals while active
-  if (Date.now() < showerEndTime && Math.random() < 0.4) {
-    for (let i = 0; i < 2; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: -20,
-        vy: 1.2 + Math.random() * 1.8,
-        r: 6 + Math.random() * 8,
-        color: ['#ffb7c5', '#ff9ebb', '#d90429', '#ffd700', '#f72585'][Math.floor(Math.random() * 5)],
-        angle: Math.random() * Math.PI * 2,
-        rotationSpeed: 0.01 + Math.random() * 0.03,
-        sway: Math.random() * 100,
-        swaySpeed: 0.02 + Math.random() * 0.03,
-        swayAmount: 0.4 + Math.random() * 1.0,
-        scaleX: Math.random(),
-        isSparkle: false
-      });
-    }
-  }
-
-  // Continuous spawning of gold dust sparkles while active
-  if (Date.now() < showerEndTime && Math.random() < 0.45) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: -10,
-      vy: 1.0 + Math.random() * 1.2,
-      r: 1.2 + Math.random() * 1.6,
-      color: '#ffd700',
-      angle: 0,
-      rotationSpeed: 0,
-      sway: Math.random() * 100,
-      swaySpeed: 0.04,
-      swayAmount: 0.25,
-      scaleX: 1,
-      isSparkle: true
-    });
-  }
-
-  let alive = false;
-  for (let i = particles.length - 1; i >= 0; i--) {
-    const p = particles[i];
-    p.y += p.vy;
-    p.sway += p.swaySpeed;
-    p.x += Math.sin(p.sway) * p.swayAmount;
-    
-    if (!p.isSparkle) {
-      p.angle += p.rotationSpeed;
-      p.scaleX = Math.sin(p.sway);
-    }
-
-    let alpha = 1;
-    if (p.y > canvas.height - 120) {
-      alpha = Math.max(0, 1 - (p.y - (canvas.height - 120)) / 120);
-    }
-
-    if (p.y > canvas.height || alpha <= 0) {
-      particles.splice(i, 1);
-      continue;
-    }
-
-    alive = true;
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.fillStyle = p.color;
-    ctx.beginPath();
-    if (p.isSparkle) {
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    } else {
-      ctx.ellipse(p.x, p.y, p.r * Math.abs(p.scaleX), p.r, p.angle, 0, Math.PI * 2);
-    }
-    ctx.fill();
-    ctx.restore();
-  }
-
-  if (alive || Date.now() < showerEndTime) {
-    requestAnimationFrame(animateFlowers);
-  } else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.style.opacity = 0;
-  }
-}
 
 /* ── Open sequence ── */
 function openInvitation() {
@@ -470,10 +366,7 @@ function openInvitation() {
   // 1. Gold Ganesha seal spins and fades out
   seal.classList.add('spinning');
 
-  // 2. Start slow aesthetic flower shower cascading from the top
-  spawnFlowerShower();
-
-  // 3. Trigger slow brush diagonal sweep of envelope after seal fade
+  // 2. Trigger slow brush diagonal sweep of envelope after seal fade (2.2s duration)
   setTimeout(() => {
     envEl.classList.add('out');
     gallery.classList.add('show');
@@ -481,10 +374,10 @@ function openInvitation() {
     gallery.scrollTop = 0;
   }, 250);
 
-  // 4. Remove envelope after transition completes
+  // 3. Remove envelope after transition completes
   setTimeout(() => { 
     envEl.style.display = 'none'; 
-  }, 4200);
+  }, 3200);
 }
 
 seal.addEventListener('click', openInvitation);

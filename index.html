@@ -47,7 +47,7 @@ html, body {
 #env {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 40%, #f5eeff 0%, #e4d8f5 45%, #fde8f0 100%);
+  background: radial-gradient(circle at 50% 40%, #7e1227 0%, #40040e 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +59,7 @@ html, body {
 }
 #env.out { opacity: 0; transform: scale(1.15); pointer-events: none; }
 
-/* Animated soft glowing background orbs */
+/* Animated soft glowing background gold dust orbs */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -67,20 +67,20 @@ html, body {
   animation: orbFloat 6s infinite ease-in-out;
   pointer-events: none;
 }
-.orb1 { width:180px; height:180px; background:rgba(180,140,230,.25); top:-40px; left:-30px; animation-delay:0s; }
-.orb2 { width:140px; height:140px; background:rgba(255,180,220,.2); bottom:-20px; right:-20px; animation-delay:2s; }
-.orb3 { width:100px; height:100px; background:rgba(255,220,160,.2); top:40%; left:60%; animation-delay:4s; }
+.orb1 { width:180px; height:180px; background:rgba(252,233,144,0.15); top:-40px; left:-30px; animation-delay:0s; }
+.orb2 { width:140px; height:140px; background:rgba(212,175,55,0.12); bottom:-20px; right:-20px; animation-delay:2s; }
+.orb3 { width:100px; height:100px; background:rgba(255,223,120,0.1); top:40%; left:60%; animation-delay:4s; }
 @keyframes orbFloat {
   0%,100% { transform: translate(0,0) scale(1); }
   50%      { transform: translate(12px,-18px) scale(1.08); }
 }
 
-/* Gold border */
+/* Double Gold border frame */
 #env::after {
   content:'';
   position: absolute;
   inset: 14px;
-  border: 1.5px solid rgba(170,124,17,.3);
+  border: 2px double rgba(252, 233, 144, 0.45);
   border-radius: 6px;
   pointer-events: none;
 }
@@ -92,16 +92,17 @@ html, body {
   z-index: 5;
 }
 
+/* Traditional Crimson/Kumkum Red Envelope */
 .env-box {
   position: relative;
   width: min(310px, 82vw);
   height: min(210px, 55.7vw);
-  background: linear-gradient(135deg, #c8b4e0, #b8a2d0);
+  background: linear-gradient(135deg, #a11a34, #6f0a1c);
   border-radius: 10px;
   box-shadow:
-    0 20px 60px rgba(93,63,155,.35),
-    0 6px 20px rgba(93,63,155,.2),
-    inset 0 1px 0 rgba(255,255,255,.3);
+    0 20px 60px rgba(64,4,14,0.55),
+    0 6px 20px rgba(64,4,14,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.2);
   transform-style: preserve-3d;
 }
 
@@ -125,35 +126,35 @@ html, body {
 .env-box.shaking { animation: envShake .55s ease; }
 .env-box.bouncing { animation: envBounce .4s ease; }
 
-/* Flap top */
+/* Crimson Flaps with rich shadows for 3D paper folding look */
 .flap-t {
   position: absolute; top:0; left:0; width:0; height:0;
-  border-top: min(105px,27.9vw) solid #d8c8ee;
+  border-top: min(105px,27.9vw) solid #b72440;
   border-left: min(155px,41.1vw) solid transparent;
   border-right: min(155px,41.1vw) solid transparent;
   transform-origin: top center;
   z-index: 4;
   transform-style: preserve-3d;
-  filter: drop-shadow(0 3px 6px rgba(93,63,155,.2));
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
   transition: transform .8s cubic-bezier(.4,0,.2,1);
 }
 .flap-l {
   position: absolute; top:0; left:0; width:0; height:0;
-  border-left: min(155px,41.1vw) solid #bca8d8;
+  border-left: min(155px,41.1vw) solid #9f1c34;
   border-top: min(105px,27.9vw) solid transparent;
   border-bottom: min(105px,27.9vw) solid transparent;
   z-index: 3;
 }
 .flap-r {
   position: absolute; top:0; right:0; width:0; height:0;
-  border-right: min(155px,41.1vw) solid #bca8d8;
+  border-right: min(155px,41.1vw) solid #9f1c34;
   border-top: min(105px,27.9vw) solid transparent;
   border-bottom: min(105px,27.9vw) solid transparent;
   z-index: 3;
 }
 .flap-b {
   position: absolute; bottom:0; left:0; width:0; height:0;
-  border-bottom: min(105px,27.9vw) solid #ac96c8;
+  border-bottom: min(105px,27.9vw) solid #821228;
   border-left: min(155px,41.1vw) solid transparent;
   border-right: min(155px,41.1vw) solid transparent;
   z-index: 3;
@@ -379,6 +380,13 @@ html, body {
 
   <!-- ── Envelope Screen ── -->
   <div id="env">
+    
+    <!-- Auspicious Hindu Wedding Golden Header (OM & Ganesha Sloka) -->
+    <div class="auspicious-header" style="text-align: center; color: #fce990; font-family: Georgia, serif; z-index: 10; margin-bottom: -15px;">
+      <span style="font-size: 2.8rem; display: block; line-height: 1.1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">ॐ</span>
+      <span style="font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(252, 233, 144, 0.9); font-weight: bold; display: block; margin-top: 5px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));">|| श्री गणेशाय नमः ||</span>
+    </div>
+
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
     <div class="orb orb3"></div>
@@ -386,16 +394,27 @@ html, body {
     <div id="box-wrap">
       <div class="env-box" id="envbox">
         <div class="flap-t"></div>
-        <div class="inner-card">
-          <span class="ic-sm">Save Our Date</span>
-          <span class="ic-lg">S &amp; A</span>
-          <span class="ic-dt">21 · 11 · 26</span>
+        
+        <!-- Ivory Inner Wedding Card with Gold Ganesh Decal & Floral Accents -->
+        <div class="inner-card" style="background: #fffdf5; border: 2px solid #aa7c11; box-shadow: inset 0 0 25px rgba(212,175,55,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; gap: 4px;">
+          <!-- Lord Ganesh Calligraphy in Gold SVG -->
+          <svg class="card-ganesha" viewBox="0 0 100 100" width="42" height="42" style="margin-bottom: 2px;">
+            <path d="M50 20 C42 12, 35 25, 42 35 C38 45, 45 65, 50 72 C55 65, 62 45, 58 35 C65 25, 58 12, 50 20 Z" 
+                  fill="none" stroke="#aa7c11" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M50 35 C42 40, 42 55, 48 60 C52 62, 55 58, 52 55 C49 52, 45 55, 46 58" 
+                  fill="none" stroke="#aa7c11" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="50" cy="27" r="2.5" fill="#aa7c11"/>
+          </svg>
+          <span style="font-family: Georgia, serif; font-size: 0.62rem; color: #aa7c11; letter-spacing: 0.15em; font-weight: bold; text-transform: uppercase;">शुभ विवाह</span>
+          <span class="ic-lg" style="font-family: Georgia, serif; font-size: 1.5rem; font-weight: bold; color: #7e1227; margin: 2px 0;">Sambit &amp; Akanksha</span>
+          <span class="ic-dt" style="font-family: Georgia, serif; font-size: 0.65rem; color: #aa7c11; letter-spacing: 0.12em; font-weight: 600; text-transform: uppercase;">21 November 2026</span>
         </div>
+        
         <div class="flap-b"></div>
         <div class="flap-l"></div>
         <div class="flap-r"></div>
 
-        <!-- Gold wax seal -->
+        <!-- Gold Ganesha Embossed Wax Seal -->
         <div class="seal" id="seal">
           <div class="seal-ring">
             <svg viewBox="0 0 100 100">
@@ -407,13 +426,15 @@ html, body {
                 </radialGradient>
               </defs>
               <circle cx="50" cy="50" r="46" fill="rgba(120,80,0,.08)"/>
-              <circle cx="50" cy="50" r="43" fill="none" stroke="rgba(120,80,10,.4)" stroke-width="1.5" stroke-dasharray="3,3"/>
-              <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(120,80,10,.3)" stroke-width="1"/>
-              <path d="M36 47 C28 36,48 28,50 46 C52 28,72 36,64 47 C56 58,50 65,50 65Z"
-                    fill="rgba(80,40,0,.25)"/>
-              <text x="50" y="56" text-anchor="middle" dominant-baseline="middle"
-                    font-family="Georgia,serif" font-size="20" font-weight="bold"
-                    fill="rgba(60,30,0,.8)">S&amp;A</text>
+              <circle cx="50" cy="50" r="43" fill="none" stroke="rgba(120,80,10,.45)" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(120,80,10,.35)" stroke-width="1"/>
+              
+              <!-- Embossed Lord Ganesha Drawing -->
+              <path d="M50 22 C43 14, 37 26, 43 35 C39 44, 45 62, 50 68 C55 62, 61 44, 57 35 C63 26, 57 14, 50 22 Z" 
+                    fill="none" stroke="url(#sg)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M50 35 C43 40, 43 53, 48 57 C51 59, 54 55, 51 52 C48 49, 45 52, 46 55" 
+                    fill="none" stroke="url(#sg)" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="50" cy="28.5" r="2" fill="url(#sg)"/>
             </svg>
             <div class="seal-glare"></div>
           </div>
@@ -424,7 +445,7 @@ html, body {
       </div>
     </div>
 
-    <span class="tap-hint">Tap the seal to open</span>
+    <span class="tap-hint" style="color: #fce990; text-shadow: 0 1px 4px rgba(0,0,0,0.8); font-weight: bold; margin-top: 10px;">Tap the seal to open</span>
   </div>
 
 

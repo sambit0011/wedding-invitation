@@ -326,27 +326,17 @@ html, body {
   justify-content: center;
 }
 
-/* ── Full image — COMPLETE, NO CROPPING ──
-   object-fit: contain  → shows the ENTIRE image
-   width/height 100%    → fills the screen dimension
-   The image is portrait; phone is portrait. It fills perfectly.
-   If there's a tiny background gap, the slide bg colour matches the card.
-*/
+/* ── Full image fills 9:16 screen perfectly ── */
 .screen img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   display: block;
 }
 
-/* Per-slide background to match each image's edge colour */
-#s1 { background: #f5e8d0; }
-#s2 { background: #f2ece0; }
-#s3 { background: #e8eedc; }
-#s4 { background: #f5e8cc; }
-#s5 { background: #f0ece8; }
-#s6 { background: #f5e8d0; }
+/* All slides dark background (images are true 9:16, no gaps) */
+.screen { background: #0e0812; }
 
 /* ── Dot progress ── */
 #dots {

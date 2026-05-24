@@ -3,24 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Sambit & Akanksha Wedding</title>
+<title>Sambit &amp; Akanksha — Wedding Invitation</title>
 <style>
 
 /* ── Reset ── */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
-/* ── Page background (desktop sees this) ── */
 html, body {
-  width: 100%;
-  height: 100%;
-  background: #111;
+  width: 100%; height: 100%;
+  background: #1a0e28;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   overflow: hidden;
 }
 
-/* ── Phone container — always 9:16 portrait ── */
+/* Phone shell */
 #app {
   position: relative;
   width: 100vw;
@@ -32,157 +29,265 @@ html, body {
 }
 
 /* ================================================================
+   PARTICLES CANVAS (behind everything)
+================================================================ */
+#particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity .3s;
+}
+#particles.show { opacity: 1; }
+
+/* ================================================================
    ENVELOPE SCREEN
 ================================================================ */
 #env {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #faf6fb, #e7def3, #ffe9f3);
+  background: radial-gradient(ellipse at 50% 40%, #f5eeff 0%, #e4d8f5 45%, #fde8f0 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  z-index: 100;
-  transition: opacity 1s ease, transform 1s ease;
+  gap: 30px;
+  z-index: 200;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+  overflow: hidden;
 }
-#env.out { opacity: 0; transform: scale(1.08); pointer-events: none; }
+#env.out { opacity: 0; transform: scale(1.15); pointer-events: none; }
 
-/* gold frame */
-#env::before {
-  content: '';
+/* Animated soft glowing background orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: orbFloat 6s infinite ease-in-out;
+  pointer-events: none;
+}
+.orb1 { width:180px; height:180px; background:rgba(180,140,230,.25); top:-40px; left:-30px; animation-delay:0s; }
+.orb2 { width:140px; height:140px; background:rgba(255,180,220,.2); bottom:-20px; right:-20px; animation-delay:2s; }
+.orb3 { width:100px; height:100px; background:rgba(255,220,160,.2); top:40%; left:60%; animation-delay:4s; }
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%      { transform: translate(12px,-18px) scale(1.08); }
+}
+
+/* Gold border */
+#env::after {
+  content:'';
   position: absolute;
   inset: 14px;
-  border: 1.5px solid rgba(170,124,17,0.3);
-  border-radius: 4px;
+  border: 1.5px solid rgba(170,124,17,.3);
+  border-radius: 6px;
   pointer-events: none;
 }
 
-/* floating dots */
-#env::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(#8b5cf6 1px, transparent 1px);
-  background-size: 36px 36px;
-  opacity: 0.06;
-  pointer-events: none;
-}
-
-/* Envelope box */
-.box {
+/* ── Envelope Box ── */
+#box-wrap {
   position: relative;
-  width: min(300px, 80vw);
-  height: min(200px, 53vw);
-  background: #c3b3db;
-  border-radius: 8px;
-  box-shadow: 0 12px 40px rgba(93,63,155,0.3);
-  perspective: 800px;
+  perspective: 1000px;
+  z-index: 5;
 }
+
+.env-box {
+  position: relative;
+  width: min(310px, 82vw);
+  height: min(210px, 55.7vw);
+  background: linear-gradient(135deg, #c8b4e0, #b8a2d0);
+  border-radius: 10px;
+  box-shadow:
+    0 20px 60px rgba(93,63,155,.35),
+    0 6px 20px rgba(93,63,155,.2),
+    inset 0 1px 0 rgba(255,255,255,.3);
+  transform-style: preserve-3d;
+}
+
+/* Envelope shake on hover/before open */
+@keyframes envShake {
+  0%,100% { transform: rotate(0deg) translateX(0); }
+  10%      { transform: rotate(-2deg) translateX(-4px); }
+  20%      { transform: rotate(2deg) translateX(4px); }
+  30%      { transform: rotate(-2deg) translateX(-3px); }
+  40%      { transform: rotate(1deg) translateX(3px); }
+  50%      { transform: rotate(-1deg) translateX(-2px); }
+  60%      { transform: rotate(1deg) translateX(2px); }
+  70%      { transform: rotate(0deg) translateX(0); }
+}
+@keyframes envBounce {
+  0%,100% { transform: translateY(0); }
+  30%      { transform: translateY(-12px); }
+  60%      { transform: translateY(-6px); }
+}
+
+.env-box.shaking { animation: envShake .55s ease; }
+.env-box.bouncing { animation: envBounce .4s ease; }
 
 /* Flap top */
 .flap-t {
-  position: absolute; top: 0; left: 0;
-  border-top: min(100px,26.5vw) solid #cdbfe3;
-  border-left: min(150px,40vw) solid transparent;
-  border-right: min(150px,40vw) solid transparent;
+  position: absolute; top:0; left:0; width:0; height:0;
+  border-top: min(105px,27.9vw) solid #d8c8ee;
+  border-left: min(155px,41.1vw) solid transparent;
+  border-right: min(155px,41.1vw) solid transparent;
   transform-origin: top center;
   z-index: 4;
-  transition: transform .65s ease;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 3px 6px rgba(93,63,155,.2));
+  transition: transform .8s cubic-bezier(.4,0,.2,1);
 }
 .flap-l {
-  position: absolute; top: 0; left: 0;
-  border-left: min(150px,40vw) solid #b4a2cd;
-  border-top: min(100px,26.5vw) solid transparent;
-  border-bottom: min(100px,26.5vw) solid transparent;
+  position: absolute; top:0; left:0; width:0; height:0;
+  border-left: min(155px,41.1vw) solid #bca8d8;
+  border-top: min(105px,27.9vw) solid transparent;
+  border-bottom: min(105px,27.9vw) solid transparent;
   z-index: 3;
 }
 .flap-r {
-  position: absolute; top: 0; right: 0;
-  border-right: min(150px,40vw) solid #b4a2cd;
-  border-top: min(100px,26.5vw) solid transparent;
-  border-bottom: min(100px,26.5vw) solid transparent;
+  position: absolute; top:0; right:0; width:0; height:0;
+  border-right: min(155px,41.1vw) solid #bca8d8;
+  border-top: min(105px,27.9vw) solid transparent;
+  border-bottom: min(105px,27.9vw) solid transparent;
   z-index: 3;
 }
 .flap-b {
-  position: absolute; bottom: 0; left: 0;
-  border-bottom: min(100px,26.5vw) solid #a693c1;
-  border-left: min(150px,40vw) solid transparent;
-  border-right: min(150px,40vw) solid transparent;
+  position: absolute; bottom:0; left:0; width:0; height:0;
+  border-bottom: min(105px,27.9vw) solid #ac96c8;
+  border-left: min(155px,41.1vw) solid transparent;
+  border-right: min(155px,41.1vw) solid transparent;
   z-index: 3;
 }
 
-/* Inner card */
+/* Inner preview card */
 .inner-card {
   position: absolute;
-  top: 8px; left: 8px;
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
-  background: #faf6fb;
+  top:8px; left:8px;
+  width:calc(100% - 16px);
+  height:calc(100% - 16px);
+  background: linear-gradient(135deg, #fdf8ff, #f5eff8);
   border: 2px solid #aa7c11;
-  border-radius: 5px;
+  border-radius: 6px;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  transition: transform .8s ease;
+  gap: 5px;
+  transition: transform 1s cubic-bezier(.25,.8,.25,1);
+  box-shadow: inset 0 0 20px rgba(170,124,17,.07);
 }
-.inner-card span { display: block; text-align: center; }
-.ic-small {
-  font-family: 'Georgia', serif;
-  font-size: .6rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: #6c5a87;
+.inner-card::before {
+  content:'';
+  position:absolute;
+  inset:6px;
+  border:1px solid rgba(170,124,17,.25);
+  border-radius:3px;
+  pointer-events:none;
 }
-.ic-big {
-  font-family: 'Georgia', serif;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: #5d3f9b;
-}
-.ic-date {
-  font-size: .65rem;
-  letter-spacing: .12em;
-  color: #6c5a87;
-}
+.ic-sm { font-family:Georgia,serif; font-size:.58rem; letter-spacing:.22em; text-transform:uppercase; color:#7a6898; }
+.ic-lg { font-family:Georgia,serif; font-size:1.8rem; font-weight:700; color:#5d3f9b; line-height:1; }
+.ic-dt { font-family:Georgia,serif; font-size:.62rem; letter-spacing:.15em; color:#8a7a9a; }
 
-/* Wax seal */
+/* ── Wax Seal ── */
 .seal {
   position: absolute;
-  top: 50%; left: 50%;
+  top:50%; left:50%;
   transform: translate(-50%,-50%);
-  z-index: 5;
-  width: 64px; height: 64px;
+  z-index: 6;
   cursor: pointer;
+  -webkit-user-select:none; user-select:none;
   transition: transform .5s cubic-bezier(.175,.885,.32,1.275), opacity .4s;
 }
-.seal svg { width: 100%; height: 100%; }
-
-/* Open states */
-.box.open .flap-t  { transform: rotateX(180deg); z-index: 1; }
-.box.open .inner-card { transform: translateY(-88%); z-index: 5; }
-.box.open .seal { transform: translate(-50%,-50%) scale(0) rotate(90deg); opacity: 0; pointer-events: none; }
-
-.tap-label {
-  font-family: 'Georgia', serif;
-  font-size: .75rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: #5d3f9b;
-  font-weight: 600;
-  animation: blink 2s infinite ease-in-out;
+.seal-ring {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #fff8d0 0%, #f0c040 30%, #aa7c11 65%, #7a5808 100%);
+  box-shadow:
+    0 0 0 3px rgba(170,124,17,.3),
+    0 6px 24px rgba(93,63,155,.4),
+    0 2px 8px rgba(0,0,0,.3),
+    inset 0 2px 6px rgba(255,255,255,.5);
+  display: flex; align-items:center; justify-content:center;
+  position: relative;
+  animation: sealPulse 2.5s infinite ease-in-out;
 }
-@keyframes blink {
-  0%,100% { opacity: .5; }
-  50%      { opacity: 1; }
+@keyframes sealPulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(170,124,17,.3), 0 6px 24px rgba(93,63,155,.4), 0 2px 8px rgba(0,0,0,.3), inset 0 2px 6px rgba(255,255,255,.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(170,124,17,.2), 0 6px 30px rgba(93,63,155,.5), 0 2px 8px rgba(0,0,0,.3), inset 0 2px 6px rgba(255,255,255,.5); }
+}
+.seal-ring svg { width:62px; height:62px; }
+.seal-glare {
+  position:absolute; top:8%; left:16%;
+  width:36%; height:36%;
+  background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,.55), transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* Seal clicked state */
+.seal.spinning {
+  animation: sealSpin .6s ease-in-out forwards;
+}
+@keyframes sealSpin {
+  0%   { transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+  40%  { transform: translate(-50%,-50%) scale(1.3) rotate(180deg); }
+  100% { transform: translate(-50%,-50%) scale(0) rotate(360deg); opacity:0; }
+}
+
+/* Flap open */
+.env-box.open .flap-t {
+  transform: rotateX(200deg);
+  z-index: 1;
+}
+/* Card slide up dramatically */
+.env-box.open .inner-card {
+  transform: translateY(-120%) scale(1.02);
+  z-index: 5;
+  box-shadow: 0 30px 60px rgba(93,63,155,.4);
+}
+
+/* Tap hint */
+.tap-hint {
+  font-family: Georgia, serif;
+  font-size: .74rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #6d4fa8;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(255,255,255,.9);
+  animation: hint 2.2s infinite ease-in-out;
+  z-index: 5;
+}
+@keyframes hint {
+  0%,100% { opacity:.45; transform:scale(1); }
+  50%      { opacity:1;   transform:scale(1.04); }
+}
+
+/* Light burst on open */
+.burst {
+  position: absolute;
+  top:50%; left:50%;
+  width:10px; height:10px;
+  border-radius:50%;
+  background:rgba(255,240,150,.9);
+  transform:translate(-50%,-50%) scale(0);
+  z-index: 10;
+  pointer-events:none;
+  opacity:0;
+}
+.burst.go {
+  animation: burstAnim .7s ease-out forwards;
+}
+@keyframes burstAnim {
+  0%   { transform:translate(-50%,-50%) scale(0); opacity:1; }
+  60%  { transform:translate(-50%,-50%) scale(40); opacity:.6; }
+  100% { transform:translate(-50%,-50%) scale(80); opacity:0; }
 }
 
 
 /* ================================================================
-   GALLERY — 6 portrait screens, scroll-snap
+   GALLERY — 6 portrait screens
 ================================================================ */
 #gallery {
   position: absolute;
@@ -193,12 +298,18 @@ html, body {
   scrollbar-width: none;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
+  transform: scale(1.06);
 }
-#gallery::-webkit-scrollbar { display: none; }
-#gallery.show { opacity: 1; pointer-events: all; }
+#gallery::-webkit-scrollbar { display:none; }
+#gallery.show {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1);
+  transition: opacity 1.2s ease, transform 1s cubic-bezier(.25,.8,.25,1);
+}
 
-/* Each screen = one full portrait viewport */
+/* Each screen = one full portrait viewport, NO captions */
 .screen {
   width: 100%;
   height: 100vh;
@@ -208,79 +319,62 @@ html, body {
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  /* Background matches the light cream of all invitation images */
+  background: #f5ecd8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Image fills entire portrait screen */
+/* ── Full image — COMPLETE, NO CROPPING ──
+   object-fit: contain  → shows the ENTIRE image
+   width/height 100%    → fills the screen dimension
+   The image is portrait; phone is portrait. It fills perfectly.
+   If there's a tiny background gap, the slide bg colour matches the card.
+*/
 .screen img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center center;
   display: block;
 }
 
-/* Bottom caption overlay */
-.cap {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 48px 18px 16px;
-  background: linear-gradient(transparent, rgba(10,5,18,.85));
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-}
-.cap-n {
-  font-family: 'Georgia', serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: rgba(170,124,17,.45);
-  line-height: 1;
-  flex-shrink: 0;
-}
-.cap-t {
-  font-family: 'Georgia', serif;
-  font-size: 1rem;
-  color: #f5e9d5;
-  line-height: 1.3;
-}
-.cap-s {
-  font-size: .58rem;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(245,233,213,.6);
-}
+/* Per-slide background to match each image's edge colour */
+#s1 { background: #f5e8d0; }
+#s2 { background: #f2ece0; }
+#s3 { background: #e8eedc; }
+#s4 { background: #f5e8cc; }
+#s5 { background: #f0ece8; }
+#s6 { background: #f5e8d0; }
 
-/* No overlay on last slide — image has all info */
-.screen.last .cap { display: none; }
-
-/* Side dots */
+/* ── Dot progress ── */
 #dots {
   position: fixed;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 300;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  z-index: 200;
   opacity: 0;
-  transition: opacity .4s;
+  transition: opacity .5s;
 }
 #dots.show { opacity: 1; }
-
 .dot {
   width: 7px; height: 7px;
   border-radius: 50%;
-  background: rgba(255,255,255,.2);
+  background: rgba(255,255,255,.25);
   border: 1.5px solid rgba(255,255,255,.4);
   cursor: pointer;
   transition: all .3s;
 }
 .dot.on {
   background: #aa7c11;
-  border-color: #aa7c11;
-  transform: scale(1.4);
-  box-shadow: 0 0 8px rgba(170,124,17,.7);
+  border-color: #d4af37;
+  transform: scale(1.5);
+  box-shadow: 0 0 10px rgba(212,175,55,.8);
 }
 
 </style>
@@ -289,113 +383,90 @@ html, body {
 
 <div id="app">
 
+  <!-- Particle canvas for gold burst -->
+  <canvas id="particles"></canvas>
+
   <!-- ── Envelope Screen ── -->
   <div id="env">
-    <div class="box" id="box">
-      <div class="flap-t"></div>
-      <div class="inner-card">
-        <span class="ic-small">Save Our Date</span>
-        <span class="ic-big">S &amp; A</span>
-        <span class="ic-date">21 · 11 · 26</span>
-      </div>
-      <div class="flap-b"></div>
-      <div class="flap-l"></div>
-      <div class="flap-r"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
 
-      <!-- Gold Wax Seal -->
-      <div class="seal" id="seal">
-        <svg viewBox="0 0 100 100">
-          <defs>
-            <radialGradient id="g" cx="38%" cy="35%" r="65%">
-              <stop offset="0%"   stop-color="#fff8d0"/>
-              <stop offset="55%"  stop-color="#d4af37"/>
-              <stop offset="100%" stop-color="#8c6408"/>
-            </radialGradient>
-          </defs>
-          <circle cx="50" cy="50" r="48" fill="url(#g)"/>
-          <circle cx="50" cy="50" r="44" fill="none" stroke="#8c6408" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#8c6408" stroke-width="1"/>
-          <path d="M37 48 C30 37,48 29,50 47 C52 29,70 37,63 48 C55 58,50 64,50 64Z"
-                fill="#6b3c00" opacity=".2"/>
-          <text x="50" y="56" text-anchor="middle" dominant-baseline="middle"
-                font-family="Georgia,serif" font-size="20" font-weight="bold"
-                fill="#3d1f00" opacity=".85">S&amp;A</text>
-          <!-- shine -->
-          <ellipse cx="38" cy="38" rx="10" ry="7" fill="rgba(255,255,255,.35)" transform="rotate(-30 38 38)"/>
-        </svg>
+    <div id="box-wrap">
+      <div class="env-box" id="envbox">
+        <div class="flap-t"></div>
+        <div class="inner-card">
+          <span class="ic-sm">Save Our Date</span>
+          <span class="ic-lg">S &amp; A</span>
+          <span class="ic-dt">21 · 11 · 26</span>
+        </div>
+        <div class="flap-b"></div>
+        <div class="flap-l"></div>
+        <div class="flap-r"></div>
+
+        <!-- Gold wax seal -->
+        <div class="seal" id="seal">
+          <div class="seal-ring">
+            <svg viewBox="0 0 100 100">
+              <defs>
+                <radialGradient id="sg" cx="38%" cy="32%" r="62%">
+                  <stop offset="0%"   stop-color="#fff8d0"/>
+                  <stop offset="45%"  stop-color="#e8c040"/>
+                  <stop offset="100%" stop-color="#7a5808"/>
+                </radialGradient>
+              </defs>
+              <circle cx="50" cy="50" r="46" fill="rgba(120,80,0,.08)"/>
+              <circle cx="50" cy="50" r="43" fill="none" stroke="rgba(120,80,10,.4)" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(120,80,10,.3)" stroke-width="1"/>
+              <path d="M36 47 C28 36,48 28,50 46 C52 28,72 36,64 47 C56 58,50 65,50 65Z"
+                    fill="rgba(80,40,0,.25)"/>
+              <text x="50" y="56" text-anchor="middle" dominant-baseline="middle"
+                    font-family="Georgia,serif" font-size="20" font-weight="bold"
+                    fill="rgba(60,30,0,.8)">S&amp;A</text>
+            </svg>
+            <div class="seal-glare"></div>
+          </div>
+        </div>
+
+        <!-- Light burst overlay -->
+        <div class="burst" id="burst"></div>
       </div>
     </div>
 
-    <span class="tap-label">Tap the seal to open</span>
+    <span class="tap-hint">Tap the seal to open</span>
   </div>
 
 
-  <!-- ── Gallery: 6 Portrait Screens ── -->
+  <!-- ── Gallery ── -->
   <div id="gallery">
 
-    <div class="screen" data-i="0">
-      <img src="assets/slide1_married.jpg" alt="We are getting married">
-      <div class="cap">
-        <span class="cap-n">01</span>
-        <div>
-          <div class="cap-t">We Are Getting Married</div>
-          <div class="cap-s">Sambit &amp; Akanksha · 2026</div>
-        </div>
-      </div>
+    <div class="screen" id="s1" data-i="0">
+      <img src="assets/slide1_married.jpg" alt="We are getting married" loading="eager">
     </div>
 
-    <div class="screen" data-i="1">
-      <img src="assets/slide2_engagement_haldi.jpg" alt="Engagement & Haldi">
-      <div class="cap">
-        <span class="cap-n">02</span>
-        <div>
-          <div class="cap-t">Engagement &amp; Haldi</div>
-          <div class="cap-s">21 Nov · DM Convention, Patrapada</div>
-        </div>
-      </div>
+    <div class="screen" id="s2" data-i="1">
+      <img src="assets/slide2_engagement_haldi.jpg" alt="Engagement & Haldi" loading="lazy">
     </div>
 
-    <div class="screen" data-i="2">
-      <img src="assets/slide3_mehendi_sangeet.jpg" alt="Mehendi & Sangeet">
-      <div class="cap">
-        <span class="cap-n">03</span>
-        <div>
-          <div class="cap-t">Mehendi &amp; Sangeet</div>
-          <div class="cap-s">21 Nov · DM Convention, Patrapada</div>
-        </div>
-      </div>
+    <div class="screen" id="s3" data-i="2">
+      <img src="assets/slide3_mehendi_sangeet.jpg" alt="Mehendi & Sangeet" loading="lazy">
     </div>
 
-    <div class="screen" data-i="3">
-      <img src="assets/slide4_wedding.jpg" alt="The Wedding">
-      <div class="cap">
-        <span class="cap-n">04</span>
-        <div>
-          <div class="cap-t">The Wedding</div>
-          <div class="cap-s">22 Nov · Shreenika DM Signature</div>
-        </div>
-      </div>
+    <div class="screen" id="s4" data-i="3">
+      <img src="assets/slide4_wedding.jpg" alt="The Wedding" loading="lazy">
     </div>
 
-    <div class="screen" data-i="4">
-      <img src="assets/slide5_reception.jpg" alt="Grand Reception">
-      <div class="cap">
-        <span class="cap-n">05</span>
-        <div>
-          <div class="cap-t">Grand Reception</div>
-          <div class="cap-s">25 Nov · Shreenika DM Signature</div>
-        </div>
-      </div>
+    <div class="screen" id="s5" data-i="4">
+      <img src="assets/slide5_reception.jpg" alt="Grand Reception" loading="lazy">
     </div>
 
-    <div class="screen last" data-i="5">
-      <img src="assets/slide6_thankyou.jpg" alt="Thank You">
-      <div class="cap"></div>
+    <div class="screen" id="s6" data-i="5">
+      <img src="assets/slide6_thankyou.jpg" alt="Thank You" loading="lazy">
     </div>
 
-  </div><!-- /gallery -->
+  </div>
 
-  <!-- Progress dots -->
+  <!-- Dots -->
   <div id="dots">
     <div class="dot on"  data-go="0"></div>
     <div class="dot"     data-go="1"></div>
@@ -408,49 +479,138 @@ html, body {
 </div><!-- /app -->
 
 <script>
-const env     = document.getElementById('env');
-const box     = document.getElementById('box');
-const seal    = document.getElementById('seal');
-const gallery = document.getElementById('gallery');
-const dotsEl  = document.getElementById('dots');
-const screens = Array.from(gallery.querySelectorAll('.screen'));
-const dots    = Array.from(dotsEl.querySelectorAll('.dot'));
-let opened    = false;
+/* ── Elements ── */
+const envEl    = document.getElementById('env');
+const envbox   = document.getElementById('envbox');
+const seal     = document.getElementById('seal');
+const gallery  = document.getElementById('gallery');
+const dotsEl   = document.getElementById('dots');
+const burst    = document.getElementById('burst');
+const canvas   = document.getElementById('particles');
+const ctx      = canvas.getContext('2d');
+const screens  = Array.from(gallery.querySelectorAll('.screen'));
+const dots     = Array.from(dotsEl.querySelectorAll('.dot'));
+let opened     = false;
 
-/* Open envelope on seal tap */
-function openEnvelope() {
-  if (opened) return;
-  opened = true;
-  box.classList.add('open');
-  setTimeout(() => {
-    env.classList.add('out');
-    gallery.classList.add('show');
-    dotsEl.classList.add('show');
-  }, 1000);
-  setTimeout(() => { env.style.display = 'none'; }, 2200);
+/* ── Particles ── */
+canvas.width  = canvas.offsetWidth  || window.innerWidth;
+canvas.height = canvas.offsetHeight || window.innerHeight;
+window.addEventListener('resize', () => {
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+});
+
+const particles = [];
+const COLORS = ['#fce990','#d4af37','#aa7c11','#fff8c0','#f0c040','#ffecb0'];
+
+function spawnParticles() {
+  canvas.style.opacity = 1;
+  for (let i = 0; i < 120; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 3 + Math.random() * 7;
+    particles.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 3,
+      r: 2 + Math.random() * 4,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      alpha: 1,
+      gravity: .12 + Math.random() * .08,
+      decay: .012 + Math.random() * .015
+    });
+  }
+  animateParticles();
 }
 
-seal.addEventListener('click', openEnvelope);
-seal.addEventListener('touchend', e => { e.preventDefault(); openEnvelope(); });
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let alive = false;
+  for (const p of particles) {
+    if (p.alpha <= 0) continue;
+    alive = true;
+    p.x  += p.vx;
+    p.y  += p.vy;
+    p.vy += p.gravity;
+    p.vx *= .97;
+    p.alpha -= p.decay;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, p.alpha);
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  if (alive) requestAnimationFrame(animateParticles);
+  else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.opacity = 0; }
+}
 
-/* Dot sync */
+/* ── Open sequence ── */
+function openInvitation() {
+  if (opened) return;
+  opened = true;
+
+  // 1. Seal spin + disappear
+  seal.classList.add('spinning');
+
+  // 2. Envelope shakes
+  setTimeout(() => {
+    envbox.classList.add('shaking');
+    envbox.addEventListener('animationend', () => envbox.classList.remove('shaking'), { once: true });
+  }, 200);
+
+  // 3. Bounce then flap opens
+  setTimeout(() => {
+    envbox.classList.add('bouncing');
+    envbox.addEventListener('animationend', () => {
+      envbox.classList.remove('bouncing');
+      envbox.classList.add('open');
+    }, { once: true });
+  }, 700);
+
+  // 4. Gold burst + particles
+  setTimeout(() => {
+    burst.classList.add('go');
+    spawnParticles();
+    canvas.style.zIndex = 150;
+  }, 900);
+
+  // 5. Crossfade to gallery
+  setTimeout(() => {
+    envEl.classList.add('out');
+    gallery.classList.add('show');
+    dotsEl.classList.add('show');
+  }, 1500);
+
+  // 6. Remove envelope
+  setTimeout(() => { envEl.style.display = 'none'; }, 3000);
+}
+
+seal.addEventListener('click', openInvitation);
+seal.addEventListener('touchend', e => { e.preventDefault(); openInvitation(); });
+
+/* ── Dot sync ── */
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const i = parseInt(entry.target.dataset.i);
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = +e.target.dataset.i;
       dots.forEach((d,j) => d.classList.toggle('on', i === j));
     }
   });
 }, { root: gallery, threshold: 0.5 });
-
 screens.forEach(s => obs.observe(s));
 
-/* Dot click → jump */
-dots.forEach((d, i) => {
-  d.addEventListener('click', () => {
-    screens[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+dots.forEach((d,i) => {
+  d.addEventListener('click', () => screens[i]?.scrollIntoView({ behavior:'smooth', block:'start' }));
 });
+
+/* ── Preload ── */
+setTimeout(() => {
+  ['slide2_engagement_haldi','slide3_mehendi_sangeet','slide4_wedding','slide5_reception','slide6_thankyou']
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg`; });
+}, 800);
 </script>
+
 </body>
 </html>

@@ -248,22 +248,6 @@ html, body {
   box-shadow: 0 30px 60px rgba(93,63,155,.4);
 }
 
-/* Tap hint */
-.tap-hint {
-  font-family: Georgia, serif;
-  font-size: .74rem;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: #6d4fa8;
-  font-weight: 600;
-  text-shadow: 0 1px 4px rgba(255,255,255,.9);
-  animation: hint 2.2s infinite ease-in-out;
-  z-index: 5;
-}
-@keyframes hint {
-  0%,100% { opacity:.45; transform:scale(1); }
-  50%      { opacity:1;   transform:scale(1.04); }
-}
 
 /* Light burst on open */
 .burst {
@@ -381,10 +365,17 @@ html, body {
   <!-- ── Envelope Screen ── -->
   <div id="env">
     
-    <!-- Auspicious Hindu Wedding Golden Header (OM & Ganesha Sloka) -->
+    <!-- Auspicious Hindu Wedding Golden Header (Ganesha SVG & OM) -->
     <div class="auspicious-header" style="text-align: center; color: #fce990; font-family: Georgia, serif; z-index: 10; margin-bottom: -15px;">
-      <span style="font-size: 2.8rem; display: block; line-height: 1.1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">ॐ</span>
-      <span style="font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(252, 233, 144, 0.9); font-weight: bold; display: block; margin-top: 5px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));">|| श्री गणेशाय नमः ||</span>
+      <!-- Calligraphic Ganesh Ji Face Icon in Golden Colour -->
+      <svg viewBox="0 0 100 100" width="72" height="72" style="margin: 0 auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">
+        <path d="M50 22 C43 14, 37 26, 43 35 C39 44, 45 62, 50 68 C55 62, 61 44, 57 35 C63 26, 57 14, 50 22 Z" 
+              fill="none" stroke="#fce990" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M50 35 C43 40, 43 53, 48 57 C51 59, 54 55, 51 52 C48 49, 45 52, 46 55" 
+              fill="none" stroke="#fce990" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="50" cy="28.5" r="2" fill="#fce990"/>
+      </svg>
+      <span style="font-size: 2rem; display: block; line-height: 1; margin-top: -6px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">ॐ</span>
     </div>
 
     <div class="orb orb1"></div>
@@ -445,7 +436,6 @@ html, body {
       </div>
     </div>
 
-    <span class="tap-hint" style="color: #fce990; text-shadow: 0 1px 4px rgba(0,0,0,0.8); font-weight: bold; margin-top: 10px;">Tap the seal to open</span>
   </div>
 
 

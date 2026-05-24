@@ -6,16 +6,16 @@
     <title>Wedding Invitation | Sambit & Akanksha</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal. Join us for the celebrations on November 21-25, 2026, in Udaipur, Rajasthan.">
+    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal. Join us for the celebrations on November 21-25, 2026.">
     <meta name="theme-color" content="#FAF6FB">
     
-    <!-- Open Graph (for WhatsApp, Facebook, iMessage sharing previews) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Wedding Invitation - Sambit & Akanksha">
     <meta property="og:description" content="We invite you to join us in celebrating our love. Click to open our interactive wedding invitation.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/couple_portrait.jpg">
+    <meta property="og:image" content="assets/slide1_married.jpg">
     
-    <!-- iOS Web App Meta Tags -->
+    <!-- iOS Web App -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="S&A Wedding">
@@ -30,34 +30,30 @@
 </head>
 <body>
 
-    <!-- FIRST SCREEN: THE INTERACTIVE 3D ENVELOPE (LAVENDER EDITION) -->
+    <!-- ===== SCREEN 1: ENVELOPE + WAX SEAL ===== -->
     <div class="envelope-screen" id="envelope-screen">
         <div class="stars-bg"></div>
         
-        <!-- Screen 1 Borders (Deco without photo) -->
+        <!-- Decorative border corners -->
         <div class="screen-border-deco">
-            <!-- Top Left -->
             <svg class="corner-deco top-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M10,10 L90,10 M10,10 L10,90" />
                 <path d="M20,20 Q40,20 40,40 Q20,40 20,20 Z" />
                 <path d="M15,15 L35,35" />
                 <circle cx="40" cy="40" r="3" fill="#aa7c11" />
             </svg>
-            <!-- Top Right -->
             <svg class="corner-deco top-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M90,10 L10,10 M90,10 L90,90" />
                 <path d="M80,20 Q60,20 60,40 Q80,40 80,20 Z" />
                 <path d="M85,15 L65,35" />
                 <circle cx="60" cy="40" r="3" fill="#aa7c11" />
             </svg>
-            <!-- Bottom Left -->
             <svg class="corner-deco bottom-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M10,90 L90,90 M10,90 L10,10" />
                 <path d="M20,80 Q40,80 40,60 Q20,60 20,80 Z" />
                 <path d="M15,85 L35,65" />
                 <circle cx="40" cy="60" r="3" fill="#aa7c11" />
             </svg>
-            <!-- Bottom Right -->
             <svg class="corner-deco bottom-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
                 <path d="M90,90 L10,90 M90,90 L90,10" />
                 <path d="M80,80 Q60,80 60,60 Q80,60 80,80 Z" />
@@ -68,31 +64,31 @@
 
         <div class="envelope-container">
             <div class="envelope" id="interactive-envelope">
-                <!-- Flap Top (folds down/up) -->
+                <!-- Flap Top -->
                 <div class="envelope-flap-top"></div>
                 
-                <!-- Inner Card Preview (slides up) -->
+                <!-- Inner Card Preview -->
                 <div class="envelope-card-preview">
                     <div class="preview-content">
                         <span class="preview-heading">Save Our Date</span>
-                        <span class="preview-names">S & A</span>
+                        <span class="preview-names">S &amp; A</span>
                         <span class="preview-date">21 . 11 . 26</span>
                     </div>
                 </div>
                 
-                <!-- Flap Left & Right & Bottom (visually covers the front card) -->
+                <!-- Side & Bottom Flaps -->
                 <div class="envelope-flap-bottom"></div>
                 <div class="envelope-flap-left"></div>
                 <div class="envelope-flap-right"></div>
                 
-                <!-- Golden Wax Seal (Coin style in the exact center) -->
+                <!-- Golden Wax Seal -->
                 <div class="wax-seal" id="wax-seal" aria-label="Click to open the wedding invitation">
                     <div class="seal-inner">
                         <svg class="seal-svg" viewBox="0 0 100 100">
                             <circle cx="50" cy="50" r="43" stroke="#aa7c11" stroke-width="2" fill="none" stroke-dasharray="2, 2" />
                             <circle cx="50" cy="50" r="40" stroke="#aa7c11" stroke-width="1.5" fill="none" />
                             <path d="M 37 48 C 30 38, 48 30, 50 48 C 52 30, 70 38, 63 48 C 55 57, 50 63, 50 63 Z" fill="#aa7c11" opacity="0.15"/>
-                            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-size="18" font-weight="bold" fill="url(#goldGradient)">S&A</text>
+                            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-size="18" font-weight="bold" fill="url(#goldGradient)">S&amp;A</text>
                             <defs>
                                 <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stop-color="#fff6cc" />
@@ -112,479 +108,188 @@
         </div>
     </div>
 
-    <!-- MAIN SCREEN: SCROLLABLE INVITATION DETAILS (SNAP SCROLLING ENABLED) -->
-    <div class="main-invitation" id="main-invitation">
+    <!-- ===== SCREEN 2: SCROLLABLE INVITATION GALLERY ===== -->
+    <div class="gallery-screen" id="gallery-screen">
         
-        <!-- SECTION 1: HERO COVER (1ST SCREEN - WATERCOLOR MANDAP CARD BACKGROUND) -->
-        <header class="section hero-section" id="sec-hero">
+        <!-- Fixed Header Bar -->
+        <div class="gallery-header">
+            <div class="gallery-header-names">Sambit &amp; Akanksha</div>
+            <div class="gallery-header-date">21 · 22 · 25 November 2026</div>
+        </div>
 
-            <!-- Top text content: Save the Date, Names, Date -->
-            <div class="hero-top-content animate-fade-in">
-                <span class="modern-subtitle">S A V E   T H E   D A T E</span>
-                <h1 class="modern-names">Sambit <span class="modern-ampersand">&</span> Akanksha</h1>
-                <div class="modern-date">22 . 11 . 26</div>
-            </div>
+        <!-- Scrollable Image Stack -->
+        <div class="gallery-scroll" id="gallery-scroll">
 
-            <!-- Couple portrait: positioned at bottom, no background, emerging from below -->
-            <div class="couple-bottom-container">
-                <img class="couple-portrait-bottom" src="assets/couple_nobg.png" alt="Sambit and Akanksha">
-            </div>
-
-        </header>
-
-        <!-- SECTION 2: THE COUNTDOWN -->
-        <section class="section countdown-section" id="sec-countdown">
-            <div class="slide-border-deco deco-lavender"></div>
-            <h2 class="section-title">The Countdown</h2>
-            <p class="section-subtitle">Days left until we say "I Do"</p>
-            
-            <div class="countdown-grid" id="countdown-timer">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days">00</div>
-                    <div class="countdown-label">Days</div>
+            <!-- Slide 1: We Are Getting Married -->
+            <div class="gallery-slide" id="slide-1">
+                <div class="slide-image-wrapper">
+                    <img 
+                        src="assets/slide1_married.jpg" 
+                        alt="We are getting married - Sambit & Akanksha"
+                        class="slide-image"
+                        loading="eager"
+                    >
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours">00</div>
-                    <div class="countdown-label">Hours</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">00</div>
-                    <div class="countdown-label">Mins</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">00</div>
-                    <div class="countdown-label">Secs</div>
+                <div class="slide-label">
+                    <span class="slide-number">01</span>
+                    <span class="slide-caption">We are getting married</span>
                 </div>
             </div>
-            
-            <div class="scroll-cue">Scroll to explore events ↓</div>
-        </section>
 
-        <!-- SECTION 3: THE LOVE STORY -->
-        <section class="section story-section" id="sec-story">
-            <div class="slide-border-deco deco-lavender"></div>
-            <div class="ornament-top">
-                <svg viewBox="0 0 100 20" width="120" height="24">
-                    <path d="M10 10 Q 30 0, 50 10 T 90 10" fill="none" stroke="#d4af37" stroke-width="1.5"/>
-                    <circle cx="50" cy="10" r="3" fill="#d4af37"/>
-                </svg>
-            </div>
-            <h2 class="section-title">Our Love Story</h2>
-            <div class="story-content-box">
-                <p class="story-text">
-                    From a chance meeting that sparked a lifelong connection, to years of shared laughter, quiet support, and growing together—our journey has brought us here.
-                </p>
-                <p class="story-text font-italic">
-                    "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."
-                </p>
-                <p class="story-text">
-                    We cannot wait to write our next chapter in the city of lakes, Udaipur, surrounded by our beloved family and friends.
-                </p>
-            </div>
-        </section>
-
-        <!-- EVENT 1: ENGAGEMENT (DAY 1) -->
-        <section class="section event-slide-section section-engagement" id="sec-engagement">
-            <!-- Custom Lavender & Gold filigree scroll borders -->
-            <div class="slide-border-deco deco-engagement">
-                <svg class="corner-deco top-left" viewBox="0 0 100 100" width="80" height="80">
-                    <path d="M10,40 Q10,10 40,10 M10,20 Q20,20 20,10 M30,10 C30,30 10,30 10,30" fill="none" stroke="#5D3F9B" stroke-width="2" />
-                    <circle cx="30" cy="30" r="4" fill="#aa7c11" />
-                </svg>
-                <svg class="corner-deco top-right" viewBox="0 0 100 100" width="80" height="80">
-                    <path d="M90,40 Q90,10 60,10 M90,20 Q80,20 80,10 M70,10 C70,30 90,30 90,30" fill="none" stroke="#5D3F9B" stroke-width="2" />
-                    <circle cx="70" cy="30" r="4" fill="#aa7c11" />
-                </svg>
-                <svg class="corner-deco bottom-left" viewBox="0 0 100 100" width="80" height="80">
-                    <path d="M10,60 Q10,90 40,90 M10,80 Q20,80 20,90 M30,90 C30,70 10,70 10,70" fill="none" stroke="#5D3F9B" stroke-width="2" />
-                    <circle cx="30" cy="70" r="4" fill="#aa7c11" />
-                </svg>
-                <svg class="corner-deco bottom-right" viewBox="0 0 100 100" width="80" height="80">
-                    <path d="M90,60 Q90,90 60,90 M90,80 Q80,80 80,90 M70,90 C70,70 90,70 90,70" fill="none" stroke="#5D3F9B" stroke-width="2" />
-                    <circle cx="70" cy="70" r="4" fill="#aa7c11" />
-                </svg>
-            </div>
-
-            <div class="event-badge main-badge">Day 1 — Morning</div>
-            <h2 class="event-slide-title">The Engagement</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 10:00 AM</span>
-                    <span class="slide-meta-item">📍 Mewar Durbar Hall, Udaipur</span>
+            <!-- Slide 2: Engagement & Haldi -->
+            <div class="gallery-slide" id="slide-2">
+                <div class="slide-image-wrapper">
+                    <img 
+                        src="assets/slide2_engagement_haldi.jpg" 
+                        alt="Engagement & Haldi - 21st November"
+                        class="slide-image"
+                        loading="lazy"
+                    >
                 </div>
-                
-                <p class="event-slide-desc">Join us as we exchange rings and officially begin our sacred journey to forever.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> The beginning of our forever.</div>
-                    <strong>Dress Code:</strong> Pastel Suits & Elegant Gowns
+                <div class="slide-label">
+                    <span class="slide-number">02</span>
+                    <span class="slide-caption">Engagement &amp; Haldi · 21st Nov</span>
                 </div>
-                
-                <a href="https://maps.google.com/?q=Durbar+Hall+Fateh+Prakash+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 2: HALDI (DAY 1) -->
-        <section class="section event-slide-section section-haldi" id="sec-haldi">
-            <!-- Custom yellow marigold garland borders -->
-            <div class="slide-border-deco deco-haldi">
-                <!-- Top Garland -->
-                <svg class="border-top-garland" viewBox="0 0 300 30" width="100%" height="24" preserveAspectRatio="none">
-                    <path d="M10,10 Q30,25 50,10 T90,10 T130,10 T170,10 T210,10 T250,10 T290,10" fill="none" stroke="#FFA500" stroke-width="4" stroke-dasharray="1, 8" stroke-linecap="round" />
-                    <path d="M10,10 Q30,25 50,10 T90,10 T130,10 T170,10 T210,10 T250,10 T290,10" fill="none" stroke="#FFD700" stroke-width="6" stroke-dasharray="6, 12" stroke-linecap="round" />
-                </svg>
-                <!-- Bottom Garland -->
-                <svg class="border-bottom-garland" viewBox="0 0 300 30" width="100%" height="24" preserveAspectRatio="none">
-                    <path d="M10,20 Q30,5 50,20 T90,20 T130,20 T170,20 T210,20 T250,20 T290,20" fill="none" stroke="#FFA500" stroke-width="4" stroke-dasharray="1, 8" stroke-linecap="round" />
-                    <path d="M10,20 Q30,5 50,20 T90,20 T130,20 T170,20 T210,20 T250,20 T290,20" fill="none" stroke="#FFD700" stroke-width="6" stroke-dasharray="6, 12" stroke-linecap="round" />
-                </svg>
             </div>
 
-            <div class="event-badge">Day 1 — Ritual</div>
-            <h2 class="event-slide-title color-yellow">The Haldi Ceremony</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 11:00 AM</span>
-                    <span class="slide-meta-item">📍 Poolside Meadows, Chunda Palace</span>
+            <!-- Slide 3: Mehendi & Sangeet -->
+            <div class="gallery-slide" id="slide-3">
+                <div class="slide-image-wrapper">
+                    <img 
+                        src="assets/slide3_mehendi_sangeet.jpg" 
+                        alt="Mehendi & Sangeet - 21st November"
+                        class="slide-image"
+                        loading="lazy"
+                    >
                 </div>
-                
-                <p class="event-slide-desc">Drench us in love, laughter, and a bright layer of turmeric paste accompanied by pool splashes and traditional tunes.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> Drenched in yellow, laughter, and love.</div>
-                    <strong>Dress Code:</strong> Sunny Yellow / Traditional Mustard & White
+                <div class="slide-label">
+                    <span class="slide-number">03</span>
+                    <span class="slide-caption">Mehendi &amp; Sangeet · 21st Nov</span>
                 </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 3: LUNCH (DAY 1) -->
-        <section class="section event-slide-section section-lunch" id="sec-lunch">
-            <!-- Custom Green Leaves / Floral borders -->
-            <div class="slide-border-deco deco-lunch">
-                <svg class="corner-deco top-left" viewBox="0 0 100 100" width="80" height="80">
-                    <path d="M10,10 C20,30 30,30 50,20 C30,40 30,60 10,90 C20,60 40,60 60,50 C40,70 20,80 10,10" fill="#2E7D32" opacity="0.15" />
-                    <path d="M10,10 Q40,30 50,20" fill="none" stroke="#2E7D32" stroke-width="2" />
-                    <path d="M10,10 Q20,40 10,90" fill="none" stroke="#2E7D32" stroke-width="1.5" />
-                </svg>
-                <svg class="corner-deco top-right" viewBox="0 0 100 100" width="80" height="80">
-                    <path d="M90,10 C80,30 70,30 50,20 C70,40 70,60 90,90 C80,60 60,60 40,50 C60,70 80,80 90,10" fill="#2E7D32" opacity="0.15" />
-                    <path d="M90,10 Q60,30 50,20" fill="none" stroke="#2E7D32" stroke-width="2" />
-                    <path d="M90,10 Q80,40 90,90" fill="none" stroke="#2E7D32" stroke-width="1.5" />
-                </svg>
             </div>
 
-            <div class="event-badge">Day 1 — Afternoon</div>
-            <h2 class="event-slide-title color-green">The Celebratory Lunch</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 12:00 PM</span>
-                    <span class="slide-meta-item">📍 Royal Pavilions, Chunda Palace</span>
+            <!-- Slide 4: Wedding -->
+            <div class="gallery-slide" id="slide-4">
+                <div class="slide-image-wrapper">
+                    <img 
+                        src="assets/slide4_wedding.jpg" 
+                        alt="Wedding - 22nd November"
+                        class="slide-image"
+                        loading="lazy"
+                    >
                 </div>
-                
-                <p class="event-slide-desc">Take a brief pause in the day to relax, chat, and savor an exquisite spread of traditional Rajasthani and global cuisines.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> Savoring sweet moments together.</div>
-                    <strong>Dress Code:</strong> Casual Smart / Floral Day-wear
+                <div class="slide-label">
+                    <span class="slide-number">04</span>
+                    <span class="slide-caption">The Wedding · 22nd Nov</span>
                 </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 4: MEHNDI (DAY 1) -->
-        <section class="section event-slide-section section-mehendi" id="sec-mehendi">
-            <!-- Custom Paisley / Mandala Henna borders -->
-            <div class="slide-border-deco deco-mehendi">
-                <svg class="corner-deco top-left" viewBox="0 0 100 100" width="90" height="90" fill="none" stroke="#A86E45" stroke-width="1.2">
-                    <circle cx="10" cy="10" r="10" />
-                    <circle cx="10" cy="10" r="20" stroke-dasharray="2, 3" />
-                    <path d="M10,30 Q30,30 30,10" />
-                    <path d="M10,40 Q40,40 40,10" stroke-dasharray="1, 4" />
-                    <path d="M10,50 Q50,50 50,10" />
-                </svg>
-                <svg class="corner-deco top-right" viewBox="0 0 100 100" width="90" height="90" fill="none" stroke="#A86E45" stroke-width="1.2">
-                    <circle cx="90" cy="10" r="10" />
-                    <circle cx="90" cy="10" r="20" stroke-dasharray="2, 3" />
-                    <path d="M90,30 Q70,30 70,10" />
-                    <path d="M90,40 Q60,40 60,10" stroke-dasharray="1, 4" />
-                    <path d="M90,50 Q50,50 50,10" />
-                </svg>
             </div>
 
-            <div class="event-badge">Day 1 — Celebration</div>
-            <h2 class="event-slide-title color-henna">The Mehendi</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 06:00 PM</span>
-                    <span class="slide-meta-item">📍 Courtyard Fountain, Chunda Palace</span>
+            <!-- Slide 5: Reception -->
+            <div class="gallery-slide" id="slide-5">
+                <div class="slide-image-wrapper">
+                    <img 
+                        src="assets/slide5_reception.jpg" 
+                        alt="Reception - 25th November"
+                        class="slide-image"
+                        loading="lazy"
+                    >
                 </div>
-                
-                <p class="event-slide-desc">Adorn your hands with dark, aromatic henna as the evening royal lanterns flicker to life.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> Let the henna paint our love story.</div>
-                    <strong>Dress Code:</strong> Vibrant Traditional / Green, Mustard & Teal
+                <div class="slide-label">
+                    <span class="slide-number">05</span>
+                    <span class="slide-caption">Grand Reception · 25th Nov</span>
                 </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 5: SANGEET (DAY 1) -->
-        <section class="section event-slide-section section-sangeet" id="sec-sangeet">
-            <!-- Custom Sparkles & Stars borders -->
-            <div class="slide-border-deco deco-sangeet">
-                <!-- Sparkles -->
-                <span class="star-deco pos-1">✦</span>
-                <span class="star-deco pos-2">✦</span>
-                <span class="star-deco pos-3">★</span>
-                <span class="star-deco pos-4">✦</span>
-                <span class="star-deco pos-5">★</span>
-                <span class="star-deco pos-6">✦</span>
             </div>
 
-            <div class="event-badge main-badge">Day 1 — Gala</div>
-            <h2 class="event-slide-title color-glitz">The Sangeet Night</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 07:00 PM</span>
-                    <span class="slide-meta-item">📍 Grand Palace Terrace, Chunda Palace</span>
-                </div>
-                
-                <p class="event-slide-desc">Put on your dancing shoes! Join us for a high-energy evening of dance performances, beats, and stellar musical memories.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> Dance, music, and a night full of beats.</div>
-                    <strong>Dress Code:</strong> Glitzy Indo-Western / Glamorous Ethnic
-                </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 6: DINNER (DAY 1) -->
-        <section class="section event-slide-section section-dinner1" id="sec-dinner1">
-            <!-- Custom Starry Sky / Crescent Moon outline border -->
-            <div class="slide-border-deco deco-dinner1">
-                <svg class="top-center-deco" viewBox="0 0 100 40" width="80" height="32" fill="none" stroke="#aa7c11">
-                    <path d="M10,10 Q50,30 90,10" stroke-width="1" />
-                    <path d="M50,15 C45,15 45,5 50,5 C55,5 55,15 50,15 Z" fill="#aa7c11" />
-                    <circle cx="20" cy="12" r="1.5" />
-                    <circle cx="80" cy="12" r="1.5" />
-                </svg>
-            </div>
-
-            <div class="event-badge">Day 1 — Night</div>
-            <h2 class="event-slide-title">The Royal Dinner</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 09:00 PM</span>
-                    <span class="slide-meta-item">📍 Mewari Pavilions, Chunda Palace</span>
-                </div>
-                
-                <p class="event-slide-desc">Savor an exquisite traditional royal banquet under the starry Rajasthani night to cap off an incredible first day of celebrations.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> A royal feast to end Day One.</div>
-                    <strong>Dress Code:</strong> Continue Sangeet Attire
-                </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 7: BARAAT & WEDDING VOWS (DAY 2) -->
-        <section class="section event-slide-section section-baraat" id="sec-baraat">
-            <!-- Custom Royal Red Rose & Paisley borders (Matching the portrait border) -->
-            <div class="slide-border-deco deco-baraat">
-                <svg class="corner-deco top-left" viewBox="0 0 120 120" width="100" height="100" fill="none" stroke="#D32F2F" stroke-width="1.5">
-                    <!-- Rose outline -->
-                    <circle cx="30" cy="30" r="15" fill="#FFEbee" />
-                    <path d="M25,25 C30,20 35,20 35,25 C35,30 30,35 25,35 Z" fill="#D32F2F" opacity="0.3" />
-                    <path d="M30,30 C35,35 40,30 40,25" />
-                    <path d="M10,10 L90,10 M10,10 L10,90" stroke="#aa7c11" />
-                    <path d="M45,10 Q65,10 65,30" />
-                </svg>
-                <svg class="corner-deco top-right" viewBox="0 0 120 120" width="100" height="100" fill="none" stroke="#D32F2F" stroke-width="1.5">
-                    <circle cx="90" cy="30" r="15" fill="#FFEbee" />
-                    <path d="M95,25 C90,20 85,20 85,25 C85,30 90,35 95,35 Z" fill="#D32F2F" opacity="0.3" />
-                    <path d="M90,30 C85,35 80,30 80,25" />
-                    <path d="M110,10 L30,10 M110,10 L110,90" stroke="#aa7c11" />
-                    <path d="M75,10 Q55,10 55,30" />
-                </svg>
-            </div>
-
-            <div class="event-badge main-badge">Day 2 — The Wedding</div>
-            <h2 class="event-slide-title color-royal">Baraat & Vows</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 07:00 PM onwards</span>
-                    <span class="slide-meta-item">📍 Sunset Dome, Chunda Palace</span>
-                </div>
-                
-                <p class="event-slide-desc">Witness our sacred wedding vows as Sambit arrives in the grand groom's procession (Baraat), followed by pheras under a palace canopy.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> The grand wedding procession.</div>
-                    <strong>Dress Code:</strong> Royal Indian Traditional / Safas & Sherwanis
-                </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 8: WEDDING DINNER (DAY 2) -->
-        <section class="section event-slide-section section-dinner2" id="sec-dinner2">
-            <div class="slide-border-deco deco-dinner2">
-                <svg class="bottom-center-deco" viewBox="0 0 100 40" width="80" height="32" fill="none" stroke="#aa7c11">
-                    <path d="M10,30 Q50,10 90,30" stroke-width="1" />
-                    <circle cx="50" cy="18" r="3" fill="#5D3F9B" />
-                </svg>
-            </div>
-
-            <div class="event-badge">Day 2 — Feast</div>
-            <h2 class="event-slide-title">The Wedding Dinner</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 09:00 PM</span>
-                    <span class="slide-meta-item">📍 Sunset Lawns, Chunda Palace</span>
-                </div>
-                
-                <p class="event-slide-desc">Celebrate our first meal together as husband and wife under a candle-lit starry canopy with live classic sitar music.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> A warm celebration under the stars.</div>
-                    <strong>Dress Code:</strong> Rich Silk Sarees / Traditional Suits & Sherwanis
-                </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- EVENT 9: THE GRAND RECEPTION (DAY 3) -->
-        <section class="section event-slide-section section-reception" id="sec-reception">
-            <!-- Custom Glitter & Royal Ballroom gold lines -->
-            <div class="slide-border-deco deco-reception">
-                <svg class="corner-deco top-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1">
-                    <path d="M10,10 L90,10 M10,10 L10,90" stroke-width="2" />
-                    <circle cx="10" cy="10" r="5" fill="#aa7c11" />
-                    <line x1="10" y1="10" x2="60" y2="60" />
-                    <circle cx="60" cy="60" r="3.5" fill="#5D3F9B" />
-                </svg>
-                <svg class="corner-deco top-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1">
-                    <path d="M90,10 L10,10 M90,10 L90,90" stroke-width="2" />
-                    <circle cx="90" cy="10" r="5" fill="#aa7c11" />
-                    <line x1="90" y1="10" x2="40" y2="60" />
-                    <circle cx="40" cy="60" r="3.5" fill="#5D3F9B" />
-                </svg>
-            </div>
-
-            <div class="event-badge main-badge">Day 3 — Celebration</div>
-            <h2 class="event-slide-title color-royal">Grand Reception</h2>
-            
-            <div class="event-slide-card">
-                <div class="event-meta-row">
-                    <span class="slide-meta-item">🕒 07:30 PM</span>
-                    <span class="slide-meta-item">📍 The Mewar Ballroom, Chunda Palace</span>
-                </div>
-                
-                <p class="event-slide-desc">Join us for a grand evening of toasts, live band performances, laughter, and a gala feast to celebrate our new beginnings.</p>
-                
-                <div class="dress-code">
-                    <div class="dress-theme"><strong>Theme:</strong> A grand toast to the new Mr. & Mrs.</div>
-                    <strong>Dress Code:</strong> Glamorous Tuxedos / Elegant Formal Gowns / Banarasi Silks
-                </div>
-                
-                <a href="https://maps.google.com/?q=Chunda+Palace+Udaipur" target="_blank" rel="noopener noreferrer" class="btn btn-gold-outline maps-btn-slide">View Venue Map</a>
-            </div>
-        </section>
-
-        <!-- SECTION 13: RSVP FORM -->
-        <section class="section rsvp-section" id="sec-rsvp">
-            <div class="rsvp-card">
-                <h2 class="section-title">Kindly RSVP</h2>
-                <p class="section-subtitle">Please respond by November 05, 2026</p>
-                
-                <form id="rsvp-form" class="rsvp-form">
-                    <div class="form-group">
-                        <label for="guest-name">Full Name</label>
-                        <input type="text" id="guest-name" name="name" placeholder="Your name" required>
+            <!-- RSVP Footer Slide -->
+            <div class="gallery-slide rsvp-slide" id="slide-rsvp">
+                <div class="rsvp-card">
+                    <div class="rsvp-ornament">
+                        <svg viewBox="0 0 200 30" width="160" height="24">
+                            <path d="M10,15 Q50,5 100,15 Q150,25 190,15" fill="none" stroke="#aa7c11" stroke-width="1.5"/>
+                            <circle cx="100" cy="15" r="4" fill="#aa7c11"/>
+                            <circle cx="30" cy="13" r="2" fill="#aa7c11" opacity="0.5"/>
+                            <circle cx="170" cy="17" r="2" fill="#aa7c11" opacity="0.5"/>
+                        </svg>
                     </div>
+                    <h2 class="rsvp-title">Kindly RSVP</h2>
+                    <p class="rsvp-subtitle">Please respond by November 05, 2026</p>
                     
-                    <div class="form-group">
-                        <label for="guest-phone">Phone Number</label>
-                        <input type="tel" id="guest-phone" name="phone" placeholder="Your contact number" required>
-                    </div>
-
-                    <div class="form-row">
+                    <form id="rsvp-form" class="rsvp-form">
                         <div class="form-group">
-                            <label for="guest-count">Number of Guests</label>
-                            <select id="guest-count" name="count">
-                                <option value="1">1 Person</option>
-                                <option value="2">2 People</option>
-                                <option value="3">3 People</option>
-                                <option value="4">4 People</option>
-                                <option value="5">5+ People</option>
-                            </select>
+                            <label for="guest-name">Full Name</label>
+                            <input type="text" id="guest-name" name="name" placeholder="Your name" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="guest-attendance">Will you attend?</label>
-                            <select id="guest-attendance" name="attendance" required>
-                                <option value="attending">Joyfully Accept</option>
-                                <option value="declined">Regretfully Decline</option>
-                            </select>
+                            <label for="guest-phone">Phone Number</label>
+                            <input type="tel" id="guest-phone" name="phone" placeholder="Your contact number" required>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="guest-wishes">Warm Wishes (Optional)</label>
-                        <textarea id="guest-wishes" name="wishes" rows="3" placeholder="Send a message to the couple..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block" id="rsvp-submit">Send Response</button>
-                </form>
-
-                <!-- Custom RSVP Success Overlay -->
-                <div class="rsvp-success-overlay" id="rsvp-success">
-                    <div class="success-content">
-                        <div class="success-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="#5D3F9B">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guest-count">Guests</label>
+                                <select id="guest-count" name="count">
+                                    <option value="1">1 Person</option>
+                                    <option value="2">2 People</option>
+                                    <option value="3">3 People</option>
+                                    <option value="4">4 People</option>
+                                    <option value="5">5+ People</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guest-attendance">Attending?</label>
+                                <select id="guest-attendance" name="attendance" required>
+                                    <option value="attending">Joyfully Accept</option>
+                                    <option value="declined">Regretfully Decline</option>
+                                </select>
+                            </div>
                         </div>
-                        <h3>Response Received!</h3>
-                        <p id="success-msg">Thank you so much. Your response has been joyfully recorded. We cannot wait to celebrate with you!</p>
-                        <button type="button" class="btn btn-gold-outline" id="btn-reset-rsvp">Edit Response</button>
+
+                        <div class="form-group">
+                            <label for="guest-wishes">Warm Wishes</label>
+                            <textarea id="guest-wishes" name="wishes" rows="3" placeholder="Send a message to the couple..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="rsvp-submit">Send Response 💌</button>
+                    </form>
+
+                    <div class="rsvp-success-overlay" id="rsvp-success">
+                        <div class="success-content">
+                            <div class="success-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="#5D3F9B">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <h3>Response Received!</h3>
+                            <p id="success-msg">Thank you so much. We cannot wait to celebrate with you!</p>
+                            <button type="button" class="btn btn-gold-outline" id="btn-reset-rsvp">Edit Response</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- FOOTER SECTION -->
-        <footer class="section wedding-footer" id="sec-footer">
-            <p class="footer-names">Sambit & Akanksha</p>
-            <p class="footer-blurb">Thank you for being a part of our life's beautiful journey.</p>
-            <p class="footer-hashtag">#AkankshaGotSambit</p>
-            <div class="footer-credits">
-                Designed with love for our wedding day.
+                <div class="footer-block">
+                    <p class="footer-names">Sambit &amp; Akanksha</p>
+                    <p class="footer-hashtag">#AkankshaGotSambit</p>
+                    <p class="footer-credits">Designed with love · 2026</p>
+                </div>
             </div>
-        </footer>
-        
+
+        </div>
+
+        <!-- Scroll Progress Dots -->
+        <div class="scroll-dots" id="scroll-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+            <span class="dot" data-slide="3"></span>
+            <span class="dot" data-slide="4"></span>
+            <span class="dot" data-slide="5"></span>
+        </div>
+
     </div>
 
-    <!-- Script File -->
+    <!-- Script -->
     <script src="app.js"></script>
 </body>
 </html>

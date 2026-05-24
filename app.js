@@ -1,186 +1,145 @@
-/* 
-================================================================
-   PREMIUM MOBILE WEDDING INVITATION LOGIC
-================================================================
-*/
+/* ================================================================
+   WEDDING INVITATION APP.JS
+   Envelope → Photo Gallery Flow
+================================================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+'use strict';
 
-    // --- State & DOM References ---
-    const envelopeScreen = document.getElementById('envelope-screen');
-    const envelope = document.getElementById('interactive-envelope');
-    const waxSeal = document.getElementById('wax-seal');
-    const mainInvitation = document.getElementById('main-invitation');
-    const bodyElement = document.body;
+// ── DOM References ──────────────────────────────────────────────
+const envelopeScreen  = document.getElementById('envelope-screen');
+const galleryScreen   = document.getElementById('gallery-screen');
+const interactiveEnv  = document.getElementById('interactive-envelope');
+const waxSeal         = document.getElementById('wax-seal');
+const galleryScroll   = document.getElementById('gallery-scroll');
+const scrollDots      = document.getElementById('scroll-dots');
+const dots            = scrollDots ? scrollDots.querySelectorAll('.dot') : [];
 
-    // Countdown target date: November 21, 2026 at 10:00 AM (Engagement starts)
-    const weddingDate = new Date('November 21, 2026 10:00:00').getTime();
+const rsvpForm            = document.getElementById('rsvp-form');
+const rsvpSuccess         = document.getElementById('rsvp-success');
+const successMsg          = document.getElementById('success-msg');
+const btnResetRsvp        = document.getElementById('btn-reset-rsvp');
 
-    // RSVP Form Elements
-    const rsvpForm = document.getElementById('rsvp-form');
-    const rsvpSuccess = document.getElementById('rsvp-success');
-    const successMsg = document.getElementById('success-msg');
-    const btnResetRsvp = document.getElementById('btn-reset-rsvp');
+let isOpened = false;
 
-
-    // ================================================================
-    // 1. ENVELOPE OPENING ANIMATION SEQUENCE
-    // ================================================================
-    
-    // Tapping the Wax Seal starts the beautiful unfolding sequence
-    waxSeal.addEventListener('click', (e) => {
-        e.stopPropagation(); // prevent nested bubble events
+// ── Wax Seal Click → Open Envelope → Show Gallery ───────────────
+if (waxSeal) {
+    waxSeal.addEventListener('click', openInvitation);
+    waxSeal.addEventListener('touchend', function(e) {
+        e.preventDefault();
         openInvitation();
     });
+}
 
-    // Also support tapping the envelope body to open
-    envelope.addEventListener('click', () => {
-        if (!envelope.classList.contains('open-flap')) {
-            openInvitation();
-        }
+function openInvitation() {
+    if (isOpened) return;
+    isOpened = true;
+
+    // Step 1: Open the flap
+    interactiveEnv.classList.add('open-flap');
+
+    // Step 2: Slide card up after a short delay
+    setTimeout(() => {
+        interactiveEnv.classList.add('slide-card');
+    }, 400);
+
+    // Step 3: Fade out envelope, fade in gallery
+    setTimeout(() => {
+        envelopeScreen.classList.add('fade-out');
+        galleryScreen.classList.add('visible');
+        scrollDots.classList.add('visible');
+    }, 1200);
+
+    // Step 4: Remove envelope from DOM after transition
+    setTimeout(() => {
+        envelopeScreen.style.display = 'none';
+    }, 2500);
+}
+
+// ── Scroll Progress Dots ─────────────────────────────────────────
+function updateDots() {
+    if (!galleryScroll || dots.length === 0) return;
+
+    const slideHeight = galleryScroll.clientHeight;
+    const scrollTop   = galleryScroll.scrollTop;
+    const slideIndex  = Math.round(scrollTop / slideHeight);
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideIndex);
     });
+}
 
-    function openInvitation() {
-        // Step A: Trigger flap fold
-        envelope.classList.add('open-flap');
+if (galleryScroll) {
+    galleryScroll.addEventListener('scroll', updateDots, { passive: true });
+}
 
-        // Step B: Slide the invitation card upwards from inside the envelope
-        setTimeout(() => {
-            envelope.classList.add('slide-card');
-        }, 600);
-
-        // Step C: Fade out the entire envelope screen overlay and fade in the main site
-        setTimeout(() => {
-            envelopeScreen.classList.add('fade-out');
-            mainInvitation.classList.add('fade-in');
-            
-            // Unlock scrolling on the body
-            bodyElement.classList.add('scrollable');
-            
-            // Initialize animations inside the hero view
-            document.querySelector('.hero-content').classList.add('animate-fade-in');
-        }, 1500);
-    }
-
-
-    // ================================================================
-    // 2. REAL-TIME COUNTDOWN TIMER
-    // ================================================================
-    
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const difference = weddingDate - now;
-
-        // If the date has passed
-        if (difference < 0) {
-            document.getElementById('countdown-timer').innerHTML = `
-                <div style="grid-column: span 4; font-size: 1.2rem; color: #5D3F9B; font-weight:600;">
-                    The Celebration has Begun!
-                </div>
-            `;
-            return;
-        }
-
-        // Time calculations for days, hours, minutes and seconds
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        // Render to DOM (with leading zeros)
-        document.getElementById('days').innerText = String(days).padStart(2, '0');
-        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-    }
-
-    // Run timer immediately and update every second
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-
-    // ================================================================
-    // 3. TACTILE RSVP SUBMISSION & PERSISTENCE
-    // ================================================================
-    
-    // Check if user has already RSVP'd before in this browser
-    const existingRsvp = localStorage.getItem('wedding_rsvp');
-    if (existingRsvp) {
-        try {
-            const savedData = JSON.parse(existingRsvp);
-            prefillAndShowRsvp(savedData);
-        } catch(e) {
-            console.error("Could not parse saved RSVP data.", e);
-        }
-    }
-
-    // Form Submission Handler
-    rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Extract form values
-        const name = document.getElementById('guest-name').value.trim();
-        const phone = document.getElementById('guest-phone').value.trim();
-        const count = document.getElementById('guest-count').value;
-        const attendance = document.getElementById('guest-attendance').value;
-        const wishes = document.getElementById('guest-wishes').value.trim();
-
-        // Build Response Object
-        const rsvpData = { name, phone, count, attendance, wishes, date: new Date().toISOString() };
-
-        // Save locally to simulate remote database storage
-        localStorage.setItem('wedding_rsvp', JSON.stringify(rsvpData));
-
-        // Format success banner response message
-        if (attendance === 'attending') {
-            successMsg.innerHTML = `Thank you so much, <strong>${name}</strong>! We are absolutely thrilled to celebrate with you and your ${count > 1 ? (count - 1) + ' guest(s)' : 'company'} in Udaipur!`;
-        } else {
-            successMsg.innerHTML = `Thank you for letting us know, <strong>${name}</strong>. We will miss you dearly, but we deeply appreciate your warm wishes!`;
-        }
-
-        // Animate overlay slide-up
-        rsvpSuccess.classList.add('active');
-    });
-
-    // Prefill form and show success screen if already submitted
-    function prefillAndShowRsvp(data) {
-        document.getElementById('guest-name').value = data.name;
-        document.getElementById('guest-phone').value = data.phone;
-        document.getElementById('guest-count').value = data.count;
-        document.getElementById('guest-attendance').value = data.attendance;
-        document.getElementById('guest-wishes').value = data.wishes || '';
-
-        if (data.attendance === 'attending') {
-            successMsg.innerHTML = `Welcome back! You are registered as <strong>attending</strong>. We can't wait to see you and your ${data.count > 1 ? (data.count - 1) + ' guest(s)' : 'company'} in Udaipur!`;
-        } else {
-            successMsg.innerHTML = `You previously RSVP'd as <strong>unable to attend</strong>. We will miss you, but thank you for your blessings!`;
-        }
-
-        rsvpSuccess.classList.add('active');
-    }
-
-    // Reset RSVP / Edit Response Button handler
-    btnResetRsvp.addEventListener('click', () => {
-        // Slide down the overlay
-        rsvpSuccess.classList.remove('active');
-    });
-
-
-    // ================================================================
-    // 4. EXTRA MOBILE OPTIMIZATIONS (TOUCH ANCHORS)
-    // ================================================================
-    
-    // Smooth scrolling anchors for buttons inside scroll containers
-    const scrollButtons = document.querySelectorAll('.scroll-to-btn');
-    scrollButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = btn.getAttribute('href');
-            const targetSec = document.querySelector(targetId);
-            if (targetSec) {
-                targetSec.scrollIntoView({ behavior: 'smooth' });
-            }
+// Dot click → scroll to that slide
+dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+        const slideHeight = galleryScroll.clientHeight;
+        galleryScroll.scrollTo({
+            top: i * slideHeight,
+            behavior: 'smooth'
         });
     });
-
 });
+
+// ── RSVP Form ───────────────────────────────────────────────────
+if (rsvpForm) {
+    rsvpForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name       = document.getElementById('guest-name').value.trim();
+        const attendance = document.getElementById('guest-attendance').value;
+
+        // Save to localStorage
+        const rsvpData = {
+            name:       name,
+            phone:      document.getElementById('guest-phone').value.trim(),
+            count:      document.getElementById('guest-count').value,
+            attendance: attendance,
+            wishes:     document.getElementById('guest-wishes').value.trim(),
+            timestamp:  new Date().toISOString()
+        };
+
+        try {
+            localStorage.setItem('wedding_rsvp_' + name.replace(/\s/g,'_'), JSON.stringify(rsvpData));
+        } catch(err) { /* storage full or private mode */ }
+
+        // Show success message
+        const isAttending = attendance === 'attending';
+        if (successMsg) {
+            successMsg.textContent = isAttending
+                ? `Thank you, ${name || 'dear guest'}! We're so thrilled you'll be joining us. See you at the celebrations! 🎉`
+                : `We'll miss you, ${name || 'dear guest'}. Thank you for letting us know. We hope to celebrate with you soon! 💐`;
+        }
+
+        if (rsvpSuccess) {
+            rsvpSuccess.classList.add('active');
+        }
+    });
+}
+
+if (btnResetRsvp) {
+    btnResetRsvp.addEventListener('click', function() {
+        rsvpForm.reset();
+        rsvpSuccess.classList.remove('active');
+    });
+}
+
+// ── Preload images for smooth scroll ────────────────────────────
+const imageSlides = [
+    'assets/slide2_engagement_haldi.jpg',
+    'assets/slide3_mehendi_sangeet.jpg',
+    'assets/slide4_wedding.jpg',
+    'assets/slide5_reception.jpg'
+];
+
+function preloadImages(urls) {
+    urls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+    });
+}
+
+// Preload after a small delay to not block initial render
+setTimeout(() => preloadImages(imageSlides), 500);

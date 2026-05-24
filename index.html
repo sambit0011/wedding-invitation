@@ -325,53 +325,28 @@ html, body {
   justify-content: center;
 }
 
-/* Premium hand-crafted card frame with sketchy organic borders */
+/* Premium clean card frame with elegant straight borders */
 .card-frame {
   position: relative;
   width: min(380px, 90vw);
   height: min(670px, 84vh);
   height: min(670px, 84dvh);
   background: #fdfaf2;
-  /* Beautiful sketched double border mimicking organic hand-painted gold brushwork */
-  border: 2px solid #aa7c11;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  /* Pristine straight gold border */
+  border: 1.5px solid #aa7c11;
+  border-radius: 12px;
   box-shadow: 
-    0 20px 45px rgba(93, 63, 155, 0.15),
-    0 5px 15px rgba(170, 124, 17, 0.08),
-    inset 0 0 40px rgba(244, 232, 203, 0.5);
+    0 15px 35px rgba(93, 63, 155, 0.08),
+    0 5px 15px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 12px;
+  padding: 8px;
   transition: transform 0.3s ease;
 }
 
-/* Slightly offset outer sketched gold outline for an artistic, layered draft look */
-.card-frame::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border: 1px solid rgba(170, 124, 17, 0.35);
-  border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
-  pointer-events: none;
-}
-
-/* Overlaying soft watercolor blending texture onto the card background */
-.card-frame::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('assets/watercolor_card_bg.png');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.18;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  z-index: 0;
-}
-
-/* Complete image containment inside the premium border frame, zero cropping/zooming */
+/* Pristine image display, perfectly contained and centered */
 .card-frame img {
   width: 100%;
   height: 100%;
@@ -379,7 +354,7 @@ html, body {
   object-position: center center;
   display: block;
   z-index: 1;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 /* ── Dot progress ── */

@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Wedding Invitation | Sambit & Akanksha</title>
-    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal. November 21-25, 2026.">
+    <title>Wedding Invitation | Sambit &amp; Akanksha</title>
+    <meta name="description" content="You are cordially invited to celebrate the wedding of Sambit Pradhan and Akanksha Jaiswal — November 2026, Bhubaneswar.">
     <meta name="theme-color" content="#0e0812">
-    <meta property="og:title" content="Wedding Invitation - Sambit & Akanksha">
-    <meta property="og:description" content="We invite you to join us in celebrating our love.">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="Wedding Invitation — Sambit &amp; Akanksha">
     <meta property="og:image" content="assets/slide1_married.jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="S&A Wedding">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -20,163 +17,189 @@
 </head>
 <body>
 
-    <!-- ===== SCREEN 1: ENVELOPE ===== -->
-    <div class="envelope-screen" id="envelope-screen">
-        <div class="stars-bg"></div>
+<!-- ============================================================
+     SCREEN 1 — ENVELOPE
+============================================================ -->
+<div class="envelope-screen" id="env-screen">
+    <div class="stars-bg"></div>
+    <div class="env-border"></div>
 
-        <!-- Corner decorations -->
-        <div class="screen-border-deco">
-            <svg class="corner-deco top-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
-                <path d="M10,10 L90,10 M10,10 L10,90" />
-                <path d="M20,20 Q40,20 40,40 Q20,40 20,20 Z" />
-                <path d="M15,15 L35,35" /><circle cx="40" cy="40" r="3" fill="#aa7c11" />
-            </svg>
-            <svg class="corner-deco top-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
-                <path d="M90,10 L10,10 M90,10 L90,90" />
-                <path d="M80,20 Q60,20 60,40 Q80,40 80,20 Z" />
-                <path d="M85,15 L65,35" /><circle cx="60" cy="40" r="3" fill="#aa7c11" />
-            </svg>
-            <svg class="corner-deco bottom-left" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
-                <path d="M10,90 L90,90 M10,90 L10,10" />
-                <path d="M20,80 Q40,80 40,60 Q20,60 20,80 Z" />
-                <path d="M15,85 L35,65" /><circle cx="40" cy="60" r="3" fill="#aa7c11" />
-            </svg>
-            <svg class="corner-deco bottom-right" viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#aa7c11" stroke-width="1.5">
-                <path d="M90,90 L10,90 M90,90 L90,10" />
-                <path d="M80,80 Q60,80 60,60 Q80,60 80,80 Z" />
-                <path d="M85,85 L65,65" /><circle cx="60" cy="60" r="3" fill="#aa7c11" />
-            </svg>
-        </div>
+    <!-- Corner accents -->
+    <svg class="corner-deco tl" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
+        <path d="M6,6 L70,6 M6,6 L6,70"/>
+        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
+        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
+    </svg>
+    <svg class="corner-deco tr" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
+        <path d="M6,6 L70,6 M6,6 L6,70"/>
+        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
+        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
+    </svg>
+    <svg class="corner-deco bl" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
+        <path d="M6,6 L70,6 M6,6 L6,70"/>
+        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
+        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
+    </svg>
+    <svg class="corner-deco br" viewBox="0 0 80 80" width="68" height="68" fill="none" stroke="#aa7c11" stroke-width="1.4">
+        <path d="M6,6 L70,6 M6,6 L6,70"/>
+        <path d="M16,16 Q34,16 34,34 Q16,34 16,16 Z"/>
+        <circle cx="34" cy="34" r="3" fill="#aa7c11"/>
+    </svg>
 
-        <div class="envelope-container">
-            <div class="envelope" id="interactive-envelope">
-                <div class="envelope-flap-top"></div>
-                <div class="envelope-card-preview">
-                    <div class="preview-content">
-                        <span class="preview-heading">Save Our Date</span>
-                        <span class="preview-names">S &amp; A</span>
-                        <span class="preview-date">21 . 11 . 26</span>
-                    </div>
-                </div>
-                <div class="envelope-flap-bottom"></div>
-                <div class="envelope-flap-left"></div>
-                <div class="envelope-flap-right"></div>
-                <div class="wax-seal" id="wax-seal" aria-label="Tap to open invitation">
-                    <div class="seal-inner">
-                        <svg class="seal-svg" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="43" stroke="#aa7c11" stroke-width="2" fill="none" stroke-dasharray="2,2"/>
-                            <circle cx="50" cy="50" r="40" stroke="#aa7c11" stroke-width="1.5" fill="none"/>
-                            <path d="M37 48 C30 38,48 30,50 48 C52 30,70 38,63 48 C55 57,50 63,50 63 Z" fill="#aa7c11" opacity="0.15"/>
-                            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-                                  font-family="'Cinzel Decorative',serif" font-size="18" font-weight="bold"
-                                  fill="url(#g1)">S&amp;A</text>
-                            <defs>
-                                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%"   stop-color="#fff6cc"/>
-                                    <stop offset="50%"  stop-color="#d4af37"/>
-                                    <stop offset="100%" stop-color="#aa7c11"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <div class="seal-shine"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="envelope-instruction">
-                <span class="pulse-text">Tap the Golden Seal to Open</span>
+    <!-- Envelope -->
+    <div class="envelope" id="envelope">
+        <div class="env-flap-top"></div>
+        <div class="env-card">
+            <div class="env-card-inner">
+                <span class="card-eyebrow">Save Our Date</span>
+                <span class="card-monogram">S &amp; A</span>
+                <span class="card-date">21 · 11 · 26</span>
             </div>
         </div>
+        <div class="env-flap-bottom"></div>
+        <div class="env-flap-left"></div>
+        <div class="env-flap-right"></div>
+
+        <!-- Gold Wax Seal -->
+        <div class="wax-seal" id="wax-seal" role="button" aria-label="Tap to open invitation">
+            <div class="seal-body">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="44" stroke="#aa7c11" stroke-width="2" fill="none" stroke-dasharray="2,2"/>
+                    <circle cx="50" cy="50" r="40" stroke="#aa7c11" stroke-width="1.5" fill="none"/>
+                    <path d="M37 48 C30 38,48 30,50 48 C52 30,70 38,63 48 C55 57,50 63,50 63Z"
+                          fill="#aa7c11" opacity="0.18"/>
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle"
+                          font-family="'Cinzel Decorative',serif" font-size="19" font-weight="bold"
+                          fill="url(#seal-grad)">S&amp;A</text>
+                    <defs>
+                        <radialGradient id="seal-grad" cx="40%" cy="35%" r="65%">
+                            <stop offset="0%"   stop-color="#fff8d0"/>
+                            <stop offset="50%"  stop-color="#d4af37"/>
+                            <stop offset="100%" stop-color="#8c6408"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+                <div class="seal-glare"></div>
+            </div>
+        </div>
+    </div><!-- /envelope -->
+
+    <span class="tap-hint">Tap the Golden Seal to Open</span>
+</div><!-- /env-screen -->
+
+
+<!-- ============================================================
+     SCREEN 2 — PORTRAIT PHOTO GALLERY
+============================================================ -->
+<div class="gallery-screen" id="gallery-screen">
+
+    <!-- Floating header (overlay on top of images) -->
+    <div class="g-header">
+        <div class="g-header-name">Sambit &amp; Akanksha</div>
+        <div class="g-header-date">21 · 22 · 25 &nbsp;November 2026</div>
     </div>
 
-    <!-- ===== SCREEN 2: PHOTO GALLERY ===== -->
-    <div class="gallery-screen" id="gallery-screen">
+    <!-- Full-screen snap scroll container -->
+    <div class="g-scroll" id="g-scroll">
 
-        <!-- Sticky top bar -->
-        <div class="gallery-header" id="gallery-header">
-            <div class="gallery-header-names">Sambit &amp; Akanksha</div>
-            <div class="gallery-header-date">21 · 22 · 25 November 2026</div>
+        <!-- ── Slide 1: We Are Getting Married ── -->
+        <div class="g-slide" id="s1" data-idx="0">
+            <img src="assets/slide1_married.jpg"
+                 alt="We are getting married — Sambit & Akanksha"
+                 loading="eager">
+            <div class="g-caption">
+                <span class="g-num">01</span>
+                <div class="g-text">
+                    <span class="g-title">We Are Getting Married</span>
+                    <span class="g-sub">Sambit &amp; Akanksha · 2026</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Scrollable container -->
-        <div class="gallery-scroll" id="gallery-scroll">
-
-            <!-- SLIDE 1: We Are Getting Married -->
-            <div class="gallery-slide" id="slide-1" data-index="0">
-                <img src="assets/slide1_married.jpg"
-                     alt="We are getting married - Sambit & Akanksha"
-                     class="slide-img" loading="eager">
-                <div class="slide-caption-bar">
-                    <span class="slide-num">01</span>
-                    <span class="slide-label">We Are Getting Married</span>
+        <!-- ── Slide 2: Engagement & Haldi ── -->
+        <div class="g-slide" id="s2" data-idx="1">
+            <img src="assets/slide2_engagement_haldi.jpg"
+                 alt="Engagement & Haldi — 21st November"
+                 loading="lazy">
+            <div class="g-caption">
+                <span class="g-num">02</span>
+                <div class="g-text">
+                    <span class="g-title">Engagement &amp; Haldi</span>
+                    <span class="g-sub">21st November · DM Convention, Patrapada</span>
                 </div>
             </div>
-
-            <!-- SLIDE 2: Engagement & Haldi -->
-            <div class="gallery-slide" id="slide-2" data-index="1">
-                <img src="assets/slide2_engagement_haldi.jpg"
-                     alt="Engagement & Haldi - 21st November"
-                     class="slide-img" loading="lazy">
-                <div class="slide-caption-bar">
-                    <span class="slide-num">02</span>
-                    <span class="slide-label">Engagement &amp; Haldi · 21 Nov</span>
-                </div>
-            </div>
-
-            <!-- SLIDE 3: Mehendi & Sangeet -->
-            <div class="gallery-slide" id="slide-3" data-index="2">
-                <img src="assets/slide3_mehendi_sangeet.jpg"
-                     alt="Mehendi & Sangeet - 21st November"
-                     class="slide-img" loading="lazy">
-                <div class="slide-caption-bar">
-                    <span class="slide-num">03</span>
-                    <span class="slide-label">Mehendi &amp; Sangeet · 21 Nov</span>
-                </div>
-            </div>
-
-            <!-- SLIDE 4: Wedding -->
-            <div class="gallery-slide" id="slide-4" data-index="3">
-                <img src="assets/slide4_wedding.jpg"
-                     alt="The Wedding - 22nd November"
-                     class="slide-img" loading="lazy">
-                <div class="slide-caption-bar">
-                    <span class="slide-num">04</span>
-                    <span class="slide-label">The Wedding · 22 Nov</span>
-                </div>
-            </div>
-
-            <!-- SLIDE 5: Reception -->
-            <div class="gallery-slide" id="slide-5" data-index="4">
-                <img src="assets/slide5_reception.jpg"
-                     alt="Grand Reception - 25th November"
-                     class="slide-img" loading="lazy">
-                <div class="slide-caption-bar">
-                    <span class="slide-num">05</span>
-                    <span class="slide-label">Grand Reception · 25 Nov</span>
-                </div>
-            </div>
-
-            <!-- SLIDE 6: Thank You (ending) -->
-            <div class="gallery-slide last-slide" id="slide-6" data-index="5">
-                <img src="assets/slide6_thankyou.jpg"
-                     alt="Thank You - Venue & Contact Details"
-                     class="slide-img" loading="lazy">
-                <!-- No caption bar on last slide — image already has all info -->
-            </div>
-
         </div>
 
-        <!-- Progress dots -->
-        <div class="scroll-dots" id="scroll-dots">
-            <span class="dot active" data-idx="0" aria-label="Slide 1"></span>
-            <span class="dot" data-idx="1" aria-label="Slide 2"></span>
-            <span class="dot" data-idx="2" aria-label="Slide 3"></span>
-            <span class="dot" data-idx="3" aria-label="Slide 4"></span>
-            <span class="dot" data-idx="4" aria-label="Slide 5"></span>
-            <span class="dot" data-idx="5" aria-label="Slide 6"></span>
+        <!-- ── Slide 3: Mehendi & Sangeet ── -->
+        <div class="g-slide" id="s3" data-idx="2">
+            <img src="assets/slide3_mehendi_sangeet.jpg"
+                 alt="Mehendi & Sangeet — 21st November"
+                 loading="lazy">
+            <div class="g-caption">
+                <span class="g-num">03</span>
+                <div class="g-text">
+                    <span class="g-title">Mehendi &amp; Sangeet</span>
+                    <span class="g-sub">21st November · DM Convention, Patrapada</span>
+                </div>
+            </div>
         </div>
 
+        <!-- ── Slide 4: The Wedding ── -->
+        <div class="g-slide" id="s4" data-idx="3">
+            <img src="assets/slide4_wedding.jpg"
+                 alt="The Wedding — 22nd November"
+                 loading="lazy">
+            <div class="g-caption">
+                <span class="g-num">04</span>
+                <div class="g-text">
+                    <span class="g-title">The Wedding</span>
+                    <span class="g-sub">22nd November · Shreenika DM Signature</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Slide 5: Grand Reception ── -->
+        <div class="g-slide" id="s5" data-idx="4">
+            <img src="assets/slide5_reception.jpg"
+                 alt="Grand Reception — 25th November"
+                 loading="lazy">
+            <div class="g-caption">
+                <span class="g-num">05</span>
+                <div class="g-text">
+                    <span class="g-title">Grand Reception</span>
+                    <span class="g-sub">25th November · Shreenika DM Signature</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Slide 6: Thank You ── -->
+        <div class="g-slide no-caption" id="s6" data-idx="5">
+            <img src="assets/slide6_thankyou.jpg"
+                 alt="Thank You — Venue & Contact Details"
+                 loading="lazy">
+            <!-- No caption — the image itself contains all venue & contact info -->
+        </div>
+
+    </div><!-- /g-scroll -->
+
+    <!-- Progress dots -->
+    <div class="g-dots" id="g-dots">
+        <span class="g-dot on"  data-go="0"></span>
+        <span class="g-dot"     data-go="1"></span>
+        <span class="g-dot"     data-go="2"></span>
+        <span class="g-dot"     data-go="3"></span>
+        <span class="g-dot"     data-go="4"></span>
+        <span class="g-dot"     data-go="5"></span>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Swipe down hint (auto-hides) -->
+    <div class="swipe-hint" id="swipe-hint">
+        <div class="swipe-arrow"></div>
+        <span class="swipe-text">Swipe</span>
+    </div>
+
+</div><!-- /gallery-screen -->
+
+<script src="app.js"></script>
 </body>
 </html>

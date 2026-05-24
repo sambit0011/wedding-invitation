@@ -299,6 +299,7 @@ html, body {
   pointer-events: none;
   transition: opacity 1.2s ease;
   transform: scale(1.06);
+  background: #f5ecd8;
 }
 #gallery::-webkit-scrollbar { display:none; }
 #gallery.show {
@@ -308,27 +309,20 @@ html, body {
   transition: opacity 1.2s ease, transform 1s cubic-bezier(.25,.8,.25,1);
 }
 
-/* Each screen = one full portrait viewport, NO captions, NO scroll-snapping */
+/* Screen container matches the image natural size */
 .screen {
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  height: auto;
   position: relative;
   overflow: hidden;
-  flex-shrink: 0;
-  /* Cream background to match the vintage paper of the invitation images */
   background: #f5ecd8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 }
 
-/* ── Full image containment (entire image visible, no cropping/zoom) ── */
+/* Image fills screen width, height scales automatically to maintain aspect ratio */
 .screen img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  height: auto;
   display: block;
 }
 
@@ -472,24 +466,9 @@ const dotsEl   = document.getElementById('dots');
 const burst    = document.getElementById('burst');
 const canvas   = document.getElementById('particles');
 const ctx      = canvas.getContext('2d');
-const originalScreens = Array.from(gallery.querySelectorAll('.screen'));
-const numOriginal     = originalScreens.length;
-const dots            = Array.from(dotsEl.querySelectorAll('.dot'));
-let opened            = false;
-
-/* ── Infinite Scroll Pre-Cloning ── */
-// Create Set 1 (before)
-const fragBefore = document.createDocumentFragment();
-originalScreens.forEach(s => fragBefore.appendChild(s.cloneNode(true)));
-gallery.insertBefore(fragBefore, originalScreens[0]);
-
-// Create Set 3 (after)
-const fragAfter = document.createDocumentFragment();
-originalScreens.forEach(s => fragAfter.appendChild(s.cloneNode(true)));
-gallery.appendChild(fragAfter);
-
-// Query all screens (Set 1 + Set 2 + Set 3)
-const allScreens = Array.from(gallery.querySelectorAll('.screen'));
+const screens  = Array.from(gallery.querySelectorAll('.screen'));
+const dots     = Array.from(dotsEl.querySelectorAll('.dot'));
+let opened     = false;
 
 /* ── Particles ── */
 canvas.width  = canvas.offsetWidth  || window.innerWidth;
@@ -581,9 +560,8 @@ function openInvitation() {
     gallery.classList.add('show');
     dotsEl.classList.add('show');
 
-    // Set initial scroll to the first original screen (Set 2)
-    const singleSetHeight = numOriginal * gallery.clientHeight;
-    gallery.scrollTop = singleSetHeight;
+    // Set initial scroll to the very top
+    gallery.scrollTop = 0;
   }, 1500);
 
   // 6. Remove envelope
@@ -593,37 +571,30 @@ function openInvitation() {
 seal.addEventListener('click', openInvitation);
 seal.addEventListener('touchend', e => { e.preventDefault(); openInvitation(); });
 
-/* ── Infinite Scroll Loop & Dot Sync ── */
-let isAdjusting = false;
+/* ── Scroll & Dot Sync ── */
 gallery.addEventListener('scroll', () => {
-  if (isAdjusting) return;
-  const singleSetHeight = numOriginal * gallery.clientHeight;
   const scrollTop = gallery.scrollTop;
+  const galleryHeight = gallery.clientHeight;
+  const scrollCenter = scrollTop + galleryHeight / 2;
 
-  // Warp back to Set 2 if scrolled up into Set 1
-  if (scrollTop < singleSetHeight) {
-    isAdjusting = true;
-    gallery.scrollTop = scrollTop + singleSetHeight;
-    requestAnimationFrame(() => { isAdjusting = false; });
-  } 
-  // Warp back to Set 2 if scrolled down into Set 3
-  else if (scrollTop >= 2 * singleSetHeight) {
-    isAdjusting = true;
-    gallery.scrollTop = scrollTop - singleSetHeight;
-    requestAnimationFrame(() => { isAdjusting = false; });
-  }
+  let activeIndex = 0;
+  let minDistance = Infinity;
 
-  // Update dots active state
-  const activeIndex = Math.floor((gallery.scrollTop + gallery.clientHeight / 2) / gallery.clientHeight) % numOriginal;
+  screens.forEach((s, i) => {
+    const screenCenter = s.offsetTop + s.offsetHeight / 2;
+    const distance = Math.abs(scrollCenter - screenCenter);
+    if (distance < minDistance) {
+      minDistance = distance;
+      activeIndex = i;
+    }
+  });
+
   dots.forEach((d, j) => d.classList.toggle('on', activeIndex === j));
 });
 
 dots.forEach((d, i) => {
   d.addEventListener('click', () => {
-    const targetScreen = allScreens[i + numOriginal];
-    if (targetScreen) {
-      targetScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    screens[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 

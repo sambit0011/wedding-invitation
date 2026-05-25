@@ -53,18 +53,6 @@ html,body {
   perspective: 1000px; /* Enable 3D transitions */
 }
 
-/* Split layers using the same image via clip-path */
-#env-static-top {
-  position: absolute;
-  inset: 0;
-  background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
-  background-size: cover;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
-  z-index: 1;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: auto;
-}
-
 #env-lower {
   position: absolute;
   inset: 0;
@@ -81,9 +69,9 @@ html,body {
   inset: 0;
   background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
   background-size: cover;
-  clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 50% 73.5%, 0% 58%);
   z-index: 2;
-  transform-origin: center 58%;
+  transform-origin: top center; /* Hinge from top edge for 3D leaflet flip */
   transition: transform 3.0s cubic-bezier(0.25, 1, 0.5, 1);
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
@@ -91,7 +79,26 @@ html,body {
 
 /* Upper leaflet flap folds upwards cleanly in 3D (partially opened to exactly 50%) */
 #env-upper.open {
-  transform: rotateX(95deg);
+  transform: rotateX(115deg); /* Folds the top section UPWARDS in 3D! */
+}
+
+/* Peach mask to hide printed Ganesha wax coin on lower body instantly upon opening */
+#seal-mask {
+  position: absolute;
+  top: 73.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fcefe3; /* Matches peach card interior */
+  z-index: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+#seal-mask.show {
+  opacity: 1;
 }
 
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
@@ -285,7 +292,7 @@ html,body {
   position: absolute;
   top: 67.5%;
   transform: translate(-50%, -50%);
-  width: 20%;
+  width: 24%; /* Responsive width perfectly covering background Ganesha hearts */
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -336,7 +343,7 @@ html,body {
   transform: translate(-50%, -50%);
   width: 13.5%;
   height: 6%;
-  background: #d4c3d6;
+  background: #9cb4c9; /* Beautiful matching slate/steel-blue! */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -363,9 +370,10 @@ html,body {
   <!-- ── Envelope Screen ── -->
   <div id="env">
     <!-- Split layers using the same image via clip-path -->
-    <div id="env-static-top"></div>
     <div id="env-lower"></div>
     <div id="env-upper"></div>
+    <!-- Seamless peach mask to cover the printed wax coin on the pocket upon click -->
+    <div id="seal-mask"></div>
     <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
     <div class="seal" id="seal"></div>
   </div>
@@ -506,8 +514,10 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  // 1. Gold Ganesha seal disappears instantly
+  // 1. Gold Ganesha seal and printed Ganesha wax coin disappear instantly
   seal.style.display = 'none';
+  const mask = document.getElementById('seal-mask');
+  if (mask) mask.classList.add('show');
 
   // 2. Animate the upper leaflet/flap folding up in 3D slowly (3.0s duration)
   const envUpper = document.getElementById('env-upper');
@@ -547,58 +557,45 @@ let countdownInterval;
 
 function initScratchCards() {
   const cards = [
-    { canvasId: 'canvas1' },
-    { canvasId: 'canvas2' },
-    { canvasId: 'canvas3' }
+    { canvasId: 'canvas1', pctX: 25.6 },
+    { canvasId: 'canvas2', pctX: 50.8 },
+    { canvasId: 'canvas3', pctX: 75.2 }
   ];
 
-  cards.forEach(card => {
-    const canvas = document.getElementById(card.canvasId);
-    if (!canvas) return;
-    const ctxScratch = canvas.getContext('2d');
-    
-    // Set actual pixel dimensions based on element size to prevent blurring
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * window.devicePixelRatio;
-    canvas.height = rect.height * window.devicePixelRatio;
-    ctxScratch.scale(window.devicePixelRatio, window.devicePixelRatio);
-    
-    const w = rect.width;
-    const h = rect.height;
-    
-    // 1. Draw the copper-orange heart base matching assets/date1_scratch.jpg
-    ctxScratch.save();
-    ctxScratch.scale(w / 24, h / 24); // SVG path coordinates are 24x24
-    ctxScratch.fillStyle = '#bd6938'; // Copper-orange matching envelope start
-    const heartPath = new Path2D("M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z");
-    ctxScratch.fill(heartPath);
-    ctxScratch.restore();
-    
-    // 2. Draw refined gold borders
-    ctxScratch.save();
-    ctxScratch.scale(w / 24, h / 24);
-    ctxScratch.strokeStyle = '#d4af37';
-    ctxScratch.lineWidth = 0.5;
-    ctxScratch.stroke(heartPath);
-    ctxScratch.restore();
-
-    // 3. Draw SCRATCH label in elegant serif font
-    ctxScratch.font = "bold 11px 'Didot', 'Georgia', serif";
-    ctxScratch.fillStyle = '#fcefe3';
-    ctxScratch.textAlign = 'center';
-    ctxScratch.textBaseline = 'middle';
-    ctxScratch.fillText("SCRATCH", w / 2, h / 2 - 2);
-    
-    // 4. Draw a tiny gold ornament flourish line under the text
-    ctxScratch.strokeStyle = 'rgba(252, 239, 227, 0.4)';
-    ctxScratch.lineWidth = 1;
-    ctxScratch.beginPath();
-    ctxScratch.moveTo(w / 2 - 12, h / 2 + 8);
-    ctxScratch.lineTo(w / 2 + 12, h / 2 + 8);
-    ctxScratch.stroke();
-    
-    setupScratchEvents(canvas, ctxScratch);
-  });
+  const bgImg = new Image();
+  bgImg.src = 'assets/date1_scratch.jpg?v=3';
+  bgImg.onload = () => {
+    cards.forEach(card => {
+      const canvas = document.getElementById(card.canvasId);
+      if (!canvas) return;
+      const ctxScratch = canvas.getContext('2d');
+      
+      // Set actual pixel dimensions based on element size to prevent blurring
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctxScratch.scale(window.devicePixelRatio, window.devicePixelRatio);
+      
+      const w = rect.width;
+      const h = rect.height;
+      
+      // Crop exact background image region (from 576x1024 source image)
+      const srcW = 576;
+      const srcH = 1024;
+      
+      // Card width in CSS is 24% (so we crop exactly 24% width & height)
+      const cropW = srcW * 0.24;
+      const cropH = srcW * 0.24; // 1:1 square
+      
+      const sx = srcW * (card.pctX / 100) - cropW / 2;
+      const sy = srcH * 0.675 - cropH / 2;
+      
+      // Draw pixel-perfect crop onto canvas
+      ctxScratch.drawImage(bgImg, sx, sy, cropW, cropH, 0, 0, w, h);
+      
+      setupScratchEvents(canvas, ctxScratch);
+    });
+  };
 }
 
 function setupScratchEvents(canvas, ctxScratch) {

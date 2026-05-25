@@ -50,18 +50,37 @@ html,body {
   background: #fcefe3; /* Seamless peach envelope fallback */
   z-index: 200;
   overflow: hidden;
+  perspective: 1000px; /* Enable 3D transitions */
 }
 
-/* Optimize for highest quality image scaling and crisp text rendering */
-.env-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* Split layers using the same image via clip-path */
+#env-lower {
+  position: absolute;
+  inset: 0;
+  background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
+  background-size: cover;
+  clip-path: polygon(0% 55%, 50% 73.5%, 100% 55%, 100% 100%, 0% 100%);
+  z-index: 1;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
+}
+
+#env-upper {
+  position: absolute;
+  inset: 0;
+  background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
+  background-size: cover;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 50% 73.5%, 0% 55%);
+  z-index: 2;
+  transform-origin: top center;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+}
+
+/* Upper leaflet flap folds upwards cleanly */
+#env-upper.open {
+  transform: translateY(-100%) rotateX(45deg);
 }
 
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
@@ -101,6 +120,29 @@ html,body {
                 inset 0 0 5px rgba(212, 175, 55, 0.3);
     transform: translate(-50%, -50%) scale(1);
   }
+}
+
+/* Seal click spinning effect */
+.seal.spinning {
+  animation: sealSpin 0.5s ease-in-out forwards;
+}
+@keyframes sealSpin {
+  0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
+}
+
+/* White flash transition screen */
+#white-flash {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: 250; /* Sits on top of envelope and gallery */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+#white-flash.show {
+  opacity: 1;
 }
 
 
@@ -198,12 +240,15 @@ html,body {
 
   <!-- ── Envelope Screen ── -->
   <div id="env">
-    <!-- Full-screen Peach & Gold Envelope Image -->
-    <img src="assets/envelope_start.jpg?v=3" class="env-bg-img" alt="Wedding Invitation Envelope">
-    
+    <!-- Split layers using the same image via clip-path -->
+    <div id="env-lower"></div>
+    <div id="env-upper"></div>
     <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
     <div class="seal" id="seal"></div>
   </div>
+
+  <!-- White flash transition screen -->
+  <div id="white-flash"></div>
 
 
   <!-- ── Gallery ── -->
@@ -272,11 +317,31 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  // Instantly hide starting envelope and show gallery screens
-  envEl.style.display = 'none';
-  gallery.classList.add('show');
-  dotsEl.classList.add('show');
-  gallery.scrollTop = 0;
+  // 1. Gold Ganesha seal spins and fades out
+  seal.classList.add('spinning');
+
+  // 2. Animate the upper leaflet/flap folding up
+  const envUpper = document.getElementById('env-upper');
+  envUpper.classList.add('open');
+
+  // 3. Trigger white flash transition as the flap opens (at 600ms)
+  const flash = document.getElementById('white-flash');
+  setTimeout(() => {
+    flash.classList.add('show');
+  }, 600);
+
+  // 4. Fully load the first gallery screen under the white screen (at 1400ms)
+  setTimeout(() => {
+    envEl.style.display = 'none';
+    gallery.classList.add('show');
+    dotsEl.classList.add('show');
+    gallery.scrollTop = 0;
+  }, 1400);
+
+  // 5. Fade out the white screen to reveal the first slide in high clarity (at 1500ms)
+  setTimeout(() => {
+    flash.classList.remove('show');
+  }, 1500);
 }
 
 seal.addEventListener('click', openInvitation);

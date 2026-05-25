@@ -563,40 +563,14 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  // 1. Gold Ganesha seal and printed Ganesha wax coin disappear instantly
-  seal.style.display = 'none';
-  const mask = document.getElementById('seal-mask');
-  if (mask) mask.classList.add('show');
-  const maskUpper = document.getElementById('seal-mask-upper');
-  if (maskUpper) maskUpper.classList.add('show');
-
-  // 2. Animate the upper leaflet/flap folding up in 3D slowly (3.0s duration)
-  const envUpper = document.getElementById('env-upper');
-  if (envUpper) envUpper.classList.add('open');
-
-  // 3. Exactly when the flap reaches ~50% open (at 3 seconds), make the screen solid white instantly
-  // and load the gallery screen under it
-  const flash = document.getElementById('white-flash');
-  setTimeout(() => {
-    // Solid white screen instantly (no fade-in delay)
-    flash.style.transition = 'none';
-    flash.classList.add('show');
-
-    // Load the gallery & dots under the white curtain
-    envEl.style.display = 'none';
-    gallery.classList.add('show');
-    dotsEl.classList.add('show');
-    gallery.scrollTop = 0;
-    
-    // Initialize the scratch canvases now that the gallery is visible and rendered!
-    initScratchCards();
-  }, 3000);
-
-  // 4. Stay solid white for exactly 0.5s (until 3500ms total), then smoothly fade out over 0.5s
-  setTimeout(() => {
-    flash.style.transition = 'opacity 0.5s ease';
-    flash.classList.remove('show');
-  }, 3500);
+  // Load the gallery & dots instantly
+  envEl.style.display = 'none';
+  gallery.classList.add('show');
+  dotsEl.classList.add('show');
+  gallery.scrollTop = 0;
+  
+  // Initialize the scratch canvases now that the gallery is visible and rendered!
+  initScratchCards();
 }
 
 seal.addEventListener('click', openInvitation);

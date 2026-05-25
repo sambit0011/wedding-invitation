@@ -54,12 +54,23 @@ html,body {
 }
 
 /* Split layers using the same image via clip-path */
+#env-static-top {
+  position: absolute;
+  inset: 0;
+  background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
+  background-size: cover;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
+  z-index: 1;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+}
+
 #env-lower {
   position: absolute;
   inset: 0;
   background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
   background-size: cover;
-  clip-path: polygon(0% 55%, 50% 73.5%, 100% 55%, 100% 100%, 0% 100%);
+  clip-path: polygon(0% 58%, 50% 73.5%, 100% 58%, 100% 100%, 0% 100%);
   z-index: 1;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
@@ -70,17 +81,17 @@ html,body {
   inset: 0;
   background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
   background-size: cover;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 50% 73.5%, 0% 55%);
+  clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
   z-index: 2;
-  transform-origin: top center;
-  transition: transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center 58%;
+  transition: transform 3.0s cubic-bezier(0.25, 1, 0.5, 1);
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
 }
 
-/* Upper leaflet flap folds upwards cleanly in 3D (partially opened) */
+/* Upper leaflet flap folds upwards cleanly in 3D (partially opened to exactly 50%) */
 #env-upper.open {
-  transform: rotateX(115deg);
+  transform: rotateX(95deg);
 }
 
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
@@ -241,6 +252,7 @@ html,body {
   <!-- ── Envelope Screen ── -->
   <div id="env">
     <!-- Split layers using the same image via clip-path -->
+    <div id="env-static-top"></div>
     <div id="env-lower"></div>
     <div id="env-upper"></div>
     <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
@@ -317,31 +329,33 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  // 1. Gold Ganesha seal spins and fades out
-  seal.classList.add('spinning');
+  // 1. Gold Ganesha seal disappears instantly
+  seal.style.display = 'none';
 
-  // 2. Animate the upper leaflet/flap folding up in 3D (1.8s duration)
+  // 2. Animate the upper leaflet/flap folding up in 3D slowly (3.0s duration)
   const envUpper = document.getElementById('env-upper');
   envUpper.classList.add('open');
 
-  // 3. Trigger white flash transition as the flap opens (at 800ms)
+  // 3. Exactly when the flap reaches ~50% open (at 3 seconds), make the screen solid white instantly
+  // and load the gallery screen under it
   const flash = document.getElementById('white-flash');
   setTimeout(() => {
+    // Solid white screen instantly (no fade-in delay)
+    flash.style.transition = 'none';
     flash.classList.add('show');
-  }, 800);
 
-  // 4. Fully load the first gallery screen under the white screen (at 1800ms)
-  setTimeout(() => {
+    // Load the gallery & dots under the white curtain
     envEl.style.display = 'none';
     gallery.classList.add('show');
     dotsEl.classList.add('show');
     gallery.scrollTop = 0;
-  }, 1800);
+  }, 3000);
 
-  // 5. Fade out the white screen to reveal the first slide in high clarity (at 1950ms)
+  // 4. Stay solid white for exactly 0.5s (until 3500ms total), then smoothly fade out over 0.5s
   setTimeout(() => {
+    flash.style.transition = 'opacity 0.5s ease';
     flash.classList.remove('show');
-  }, 1950);
+  }, 3500);
 }
 
 seal.addEventListener('click', openInvitation);

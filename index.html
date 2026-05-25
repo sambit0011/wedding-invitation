@@ -239,66 +239,86 @@ html,body {
   transition-delay: 1.8s;
 }
 
-/* Reveal panels container */
-.reveal-overlay {
+/* Text reveal container */
+.text-reveal-container {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
   z-index: 5;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
-.r-panel {
+
+/* Individual text covering strips */
+.tr-strip {
   width: 100%;
-  background: #fcefe3; /* Seamless peach color matching slides fallback */
-  transition: transform 1.0s cubic-bezier(0.25, 1, 0.5, 1), 
-              opacity 1.0s cubic-bezier(0.25, 1, 0.5, 1);
-  transform: translateY(0);
+  background: #fdf5ec; /* Warm parchment cream color to match the scroll background */
+  transition: opacity 1.2s ease;
   opacity: 1;
 }
-.r-top {
-  height: 30%;
-  transform-origin: top center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.06);
-  z-index: 2;
+
+/* Precise vertical heights covering the text elements on the scroll */
+.tr-spacer-top {
+  height: 33%; /* Top of the scroll roll is always visible! */
+  background: transparent;
 }
-.r-middle {
-  height: 40%;
-  z-index: 1;
+.tr-title {
+  height: 15%; /* Covers: Engagement / Haldi / Wedding / Akanksha & Sambit */
 }
-.r-bottom {
-  height: 30%;
-  transform-origin: bottom center;
-  box-shadow: 0 -5px 15px rgba(0,0,0,0.06);
-  z-index: 2;
+.tr-date {
+  height: 13%; /* Covers: DATE & Date numbers */
+}
+.tr-quote {
+  height: 9%;  /* Covers: Sub-quotes / Parent details */
+}
+.tr-venue {
+  height: 10%; /* Covers: VENUE & Venue details */
+}
+.tr-time {
+  height: 8%;  /* Covers: TIME & Timings */
+}
+.tr-spacer-bottom {
+  height: 12%; /* Bottom decoration of the scroll is always visible! */
+  background: transparent;
 }
 
-/* Active slide states — panels slide/fade away second by second */
-.screen.active .r-top {
-  transform: translateY(-100%);
+/* Active slide animation — text fades in one by one, second by second */
+.screen.active .tr-title {
   opacity: 0;
-  transition-delay: 0.3s;
+  transition-delay: 0.5s; /* 0.5s: Title appears! */
 }
-.screen.active .r-middle {
+.screen.active .tr-date {
   opacity: 0;
-  transform: scale(1.05);
-  transition-delay: 1.3s; /* 1 second later! */
+  transition-delay: 1.5s; /* 1.5s: Date appears! */
 }
-.screen.active .r-bottom {
-  transform: translateY(100%);
+.screen.active .tr-quote {
   opacity: 0;
-  transition-delay: 2.3s; /* another second later! */
+  transition-delay: 2.5s; /* 2.5s: Quote/Parents appear! */
+}
+.screen.active .tr-venue {
+  opacity: 0;
+  transition-delay: 3.5s; /* 3.5s: Venue appears! */
+}
+.screen.active .tr-time {
+  opacity: 0;
+  transition-delay: 4.5s; /* 4.5s: Time appears! */
 }
 
-/* Custom stagger delays for Slide 1 (opens vertically after double doors open horizontally) */
-#s1.active .r-top {
-  transition-delay: 2.1s; /* Starts right after the double doors open at 1.8s */
+/* Slide 1 Stagger Delays (starts after the double doors open at 1.8s) */
+#s1.active .tr-title {
+  transition-delay: 2.3s;
 }
-#s1.active .r-middle {
-  transition-delay: 3.1s;
+#s1.active .tr-date {
+  transition-delay: 3.3s;
 }
-#s1.active .r-bottom {
-  transition-delay: 4.1s;
+#s1.active .tr-quote {
+  transition-delay: 4.3s;
+}
+#s1.active .tr-venue {
+  transition-delay: 5.3s;
+}
+#s1.active .tr-time {
+  transition-delay: 6.3s;
 }
 
 /* ── Dot progress ── */
@@ -354,11 +374,15 @@ html,body {
 
     <div class="screen" id="s1" data-i="0">
       <img src="assets/slide1_intro.jpg?v=2" alt="Akanksha & Sambit Introduction Card" loading="eager">
-      <!-- Staggered reveal panels -->
-      <div class="reveal-overlay">
-        <div class="r-panel r-top"></div>
-        <div class="r-panel r-middle"></div>
-        <div class="r-panel r-bottom"></div>
+      <!-- Magical text reveal overlays -->
+      <div class="text-reveal-container">
+        <div class="tr-spacer-top"></div>
+        <div class="tr-strip tr-title"></div>
+        <div class="tr-strip tr-date"></div>
+        <div class="tr-strip tr-quote"></div>
+        <div class="tr-strip tr-venue"></div>
+        <div class="tr-strip tr-time"></div>
+        <div class="tr-spacer-bottom"></div>
       </div>
       <!-- Double door reveal panels -->
       <div class="door-container">
@@ -369,46 +393,66 @@ html,body {
 
     <div class="screen" id="s2" data-i="1">
       <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
-      <div class="reveal-overlay">
-        <div class="r-panel r-top"></div>
-        <div class="r-panel r-middle"></div>
-        <div class="r-panel r-bottom"></div>
+      <div class="text-reveal-container">
+        <div class="tr-spacer-top"></div>
+        <div class="tr-strip tr-title"></div>
+        <div class="tr-strip tr-date"></div>
+        <div class="tr-strip tr-quote"></div>
+        <div class="tr-strip tr-venue"></div>
+        <div class="tr-strip tr-time"></div>
+        <div class="tr-spacer-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
       <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
-      <div class="reveal-overlay">
-        <div class="r-panel r-top"></div>
-        <div class="r-panel r-middle"></div>
-        <div class="r-panel r-bottom"></div>
+      <div class="text-reveal-container">
+        <div class="tr-spacer-top"></div>
+        <div class="tr-strip tr-title"></div>
+        <div class="tr-strip tr-date"></div>
+        <div class="tr-strip tr-quote"></div>
+        <div class="tr-strip tr-venue"></div>
+        <div class="tr-strip tr-time"></div>
+        <div class="tr-spacer-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
       <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
-      <div class="reveal-overlay">
-        <div class="r-panel r-top"></div>
-        <div class="r-panel r-middle"></div>
-        <div class="r-panel r-bottom"></div>
+      <div class="text-reveal-container">
+        <div class="tr-spacer-top"></div>
+        <div class="tr-strip tr-title"></div>
+        <div class="tr-strip tr-date"></div>
+        <div class="tr-strip tr-quote"></div>
+        <div class="tr-strip tr-venue"></div>
+        <div class="tr-strip tr-time"></div>
+        <div class="tr-spacer-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
       <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
-      <div class="reveal-overlay">
-        <div class="r-panel r-top"></div>
-        <div class="r-panel r-middle"></div>
-        <div class="r-panel r-bottom"></div>
+      <div class="text-reveal-container">
+        <div class="tr-spacer-top"></div>
+        <div class="tr-strip tr-title"></div>
+        <div class="tr-strip tr-date"></div>
+        <div class="tr-strip tr-quote"></div>
+        <div class="tr-strip tr-venue"></div>
+        <div class="tr-strip tr-time"></div>
+        <div class="tr-spacer-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
       <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
-      <div class="reveal-overlay">
-        <div class="r-panel r-top"></div>
-        <div class="r-panel r-middle"></div>
-        <div class="r-panel r-bottom"></div>
+      <div class="text-reveal-container">
+        <div class="tr-spacer-top"></div>
+        <div class="tr-strip tr-title"></div>
+        <div class="tr-strip tr-date"></div>
+        <div class="tr-strip tr-quote"></div>
+        <div class="tr-strip tr-venue"></div>
+        <div class="tr-strip tr-time"></div>
+        <div class="tr-spacer-bottom"></div>
       </div>
     </div>
 

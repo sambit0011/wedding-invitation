@@ -233,6 +233,50 @@ html,body {
   -webkit-clip-path: inset(100% 0 0 0);
 }
 
+/* Moving scroll bottom roller cylinder rod */
+.scroll-roller {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 15.5%; /* Touches the top rod initially */
+  height: 18px; /* Matching the cylinder thickness in the image */
+  background: linear-gradient(to bottom, #ffe8ad 0%, #d4af37 35%, #aa7c11 65%, #ffe8ad 100%);
+  border-radius: 9px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 6; /* Sits on top of the scroll cover */
+  pointer-events: none;
+  
+  /* Auspicious gold knobs on the left and right ends of the rod */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2px;
+  
+  /* Smooth transition matching the cover */
+  transition: top 1.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Beautiful gold knobs on the ends */
+.scroll-roller::before, .scroll-roller::after {
+  content: '';
+  width: 14px;
+  height: 22px;
+  background: radial-gradient(circle, #ffe8ad 30%, #d4af37 70%, #aa7c11 100%);
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.scroll-roller::before {
+  margin-left: -10px;
+}
+.scroll-roller::after {
+  margin-right: -10px;
+}
+
+/* When active, the cylinder roller slides down to the bottom rod position */
+.screen.active .scroll-roller {
+  top: 84.5%;
+}
+
 /* Double door reveal */
 .door-container {
   position: absolute;
@@ -328,26 +372,31 @@ html,body {
     <div class="screen" id="s2" data-i="1">
       <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
       <div class="scroll-cover"></div>
+      <div class="scroll-roller"></div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
       <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
       <div class="scroll-cover"></div>
+      <div class="scroll-roller"></div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
       <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
       <div class="scroll-cover"></div>
+      <div class="scroll-roller"></div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
       <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
       <div class="scroll-cover"></div>
+      <div class="scroll-roller"></div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
       <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
       <div class="scroll-cover"></div>
+      <div class="scroll-roller"></div>
     </div>
 
   </div>

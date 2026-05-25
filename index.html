@@ -198,13 +198,33 @@ html,body {
   justify-content: center;
 }
 
-/* Complete full screen image cover */
+/* Complete full screen image cover & rolled-up default state */
 .screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
   display: block;
+  
+  /* Initial rolled-up state */
+  clip-path: inset(0 0 100% 0);
+  -webkit-clip-path: inset(0 0 100% 0);
+  
+  /* Butter-smooth physical unrolling transition */
+  transition: clip-path 1.8s cubic-bezier(0.23, 1, 0.32, 1),
+              -webkit-clip-path 1.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Introduction slide is fully visible by default */
+#s1 img {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
+}
+
+/* Beautiful unrolling reveal when slide snapped/active */
+.screen.active img {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
 }
 
 /* Double door reveal */
@@ -290,7 +310,7 @@ html,body {
   <!-- ── Gallery ── -->
   <div id="gallery">
 
-    <div class="screen" id="s1" data-i="0">
+    <div class="screen active" id="s1" data-i="0">
       <img src="assets/slide1_intro.jpg?v=2" alt="Akanksha & Sambit Introduction Card" loading="eager">
       <!-- Double door reveal panels -->
       <div class="door-container">
@@ -395,6 +415,9 @@ gallery.addEventListener('scroll', () => {
       activeIndex = i;
     }
   });
+
+  // Toggle active class on screens to trigger unrolling transitions dynamically
+  screens.forEach((s, i) => s.classList.toggle('active', i === activeIndex));
 
   dots.forEach((d, j) => d.classList.toggle('on', activeIndex === j));
 });

@@ -198,79 +198,13 @@ html,body {
   justify-content: center;
 }
 
-/* For all scroll event screens, set the closed scroll template as stationary background */
-.screen:not(#s1) {
-  background-image: url('assets/scroll_closed.jpg?v=2');
-  background-size: cover;
-  background-position: center;
-}
-
-/* Complete full screen image cover, fully visible at all times */
+/* Complete full screen image cover */
 .screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
   display: block;
-}
-
-/* Unrolled foreground card image, visible on top of background */
-.unrolled-card {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2; /* Sits above the closed background image */
-  
-  /* Start state: only show the top rod (above 18.5dvh), hide all text & bottom rod */
-  clip-path: inset(0 0 81.5% 0);
-  -webkit-clip-path: inset(0 0 81.5% 0);
-  
-  /* Smooth unrolling wipe animation */
-  transition: clip-path 1.6s cubic-bezier(0.23, 1, 0.32, 1),
-              -webkit-clip-path 1.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* When the screen is snapped/active, reveal the full scroll downward */
-.screen.active .unrolled-card {
-  clip-path: inset(0 0 0 0);
-  -webkit-clip-path: inset(0 0 0 0);
-}
-
-/* Moving scroll bottom roller cylinder rod */
-.scroll-roller {
-  position: absolute;
-  left: 9%;
-  width: 82%;
-  height: 6dvh;
-  top: 18.5dvh; /* Starts touching the top rod, aligned with closed scroll rod */
-  overflow: hidden;
-  z-index: 10; /* Sits on top of the unrolled card */
-  pointer-events: none;
-  border-radius: 4px; /* Soft corner matching the scroll wooden ends */
-  
-  /* Subtle physical drop-shadow for 3D realism */
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.28);
-  
-  /* Smooth slide down in perfect sync with the parchment wipe */
-  transition: top 1.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* When active, the cylinder roller slides down to the bottom rod position */
-.screen.active .scroll-roller {
-  top: 83.5dvh;
-}
-
-/* The cropped bottom rod image inside the scroll roller */
-.screen img.roller-img {
-  position: absolute;
-  /* Perfect alignment calculations to match screen pixels */
-  left: calc(-9 / 82 * 100%) !important;
-  width: calc(100 / 82 * 100%) !important;
-  height: 100dvh !important;
-  object-fit: cover !important;
-  top: -83.5dvh !important;
 }
 
 /* Double door reveal */
@@ -303,6 +237,68 @@ html,body {
 #gallery.show .d-right {
   transform: translateX(100%);
   transition-delay: 1.8s;
+}
+
+/* Reveal panels container */
+.reveal-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+  pointer-events: none;
+}
+.r-panel {
+  width: 100%;
+  background: #fcefe3; /* Seamless peach color matching slides fallback */
+  transition: transform 1.0s cubic-bezier(0.25, 1, 0.5, 1), 
+              opacity 1.0s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateY(0);
+  opacity: 1;
+}
+.r-top {
+  height: 30%;
+  transform-origin: top center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+  z-index: 2;
+}
+.r-middle {
+  height: 40%;
+  z-index: 1;
+}
+.r-bottom {
+  height: 30%;
+  transform-origin: bottom center;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.06);
+  z-index: 2;
+}
+
+/* Active slide states — panels slide/fade away second by second */
+.screen.active .r-top {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition-delay: 0.3s;
+}
+.screen.active .r-middle {
+  opacity: 0;
+  transform: scale(1.05);
+  transition-delay: 1.3s; /* 1 second later! */
+}
+.screen.active .r-bottom {
+  transform: translateY(100%);
+  opacity: 0;
+  transition-delay: 2.3s; /* another second later! */
+}
+
+/* Custom stagger delays for Slide 1 (opens vertically after double doors open horizontally) */
+#s1.active .r-top {
+  transition-delay: 2.1s; /* Starts right after the double doors open at 1.8s */
+}
+#s1.active .r-middle {
+  transition-delay: 3.1s;
+}
+#s1.active .r-bottom {
+  transition-delay: 4.1s;
 }
 
 /* ── Dot progress ── */
@@ -356,8 +352,14 @@ html,body {
   <!-- ── Gallery ── -->
   <div id="gallery">
 
-    <div class="screen active" id="s1" data-i="0">
+    <div class="screen" id="s1" data-i="0">
       <img src="assets/slide1_intro.jpg?v=2" alt="Akanksha & Sambit Introduction Card" loading="eager">
+      <!-- Staggered reveal panels -->
+      <div class="reveal-overlay">
+        <div class="r-panel r-top"></div>
+        <div class="r-panel r-middle"></div>
+        <div class="r-panel r-bottom"></div>
+      </div>
       <!-- Double door reveal panels -->
       <div class="door-container">
         <div class="d-left door"></div>
@@ -366,37 +368,47 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="1">
-      <img src="assets/slide2_engagement.jpg?v=2" class="unrolled-card" alt="Engagement Scroll Card" loading="lazy">
-      <div class="scroll-roller">
-        <img src="assets/slide2_engagement.jpg?v=2" class="roller-img" alt="">
+      <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
+      <div class="reveal-overlay">
+        <div class="r-panel r-top"></div>
+        <div class="r-panel r-middle"></div>
+        <div class="r-panel r-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
-      <img src="assets/slide3_haldi.jpg?v=2" class="unrolled-card" alt="Haldi Scroll Card" loading="lazy">
-      <div class="scroll-roller">
-        <img src="assets/slide3_haldi.jpg?v=2" class="roller-img" alt="">
+      <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
+      <div class="reveal-overlay">
+        <div class="r-panel r-top"></div>
+        <div class="r-panel r-middle"></div>
+        <div class="r-panel r-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=2" class="unrolled-card" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
-      <div class="scroll-roller">
-        <img src="assets/slide4_mehendi_sangeet.jpg?v=2" class="roller-img" alt="">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <div class="reveal-overlay">
+        <div class="r-panel r-top"></div>
+        <div class="r-panel r-middle"></div>
+        <div class="r-panel r-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
-      <img src="assets/slide5_wedding.jpg?v=2" class="unrolled-card" alt="Wedding Scroll Card" loading="lazy">
-      <div class="scroll-roller">
-        <img src="assets/slide5_wedding.jpg?v=2" class="roller-img" alt="">
+      <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
+      <div class="reveal-overlay">
+        <div class="r-panel r-top"></div>
+        <div class="r-panel r-middle"></div>
+        <div class="r-panel r-bottom"></div>
       </div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
-      <img src="assets/slide6_reception.jpg?v=2" class="unrolled-card" alt="Reception Scroll Card" loading="lazy">
-      <div class="scroll-roller">
-        <img src="assets/slide6_reception.jpg?v=2" class="roller-img" alt="">
+      <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
+      <div class="reveal-overlay">
+        <div class="r-panel r-top"></div>
+        <div class="r-panel r-middle"></div>
+        <div class="r-panel r-bottom"></div>
       </div>
     </div>
 
@@ -448,6 +460,9 @@ function openInvitation() {
     gallery.classList.add('show');
     dotsEl.classList.add('show');
     gallery.scrollTop = 0;
+    
+    // Proactively set slide 1 active for its reveal animation
+    screens[0]?.classList.add('active');
   }, 250);
 
   // 3. Remove envelope after transition completes
@@ -477,10 +492,10 @@ gallery.addEventListener('scroll', () => {
     }
   });
 
-  // Toggle active class on screens to trigger unrolling transitions dynamically
-  screens.forEach((s, i) => s.classList.toggle('active', i === activeIndex));
-
   dots.forEach((d, j) => d.classList.toggle('on', activeIndex === j));
+  
+  // Staggered reveal toggle active slide
+  screens.forEach((s, i) => s.classList.toggle('active', activeIndex === i));
 });
 
 dots.forEach((d, i) => {
@@ -491,7 +506,7 @@ dots.forEach((d, i) => {
 
 /* ── Preload ── */
 setTimeout(() => {
-  ['scroll_closed','slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
+  ['slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
     .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=2`; });
 }, 800);
 </script>

@@ -53,13 +53,37 @@ html,body {
   perspective: 1000px; /* Enable 3D transitions */
 }
 
+/* Aspect-ratio locked wrapper to align all layers pixel-perfectly on any device */
+#env-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  aspect-ratio: 576 / 1024;
+  width: auto;
+  max-width: 100%;
+  perspective: 1000px;
+}
+
+#env-back {
+  position: absolute;
+  inset: 0;
+  background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
+  background-size: 100% 100%;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
+  z-index: 1;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+}
+
 #env-lower {
   position: absolute;
   inset: 0;
   background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
-  background-size: cover;
+  background-size: 100% 100%;
   clip-path: polygon(0% 58%, 50% 73.5%, 100% 58%, 100% 100%, 0% 100%);
-  z-index: 1;
+  z-index: 2;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
 }
@@ -68,21 +92,21 @@ html,body {
   position: absolute;
   inset: 0;
   background: url('assets/envelope_start.jpg?v=3') no-repeat center center;
-  background-size: cover;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 50% 73.5%, 0% 58%);
-  z-index: 2;
-  transform-origin: top center; /* Hinge from top edge for 3D leaflet flip */
+  background-size: 100% 100%;
+  clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
+  z-index: 4;
+  transform-origin: center 58%; /* Hinge perfectly along the top crease of the pocket */
   transition: transform 3.0s cubic-bezier(0.25, 1, 0.5, 1);
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
 }
 
-/* Upper leaflet flap folds upwards cleanly in 3D (partially opened to exactly 50%) */
+/* Triangular flap folds upwards in 3D around the crease line */
 #env-upper.open {
-  transform: rotateX(115deg); /* Folds the top section UPWARDS in 3D! */
+  transform: rotateX(115deg);
 }
 
-/* Peach mask to hide printed Ganesha wax coin on lower body instantly upon opening */
+/* Peach mask to hide printed Ganesha wax coin on lower pocket body instantly upon opening */
 #seal-mask {
   position: absolute;
   top: 73.5%;
@@ -92,7 +116,7 @@ html,body {
   height: 90px;
   border-radius: 50%;
   background: #fcefe3; /* Matches peach card interior */
-  z-index: 1.5;
+  z-index: 2.5; /* Sits above pocket but below rotating flap when closed */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -101,10 +125,29 @@ html,body {
   opacity: 1;
 }
 
+/* Peach mask inside rotating flap to hide printed Ganesha wax coin on upper flap instantly */
+#seal-mask-upper {
+  position: absolute;
+  top: 73.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fcefe3; /* Matches peach card interior */
+  z-index: 5; /* Sits on top of the flap's image content */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+#seal-mask-upper.show {
+  opacity: 1;
+}
+
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
 .seal {
   position: absolute;
-  top: 73.5%; /* Aligned with Ganesha wax seal in the new peach starting envelope */
+  top: 73.5%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80px;
@@ -343,7 +386,7 @@ html,body {
   transform: translate(-50%, -50%);
   width: 13.5%;
   height: 6%;
-  background: #9cb4c9; /* Beautiful matching slate/steel-blue! */
+  background: none; /* Transparent, displaying white text directly on printed arches */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,10 +395,10 @@ html,body {
 
 .countdown-live-number {
   font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem; /* Sized to perfectly center and sit within slate-blue arches without overflow */
   font-weight: 300;
   color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 </style>
@@ -369,13 +412,19 @@ html,body {
 
   <!-- ── Envelope Screen ── -->
   <div id="env">
-    <!-- Split layers using the same image via clip-path -->
-    <div id="env-lower"></div>
-    <div id="env-upper"></div>
-    <!-- Seamless peach mask to cover the printed wax coin on the pocket upon click -->
-    <div id="seal-mask"></div>
-    <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
-    <div class="seal" id="seal"></div>
+    <div id="env-wrapper">
+      <!-- Split layers using the same image via clip-path -->
+      <div id="env-back"></div>
+      <div id="env-lower"></div>
+      <div id="env-upper">
+        <!-- Peach mask inside rotating flap to cover the upper half of the printed wax coin -->
+        <div id="seal-mask-upper"></div>
+      </div>
+      <!-- Seamless peach mask to cover the printed wax coin on the pocket upon click -->
+      <div id="seal-mask"></div>
+      <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
+      <div class="seal" id="seal"></div>
+    </div>
   </div>
 
   <!-- White flash transition screen -->
@@ -518,10 +567,12 @@ function openInvitation() {
   seal.style.display = 'none';
   const mask = document.getElementById('seal-mask');
   if (mask) mask.classList.add('show');
+  const maskUpper = document.getElementById('seal-mask-upper');
+  if (maskUpper) maskUpper.classList.add('show');
 
   // 2. Animate the upper leaflet/flap folding up in 3D slowly (3.0s duration)
   const envUpper = document.getElementById('env-upper');
-  envUpper.classList.add('open');
+  if (envUpper) envUpper.classList.add('open');
 
   // 3. Exactly when the flap reaches ~50% open (at 3 seconds), make the screen solid white instantly
   // and load the gallery screen under it

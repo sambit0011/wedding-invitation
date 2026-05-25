@@ -50,115 +50,57 @@ html,body {
   background: #fcefe3; /* Seamless peach envelope fallback */
   z-index: 200;
   overflow: hidden;
-  
-  /* Elegant diagonal brush sweep mask */
-  -webkit-mask-image: linear-gradient(135deg, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.4) 52%, black 65%, black 100%);
-  mask-image: linear-gradient(135deg, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.4) 52%, black 65%, black 100%);
-  -webkit-mask-size: 300% 300%;
-  mask-size: 300% 300%;
-  -webkit-mask-position: 100% 100%;
-  mask-position: 100% 100%;
-  
-  transition: opacity 2.2s cubic-bezier(0.25, 1, 0.5, 1),
-              -webkit-mask-position 2.2s cubic-bezier(0.25, 1, 0.5, 1),
-              mask-position 2.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-#env.out { 
-  opacity: 0; 
-  -webkit-mask-position: 0% 0%; 
-  mask-position: 0% 0%; 
-  pointer-events: none; 
 }
 
-/* Full screen cover image for starting envelope screen */
+/* Optimize for highest quality image scaling and crisp text rendering */
 .env-bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
-/* Pulsing click target exactly aligned with Ganesha wax seal in the image */
+/* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
 .seal {
   position: absolute;
   top: 73.5%; /* Aligned with Ganesha wax seal in the new peach starting envelope */
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
   -webkit-user-select: none;
   user-select: none;
   
-  /* Auspicious gold pulsing outline animation */
-  box-shadow: 0 0 0 0 rgba(252, 233, 144, 0.45);
-  animation: sealPulse 2.2s infinite ease-in-out;
+  /* Bright, premium gold glowing border and box shadow */
+  border: 2px solid rgba(212, 175, 55, 0.95);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.8),
+              inset 0 0 10px rgba(212, 175, 55, 0.4);
+  animation: sealGlowPulse 2.0s infinite ease-in-out;
 }
-@keyframes sealPulse {
-  0% { box-shadow: 0 0 0 0 rgba(252, 233, 144, 0.45); }
-  70% { box-shadow: 0 0 0 16px rgba(252, 233, 144, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(252, 233, 144, 0); }
-}
-
-/* Seal click spinning effect */
-.seal.spinning {
-  animation: sealSpin .6s ease-in-out forwards;
-}
-@keyframes sealSpin {
-  0%   { transform: translate(-50%,-50%) scale(1) rotate(0deg); opacity: 1; }
-  100% { transform: translate(-50%,-50%) scale(0) rotate(360deg); opacity: 0; }
-}
-
-/* Flap open */
-.env-box.open .flap-t {
-  transform: rotateX(200deg);
-  z-index: 1;
-}
-/* Card slide up dramatically */
-.env-box.open .inner-card {
-  transform: translateY(-120%) scale(1.02);
-  z-index: 5;
-  box-shadow: 0 30px 60px rgba(93,63,155,.4);
-}
-
-/* Tap hint */
-.tap-hint {
-  font-family: Georgia, serif;
-  font-size: .74rem;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: #6d4fa8;
-  font-weight: 600;
-  text-shadow: 0 1px 4px rgba(255,255,255,.9);
-  animation: hint 2.2s infinite ease-in-out;
-  z-index: 5;
-}
-@keyframes hint {
-  0%,100% { opacity:.45; transform:scale(1); }
-  50%      { opacity:1;   transform:scale(1.04); }
-}
-
-/* Light burst on open */
-.burst {
-  position: absolute;
-  top:50%; left:50%;
-  width:10px; height:10px;
-  border-radius:50%;
-  background:rgba(255,240,150,.9);
-  transform:translate(-50%,-50%) scale(0);
-  z-index: 10;
-  pointer-events:none;
-  opacity:0;
-}
-.burst.go {
-  animation: burstAnim .7s ease-out forwards;
-}
-@keyframes burstAnim {
-  0%   { transform:translate(-50%,-50%) scale(0); opacity:1; }
-  60%  { transform:translate(-50%,-50%) scale(40); opacity:.6; }
-  100% { transform:translate(-50%,-50%) scale(80); opacity:0; }
+@keyframes sealGlowPulse {
+  0% {
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6), 
+                inset 0 0 5px rgba(212, 175, 55, 0.3);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 1), 
+                0 0 45px rgba(212, 175, 55, 0.7),
+                inset 0 0 15px rgba(212, 175, 55, 0.6);
+    transform: translate(-50%, -50%) scale(1.06); /* Rhythmic breathing scale */
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6), 
+                inset 0 0 5px rgba(212, 175, 55, 0.3);
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 
@@ -174,7 +116,6 @@ html,body {
   scrollbar-width: none;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1.5s ease;
 }
 #gallery::-webkit-scrollbar { display:none; }
 #gallery.show {
@@ -198,48 +139,24 @@ html,body {
   justify-content: center;
 }
 
-/* Complete full screen image cover */
+/* Complete full screen image cover optimized for extreme sharpness & 8K text clarity */
 .screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
   display: block;
+  
+  /* Safari/Chrome image scaling contrast optimizations for high-res details */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  
+  /* Force hardware compositing to keep text crystal clear */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
-
-/* Double door reveal */
-.door-container {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  z-index: 10;
-  pointer-events: none;
-}
-.door {
-  width: 50%;
-  height: 100%;
-  background: #f7dfcb; /* Beautiful peach color matching the new Ganesha envelope */
-  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-  transform: translateX(0);
-}
-.d-left {
-  box-shadow: 8px 0 16px rgba(0,0,0,0.5);
-  z-index: 2;
-}
-.d-right {
-  box-shadow: -8px 0 16px rgba(0,0,0,0.5);
-  z-index: 2;
-}
-#gallery.show .d-left {
-  transform: translateX(-100%);
-  transition-delay: 1.8s;
-}
-#gallery.show .d-right {
-  transform: translateX(100%);
-  transition-delay: 1.8s;
-}
-
-
 
 /* ── Dot progress ── */
 #dots {
@@ -282,7 +199,7 @@ html,body {
   <!-- ── Envelope Screen ── -->
   <div id="env">
     <!-- Full-screen Peach & Gold Envelope Image -->
-    <img src="assets/envelope_start.jpg?v=2" class="env-bg-img" alt="Wedding Invitation Envelope">
+    <img src="assets/envelope_start.jpg?v=3" class="env-bg-img" alt="Wedding Invitation Envelope">
     
     <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
     <div class="seal" id="seal"></div>
@@ -293,32 +210,27 @@ html,body {
   <div id="gallery">
 
     <div class="screen" id="s1" data-i="0">
-      <img src="assets/slide1_intro.jpg?v=2" alt="Akanksha & Sambit Introduction Card" loading="eager">
-      <!-- Double door reveal panels -->
-      <div class="door-container">
-        <div class="d-left door"></div>
-        <div class="d-right door"></div>
-      </div>
+      <img src="assets/slide1_intro.jpg?v=3" alt="Akanksha & Sambit Introduction Card" loading="eager">
     </div>
 
     <div class="screen" id="s2" data-i="1">
-      <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
+      <img src="assets/slide2_engagement.jpg?v=3" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s3" data-i="2">
-      <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
+      <img src="assets/slide3_haldi.jpg?v=3" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s4" data-i="3">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=3" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s5" data-i="4">
-      <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
+      <img src="assets/slide5_wedding.jpg?v=3" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s6" data-i="5">
-      <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
+      <img src="assets/slide6_reception.jpg?v=3" alt="Reception Scroll Card" loading="lazy">
     </div>
 
   </div>
@@ -360,24 +272,11 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  // 1. Gold Ganesha seal spins and fades out
-  seal.classList.add('spinning');
-
-  // 2. Trigger slow brush diagonal sweep of envelope after seal fade (2.2s duration)
-  setTimeout(() => {
-    envEl.classList.add('out');
-    gallery.classList.add('show');
-    dotsEl.classList.add('show');
-    gallery.scrollTop = 0;
-    
-    // Proactively set slide 1 active for its reveal animation
-    screens[0]?.classList.add('active');
-  }, 250);
-
-  // 3. Remove envelope after transition completes
-  setTimeout(() => { 
-    envEl.style.display = 'none'; 
-  }, 3200);
+  // Instantly hide starting envelope and show gallery screens
+  envEl.style.display = 'none';
+  gallery.classList.add('show');
+  dotsEl.classList.add('show');
+  gallery.scrollTop = 0;
 }
 
 seal.addEventListener('click', openInvitation);
@@ -402,9 +301,6 @@ gallery.addEventListener('scroll', () => {
   });
 
   dots.forEach((d, j) => d.classList.toggle('on', activeIndex === j));
-  
-  // Staggered reveal toggle active slide
-  screens.forEach((s, i) => s.classList.toggle('active', activeIndex === i));
 });
 
 dots.forEach((d, i) => {
@@ -416,7 +312,7 @@ dots.forEach((d, i) => {
 /* ── Preload ── */
 setTimeout(() => {
   ['slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
-    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=2`; });
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=3`; });
 }, 800);
 </script>
 

@@ -69,7 +69,7 @@ html,body {
 #env-back {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=4') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=5') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
   z-index: 1;
@@ -80,7 +80,7 @@ html,body {
 #env-lower {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=4') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=5') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 58%, 50% 73.5%, 100% 58%, 100% 100%, 0% 100%);
   z-index: 2;
@@ -91,7 +91,7 @@ html,body {
 #env-upper {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=4') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=5') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
   z-index: 4;
@@ -395,10 +395,10 @@ html,body {
 
 .countdown-live-number {
   font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
-  font-size: 1.6rem; /* Sized to perfectly center and sit within slate-blue arches without overflow */
-  font-weight: 300;
+  font-size: 2.2rem; /* Increased font size for legibility and premium look */
+  font-weight: 700; /* Bold numbers as requested! */
   color: #ffffff;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.25);
 }
 
 </style>
@@ -435,14 +435,14 @@ html,body {
   <div id="gallery">
 
     <div class="screen" id="s1" data-i="0">
-      <img src="assets/slide1_intro.jpg?v=4" alt="Akanksha & Sambit Introduction Card" loading="eager">
+      <img src="assets/slide1_intro.jpg?v=5" alt="Akanksha & Sambit Introduction Card" loading="eager">
     </div>
 
     <!-- NEW Screen: Date Scratch & Save the Date Countdown -->
     <div class="screen" id="s_scratch_countdown" data-i="1">
       <!-- Screen Phase 1: Date 1 Scratch Card -->
       <div class="scratch-container active" id="scratch-screen">
-        <img src="assets/date1_scratch.jpg?v=4" alt="Reveal Our Big Day" loading="lazy">
+        <img src="assets/date1_scratch.jpg?v=5" alt="Reveal Our Big Day" loading="lazy">
         
         <!-- Responsive Overlay for canvas & values -->
         <div class="scratch-overlay-wrapper">
@@ -483,7 +483,7 @@ html,body {
 
       <!-- Screen Phase 2: Date 2 Save the Date Countdown -->
       <div class="countdown-container" id="countdown-screen">
-        <img src="assets/date2_countdown.jpg?v=4" alt="Save the Date" loading="lazy">
+        <img src="assets/date2_countdown.jpg?v=5" alt="Save the Date" loading="lazy">
         
         <!-- Responsive Overlay for dynamic countdown numbers -->
         <div class="countdown-overlay-wrapper">
@@ -504,23 +504,23 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="2">
-      <img src="assets/slide2_engagement.jpg?v=4" alt="Engagement Scroll Card" loading="lazy">
+      <img src="assets/slide2_engagement.jpg?v=5" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s3" data-i="3">
-      <img src="assets/slide3_haldi.jpg?v=4" alt="Haldi Scroll Card" loading="lazy">
+      <img src="assets/slide3_haldi.jpg?v=5" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s4" data-i="4">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=4" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=5" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s5" data-i="5">
-      <img src="assets/slide5_wedding.jpg?v=4" alt="Wedding Scroll Card" loading="lazy">
+      <img src="assets/slide5_wedding.jpg?v=5" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s6" data-i="6">
-      <img src="assets/slide6_reception.jpg?v=4" alt="Reception Scroll Card" loading="lazy">
+      <img src="assets/slide6_reception.jpg?v=5" alt="Reception Scroll Card" loading="lazy">
     </div>
 
   </div>
@@ -588,7 +588,7 @@ function initScratchCards() {
   ];
 
   const bgImg = new Image();
-  bgImg.src = 'assets/date1_scratch.jpg?v=4';
+  bgImg.src = 'assets/date1_scratch.jpg?v=5';
   bgImg.onload = () => {
     cards.forEach(card => {
       const canvas = document.getElementById(card.canvasId);
@@ -796,7 +796,7 @@ dots.forEach((d, i) => {
 /* ── Preload ── */
 setTimeout(() => {
   ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
-    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=4`; });
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=5`; });
 }, 800);
 </script>
 

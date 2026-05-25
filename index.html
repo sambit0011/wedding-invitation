@@ -198,6 +198,13 @@ html,body {
   justify-content: center;
 }
 
+/* For all scroll event screens, set the closed scroll template as stationary background */
+.screen:not(#s1) {
+  background-image: url('assets/scroll_closed.jpg?v=2');
+  background-size: cover;
+  background-position: center;
+}
+
 /* Complete full screen image cover, fully visible at all times */
 .screen img {
   width: 100%;
@@ -207,74 +214,63 @@ html,body {
   display: block;
 }
 
-/* Center scroll cover to hide details initially */
-.scroll-cover {
+/* Unrolled foreground card image, visible on top of background */
+.unrolled-card {
   position: absolute;
-  top: 15.5%;
-  bottom: 15.5%;
-  left: 10%;
-  right: 10%;
-  background: #fdf5ea; /* Seamless parchment cream background matching scroll background */
-  z-index: 5;
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2; /* Sits above the closed background image */
   
-  /* Rolled up cover state */
-  clip-path: inset(0 0 0 0);
-  -webkit-clip-path: inset(0 0 0 0);
+  /* Start state: only show the top rod (above 18.5dvh), hide all text & bottom rod */
+  clip-path: inset(0 0 81.5% 0);
+  -webkit-clip-path: inset(0 0 81.5% 0);
   
-  /* Smooth unrolling transition */
+  /* Smooth unrolling wipe animation */
   transition: clip-path 1.6s cubic-bezier(0.23, 1, 0.32, 1),
               -webkit-clip-path 1.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* When the screen is snapped/active, the cover clears out from top to bottom, unrolling only the text */
-.screen.active .scroll-cover {
-  clip-path: inset(100% 0 0 0);
-  -webkit-clip-path: inset(100% 0 0 0);
+/* When the screen is snapped/active, reveal the full scroll downward */
+.screen.active .unrolled-card {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
 }
 
 /* Moving scroll bottom roller cylinder rod */
 .scroll-roller {
   position: absolute;
   left: 9%;
-  right: 9%;
-  top: 15.5%; /* Touches the top rod initially */
-  height: 18px; /* Matching the cylinder thickness in the image */
-  background: linear-gradient(to bottom, #ffe8ad 0%, #d4af37 35%, #aa7c11 65%, #ffe8ad 100%);
-  border-radius: 9px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  z-index: 6; /* Sits on top of the scroll cover */
+  width: 82%;
+  height: 6dvh;
+  top: 18.5dvh; /* Starts touching the top rod, aligned with closed scroll rod */
+  overflow: hidden;
+  z-index: 10; /* Sits on top of the unrolled card */
   pointer-events: none;
+  border-radius: 4px; /* Soft corner matching the scroll wooden ends */
   
-  /* Auspicious gold knobs on the left and right ends of the rod */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2px;
+  /* Subtle physical drop-shadow for 3D realism */
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.28);
   
-  /* Smooth transition matching the cover */
+  /* Smooth slide down in perfect sync with the parchment wipe */
   transition: top 1.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* Beautiful gold knobs on the ends */
-.scroll-roller::before, .scroll-roller::after {
-  content: '';
-  width: 14px;
-  height: 22px;
-  background: radial-gradient(circle, #ffe8ad 30%, #d4af37 70%, #aa7c11 100%);
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
-.scroll-roller::before {
-  margin-left: -10px;
-}
-.scroll-roller::after {
-  margin-right: -10px;
 }
 
 /* When active, the cylinder roller slides down to the bottom rod position */
 .screen.active .scroll-roller {
-  top: 84.5%;
+  top: 83.5dvh;
+}
+
+/* The cropped bottom rod image inside the scroll roller */
+.screen img.roller-img {
+  position: absolute;
+  /* Perfect alignment calculations to match screen pixels */
+  left: calc(-9 / 82 * 100%) !important;
+  width: calc(100 / 82 * 100%) !important;
+  height: 100dvh !important;
+  object-fit: cover !important;
+  top: -83.5dvh !important;
 }
 
 /* Double door reveal */
@@ -370,33 +366,38 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="1">
-      <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
-      <div class="scroll-cover"></div>
-      <div class="scroll-roller"></div>
+      <img src="assets/slide2_engagement.jpg?v=2" class="unrolled-card" alt="Engagement Scroll Card" loading="lazy">
+      <div class="scroll-roller">
+        <img src="assets/slide2_engagement.jpg?v=2" class="roller-img" alt="">
+      </div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
-      <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
-      <div class="scroll-cover"></div>
-      <div class="scroll-roller"></div>
+      <img src="assets/slide3_haldi.jpg?v=2" class="unrolled-card" alt="Haldi Scroll Card" loading="lazy">
+      <div class="scroll-roller">
+        <img src="assets/slide3_haldi.jpg?v=2" class="roller-img" alt="">
+      </div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
-      <div class="scroll-cover"></div>
-      <div class="scroll-roller"></div>
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=2" class="unrolled-card" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <div class="scroll-roller">
+        <img src="assets/slide4_mehendi_sangeet.jpg?v=2" class="roller-img" alt="">
+      </div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
-      <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
-      <div class="scroll-cover"></div>
-      <div class="scroll-roller"></div>
+      <img src="assets/slide5_wedding.jpg?v=2" class="unrolled-card" alt="Wedding Scroll Card" loading="lazy">
+      <div class="scroll-roller">
+        <img src="assets/slide5_wedding.jpg?v=2" class="roller-img" alt="">
+      </div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
-      <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
-      <div class="scroll-cover"></div>
-      <div class="scroll-roller"></div>
+      <img src="assets/slide6_reception.jpg?v=2" class="unrolled-card" alt="Reception Scroll Card" loading="lazy">
+      <div class="scroll-roller">
+        <img src="assets/slide6_reception.jpg?v=2" class="roller-img" alt="">
+      </div>
     </div>
 
   </div>
@@ -490,7 +491,7 @@ dots.forEach((d, i) => {
 
 /* ── Preload ── */
 setTimeout(() => {
-  ['slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
+  ['scroll_closed','slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
     .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=2`; });
 }, 800);
 </script>

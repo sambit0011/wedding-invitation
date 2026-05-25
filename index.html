@@ -73,14 +73,14 @@ html,body {
   clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 50% 73.5%, 0% 55%);
   z-index: 2;
   transform-origin: top center;
-  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
 }
 
-/* Upper leaflet flap folds upwards cleanly */
+/* Upper leaflet flap folds upwards cleanly in 3D (partially opened) */
 #env-upper.open {
-  transform: translateY(-100%) rotateX(45deg);
+  transform: rotateX(115deg);
 }
 
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
@@ -320,28 +320,28 @@ function openInvitation() {
   // 1. Gold Ganesha seal spins and fades out
   seal.classList.add('spinning');
 
-  // 2. Animate the upper leaflet/flap folding up
+  // 2. Animate the upper leaflet/flap folding up in 3D (1.8s duration)
   const envUpper = document.getElementById('env-upper');
   envUpper.classList.add('open');
 
-  // 3. Trigger white flash transition as the flap opens (at 600ms)
+  // 3. Trigger white flash transition as the flap opens (at 800ms)
   const flash = document.getElementById('white-flash');
   setTimeout(() => {
     flash.classList.add('show');
-  }, 600);
+  }, 800);
 
-  // 4. Fully load the first gallery screen under the white screen (at 1400ms)
+  // 4. Fully load the first gallery screen under the white screen (at 1800ms)
   setTimeout(() => {
     envEl.style.display = 'none';
     gallery.classList.add('show');
     dotsEl.classList.add('show');
     gallery.scrollTop = 0;
-  }, 1400);
+  }, 1800);
 
-  // 5. Fade out the white screen to reveal the first slide in high clarity (at 1500ms)
+  // 5. Fade out the white screen to reveal the first slide in high clarity (at 1950ms)
   setTimeout(() => {
     flash.classList.remove('show');
-  }, 1500);
+  }, 1950);
 }
 
 seal.addEventListener('click', openInvitation);

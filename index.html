@@ -240,6 +240,117 @@ html,body {
   box-shadow: 0 0 10px rgba(212,175,55,.8);
 }
 
+/* ── Scratch & Countdown Screen Styles ── */
+.scratch-container, .countdown-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 1.0s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.scratch-container {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.scratch-container.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.countdown-container {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.countdown-container.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Overlays precisely aligned with the background image aspect ratio */
+.scratch-overlay-wrapper, .countdown-overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  aspect-ratio: 576 / 1024;
+  width: auto;
+  max-width: 100%;
+  pointer-events: none;
+}
+
+/* Scratch Card styling */
+.scratch-card {
+  position: absolute;
+  top: 67.5%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+#card1 { left: 25.6%; }
+#card2 { left: 50.8%; }
+#card3 { left: 75.2%; }
+
+.scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  touch-action: none;
+  z-index: 10;
+  transition: opacity 0.5s ease;
+}
+
+.scratch-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.revealed-heart {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(189, 105, 56, 0.25));
+}
+.revealed-text {
+  position: absolute;
+  font-family: 'Didot', 'Georgia', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #8c2d19;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+}
+
+/* Countdown dynamic overlay boxes */
+.countdown-live-box {
+  position: absolute;
+  top: 67.5%;
+  transform: translate(-50%, -50%);
+  width: 13.5%;
+  height: 6%;
+  background: #d4c3d6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.countdown-live-number {
+  font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
 </style>
 </head>
 <body>
@@ -270,23 +381,88 @@ html,body {
       <img src="assets/slide1_intro.jpg?v=3" alt="Akanksha & Sambit Introduction Card" loading="eager">
     </div>
 
-    <div class="screen" id="s2" data-i="1">
+    <!-- NEW Screen: Date Scratch & Save the Date Countdown -->
+    <div class="screen" id="s_scratch_countdown" data-i="1">
+      <!-- Screen Phase 1: Date 1 Scratch Card -->
+      <div class="scratch-container active" id="scratch-screen">
+        <img src="assets/date1_scratch.jpg?v=3" alt="Reveal Our Big Day" loading="lazy">
+        
+        <!-- Responsive Overlay for canvas & values -->
+        <div class="scratch-overlay-wrapper">
+          <!-- Heart 1 -->
+          <div class="scratch-card" id="card1">
+            <div class="scratch-value">
+              <svg viewBox="0 0 24 24" class="revealed-heart">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z" fill="#fdf0e2" stroke="#bd6938" stroke-width="0.8"/>
+              </svg>
+              <div class="revealed-text">21</div>
+            </div>
+            <canvas class="scratch-canvas" id="canvas1"></canvas>
+          </div>
+
+          <!-- Heart 2 -->
+          <div class="scratch-card" id="card2">
+            <div class="scratch-value">
+              <svg viewBox="0 0 24 24" class="revealed-heart">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z" fill="#fdf0e2" stroke="#bd6938" stroke-width="0.8"/>
+              </svg>
+              <div class="revealed-text">Nov</div>
+            </div>
+            <canvas class="scratch-canvas" id="canvas2"></canvas>
+          </div>
+
+          <!-- Heart 3 -->
+          <div class="scratch-card" id="card3">
+            <div class="scratch-value">
+              <svg viewBox="0 0 24 24" class="revealed-heart">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z" fill="#fdf0e2" stroke="#bd6938" stroke-width="0.8"/>
+              </svg>
+              <div class="revealed-text">2026</div>
+            </div>
+            <canvas class="scratch-canvas" id="canvas3"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen Phase 2: Date 2 Save the Date Countdown -->
+      <div class="countdown-container" id="countdown-screen">
+        <img src="assets/date2_countdown.jpg?v=3" alt="Save the Date" loading="lazy">
+        
+        <!-- Responsive Overlay for dynamic countdown numbers -->
+        <div class="countdown-overlay-wrapper">
+          <div class="countdown-live-box" style="left: 23%;">
+            <div class="countdown-live-number" id="countdown-days">--</div>
+          </div>
+          <div class="countdown-live-box" style="left: 41%;">
+            <div class="countdown-live-number" id="countdown-hours">--</div>
+          </div>
+          <div class="countdown-live-box" style="left: 59%;">
+            <div class="countdown-live-number" id="countdown-minutes">--</div>
+          </div>
+          <div class="countdown-live-box" style="left: 77%;">
+            <div class="countdown-live-number" id="countdown-seconds">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" id="s2" data-i="2">
       <img src="assets/slide2_engagement.jpg?v=3" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
-    <div class="screen" id="s3" data-i="2">
+    <div class="screen" id="s3" data-i="3">
       <img src="assets/slide3_haldi.jpg?v=3" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
-    <div class="screen" id="s4" data-i="3">
+    <div class="screen" id="s4" data-i="4">
       <img src="assets/slide4_mehendi_sangeet.jpg?v=3" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
-    <div class="screen" id="s5" data-i="4">
+    <div class="screen" id="s5" data-i="5">
       <img src="assets/slide5_wedding.jpg?v=3" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
-    <div class="screen" id="s6" data-i="5">
+    <div class="screen" id="s6" data-i="6">
       <img src="assets/slide6_reception.jpg?v=3" alt="Reception Scroll Card" loading="lazy">
     </div>
 
@@ -300,6 +476,7 @@ html,body {
     <div class="dot"     data-go="3"></div>
     <div class="dot"     data-go="4"></div>
     <div class="dot"     data-go="5"></div>
+    <div class="dot"     data-go="6"></div>
   </div>
 
 </div><!-- /app -->
@@ -349,6 +526,9 @@ function openInvitation() {
     gallery.classList.add('show');
     dotsEl.classList.add('show');
     gallery.scrollTop = 0;
+    
+    // Initialize the scratch canvases now that the gallery is visible and rendered!
+    initScratchCards();
   }, 3000);
 
   // 4. Stay solid white for exactly 0.5s (until 3500ms total), then smoothly fade out over 0.5s
@@ -360,6 +540,198 @@ function openInvitation() {
 
 seal.addEventListener('click', openInvitation);
 seal.addEventListener('touchend', e => { e.preventDefault(); openInvitation(); });
+
+/* ── Scratch Card Logic ── */
+let allScratchedTriggered = false;
+let countdownInterval;
+
+function initScratchCards() {
+  const cards = [
+    { canvasId: 'canvas1' },
+    { canvasId: 'canvas2' },
+    { canvasId: 'canvas3' }
+  ];
+
+  cards.forEach(card => {
+    const canvas = document.getElementById(card.canvasId);
+    if (!canvas) return;
+    const ctxScratch = canvas.getContext('2d');
+    
+    // Set actual pixel dimensions based on element size to prevent blurring
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    ctxScratch.scale(window.devicePixelRatio, window.devicePixelRatio);
+    
+    const w = rect.width;
+    const h = rect.height;
+    
+    // 1. Draw the copper-orange heart base matching assets/date1_scratch.jpg
+    ctxScratch.save();
+    ctxScratch.scale(w / 24, h / 24); // SVG path coordinates are 24x24
+    ctxScratch.fillStyle = '#bd6938'; // Copper-orange matching envelope start
+    const heartPath = new Path2D("M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z");
+    ctxScratch.fill(heartPath);
+    ctxScratch.restore();
+    
+    // 2. Draw refined gold borders
+    ctxScratch.save();
+    ctxScratch.scale(w / 24, h / 24);
+    ctxScratch.strokeStyle = '#d4af37';
+    ctxScratch.lineWidth = 0.5;
+    ctxScratch.stroke(heartPath);
+    ctxScratch.restore();
+
+    // 3. Draw SCRATCH label in elegant serif font
+    ctxScratch.font = "bold 11px 'Didot', 'Georgia', serif";
+    ctxScratch.fillStyle = '#fcefe3';
+    ctxScratch.textAlign = 'center';
+    ctxScratch.textBaseline = 'middle';
+    ctxScratch.fillText("SCRATCH", w / 2, h / 2 - 2);
+    
+    // 4. Draw a tiny gold ornament flourish line under the text
+    ctxScratch.strokeStyle = 'rgba(252, 239, 227, 0.4)';
+    ctxScratch.lineWidth = 1;
+    ctxScratch.beginPath();
+    ctxScratch.moveTo(w / 2 - 12, h / 2 + 8);
+    ctxScratch.lineTo(w / 2 + 12, h / 2 + 8);
+    ctxScratch.stroke();
+    
+    setupScratchEvents(canvas, ctxScratch);
+  });
+}
+
+function setupScratchEvents(canvas, ctxScratch) {
+  let isDrawing = false;
+  
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    const pos = getPos(e);
+    
+    // Erase canvas pixels using destination-out transparency
+    ctxScratch.globalCompositeOperation = 'destination-out';
+    ctxScratch.beginPath();
+    ctxScratch.arc(pos.x, pos.y, 14, 0, Math.PI * 2); // 14px eraser radius
+    ctxScratch.fill();
+    
+    // Stagger check calculation for responsiveness
+    if (Math.random() < 0.15) {
+      checkScratchPercent();
+    }
+  }
+
+  function checkScratchPercent() {
+    const w = canvas.width;
+    const h = canvas.height;
+    const imgData = ctxScratch.getImageData(0, 0, w, h);
+    const pixels = imgData.data;
+    let clearCount = 0;
+    
+    // Check alpha values (index 3, 7, 11, etc. in RGBA array)
+    for (let i = 3; i < pixels.length; i += 16) {
+      if (pixels[i] === 0) {
+        clearCount++;
+      }
+    }
+    
+    const totalSampled = pixels.length / 16;
+    const percent = (clearCount / totalSampled) * 100;
+    
+    if (percent > 45) { // 45% scratch-out threshold
+      canvas.style.pointerEvents = 'none';
+      canvas.style.opacity = '0';
+      setTimeout(() => {
+        canvas.remove();
+        checkAllScratched();
+      }, 500);
+    }
+  }
+
+  canvas.addEventListener('mousedown', () => { isDrawing = true; });
+  canvas.addEventListener('mousemove', draw);
+  window.addEventListener('mouseup', () => { isDrawing = false; });
+
+  canvas.addEventListener('touchstart', (e) => { isDrawing = true; e.preventDefault(); });
+  canvas.addEventListener('touchmove', (e) => { draw(e); e.preventDefault(); });
+  window.addEventListener('touchend', () => { isDrawing = false; });
+}
+
+function checkAllScratched() {
+  if (allScratchedTriggered) return;
+  
+  const remainingCanvases = document.querySelectorAll('.scratch-canvas');
+  if (remainingCanvases.length === 0) {
+    allScratchedTriggered = true;
+    
+    // Stay on Date 1 screen for exactly 1.0s to read revealed date, then fade to Save the Date
+    setTimeout(() => {
+      // Fade out scratch screen
+      const scratchScreen = document.getElementById('scratch-screen');
+      if (scratchScreen) scratchScreen.classList.remove('active');
+      
+      // Fade in Save the Date screen
+      const countdownScreen = document.getElementById('countdown-screen');
+      if (countdownScreen) countdownScreen.classList.add('active');
+      
+      // Unlock gallery scrolling!
+      gallery.style.overflowY = 'scroll';
+      
+      // Start dynamic live countdown timer!
+      startCountdownTimer();
+    }, 1000);
+  }
+}
+
+/* ── Live Dynamic Countdown Logic ── */
+function startCountdownTimer() {
+  // Target: November 22, 2026 at 00:00:00 Midnight
+  const targetDate = new Date('November 22, 2026 00:00:00').getTime();
+  
+  const dEl = document.getElementById('countdown-days');
+  const hEl = document.getElementById('countdown-hours');
+  const mEl = document.getElementById('countdown-minutes');
+  const sEl = document.getElementById('countdown-seconds');
+  
+  if (!dEl || !hEl || !mEl || !sEl) return;
+  
+  function update() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    
+    if (distance < 0) {
+      clearInterval(countdownInterval);
+      dEl.innerText = '00';
+      hEl.innerText = '00';
+      mEl.innerText = '00';
+      sEl.innerText = '00';
+      return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    dEl.innerText = String(days).padStart(2, '0');
+    hEl.innerText = String(hours).padStart(2, '0');
+    mEl.innerText = String(minutes).padStart(2, '0');
+    sEl.innerText = String(seconds).padStart(2, '0');
+  }
+  
+  update();
+  clearInterval(countdownInterval);
+  countdownInterval = setInterval(update, 1000);
+}
 
 /* ── Scroll & Dot Sync ── */
 gallery.addEventListener('scroll', () => {
@@ -380,17 +752,28 @@ gallery.addEventListener('scroll', () => {
   });
 
   dots.forEach((d, j) => d.classList.toggle('on', activeIndex === j));
+
+  // Snap-lock on Slide 2 Scratch card screen until completely scratched!
+  if (activeIndex === 1 && !allScratchedTriggered) {
+    gallery.style.overflowY = 'hidden';
+    screens[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 });
 
 dots.forEach((d, i) => {
   d.addEventListener('click', () => {
+    // Prevent navigating past Scratch card until revealed
+    if (i > 1 && !allScratchedTriggered) {
+      screens[1]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     screens[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
 /* ── Preload ── */
 setTimeout(() => {
-  ['slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
+  ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
     .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=3`; });
 }, 800);
 </script>

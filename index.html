@@ -239,87 +239,7 @@ html,body {
   transition-delay: 1.8s;
 }
 
-/* Text reveal container */
-.text-reveal-container {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-}
 
-/* Individual text covering strips */
-.tr-strip {
-  width: 100%;
-  background: #fdf5ec; /* Warm parchment cream color to match the scroll background */
-  transition: opacity 1.2s ease;
-  opacity: 1;
-}
-
-/* Precise vertical heights covering the text elements on the scroll */
-.tr-spacer-top {
-  height: 33%; /* Top of the scroll roll is always visible! */
-  background: transparent;
-}
-.tr-title {
-  height: 15%; /* Covers: Engagement / Haldi / Wedding / Akanksha & Sambit */
-}
-.tr-date {
-  height: 13%; /* Covers: DATE & Date numbers */
-}
-.tr-quote {
-  height: 9%;  /* Covers: Sub-quotes / Parent details */
-}
-.tr-venue {
-  height: 10%; /* Covers: VENUE & Venue details */
-}
-.tr-time {
-  height: 8%;  /* Covers: TIME & Timings */
-}
-.tr-spacer-bottom {
-  height: 12%; /* Bottom decoration of the scroll is always visible! */
-  background: transparent;
-}
-
-/* Active slide animation — text fades in one by one, second by second */
-.screen.active .tr-title {
-  opacity: 0;
-  transition-delay: 0.5s; /* 0.5s: Title appears! */
-}
-.screen.active .tr-date {
-  opacity: 0;
-  transition-delay: 1.5s; /* 1.5s: Date appears! */
-}
-.screen.active .tr-quote {
-  opacity: 0;
-  transition-delay: 2.5s; /* 2.5s: Quote/Parents appear! */
-}
-.screen.active .tr-venue {
-  opacity: 0;
-  transition-delay: 3.5s; /* 3.5s: Venue appears! */
-}
-.screen.active .tr-time {
-  opacity: 0;
-  transition-delay: 4.5s; /* 4.5s: Time appears! */
-}
-
-/* Slide 1 Stagger Delays (starts after the double doors open at 1.8s) */
-#s1.active .tr-title {
-  transition-delay: 2.3s;
-}
-#s1.active .tr-date {
-  transition-delay: 3.3s;
-}
-#s1.active .tr-quote {
-  transition-delay: 4.3s;
-}
-#s1.active .tr-venue {
-  transition-delay: 5.3s;
-}
-#s1.active .tr-time {
-  transition-delay: 6.3s;
-}
 
 /* ── Dot progress ── */
 #dots {
@@ -374,16 +294,6 @@ html,body {
 
     <div class="screen" id="s1" data-i="0">
       <img src="assets/slide1_intro.jpg?v=2" alt="Akanksha & Sambit Introduction Card" loading="eager">
-      <!-- Magical text reveal overlays -->
-      <div class="text-reveal-container">
-        <div class="tr-spacer-top"></div>
-        <div class="tr-strip tr-title"></div>
-        <div class="tr-strip tr-date"></div>
-        <div class="tr-strip tr-quote"></div>
-        <div class="tr-strip tr-venue"></div>
-        <div class="tr-strip tr-time"></div>
-        <div class="tr-spacer-bottom"></div>
-      </div>
       <!-- Double door reveal panels -->
       <div class="door-container">
         <div class="d-left door"></div>
@@ -393,67 +303,22 @@ html,body {
 
     <div class="screen" id="s2" data-i="1">
       <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
-      <div class="text-reveal-container">
-        <div class="tr-spacer-top"></div>
-        <div class="tr-strip tr-title"></div>
-        <div class="tr-strip tr-date"></div>
-        <div class="tr-strip tr-quote"></div>
-        <div class="tr-strip tr-venue"></div>
-        <div class="tr-strip tr-time"></div>
-        <div class="tr-spacer-bottom"></div>
-      </div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
       <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
-      <div class="text-reveal-container">
-        <div class="tr-spacer-top"></div>
-        <div class="tr-strip tr-title"></div>
-        <div class="tr-strip tr-date"></div>
-        <div class="tr-strip tr-quote"></div>
-        <div class="tr-strip tr-venue"></div>
-        <div class="tr-strip tr-time"></div>
-        <div class="tr-spacer-bottom"></div>
-      </div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
       <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
-      <div class="text-reveal-container">
-        <div class="tr-spacer-top"></div>
-        <div class="tr-strip tr-title"></div>
-        <div class="tr-strip tr-date"></div>
-        <div class="tr-strip tr-quote"></div>
-        <div class="tr-strip tr-venue"></div>
-        <div class="tr-strip tr-time"></div>
-        <div class="tr-spacer-bottom"></div>
-      </div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
       <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
-      <div class="text-reveal-container">
-        <div class="tr-spacer-top"></div>
-        <div class="tr-strip tr-title"></div>
-        <div class="tr-strip tr-date"></div>
-        <div class="tr-strip tr-quote"></div>
-        <div class="tr-strip tr-venue"></div>
-        <div class="tr-strip tr-time"></div>
-        <div class="tr-spacer-bottom"></div>
-      </div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
       <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
-      <div class="text-reveal-container">
-        <div class="tr-spacer-top"></div>
-        <div class="tr-strip tr-title"></div>
-        <div class="tr-strip tr-date"></div>
-        <div class="tr-strip tr-quote"></div>
-        <div class="tr-strip tr-venue"></div>
-        <div class="tr-strip tr-time"></div>
-        <div class="tr-spacer-bottom"></div>
-      </div>
     </div>
 
   </div>

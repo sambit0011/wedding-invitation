@@ -198,33 +198,39 @@ html,body {
   justify-content: center;
 }
 
-/* Complete full screen image cover & rolled-up default state */
+/* Complete full screen image cover, fully visible at all times */
 .screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
   display: block;
-  
-  /* Initial rolled-up state */
-  clip-path: inset(0 0 100% 0);
-  -webkit-clip-path: inset(0 0 100% 0);
-  
-  /* Butter-smooth physical unrolling transition */
-  transition: clip-path 1.8s cubic-bezier(0.23, 1, 0.32, 1),
-              -webkit-clip-path 1.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Introduction slide is fully visible by default */
-#s1 img {
+/* Center scroll cover to hide details initially */
+.scroll-cover {
+  position: absolute;
+  top: 15.5%;
+  bottom: 15.5%;
+  left: 10%;
+  right: 10%;
+  background: #fdf5ea; /* Seamless parchment cream background matching scroll background */
+  z-index: 5;
+  pointer-events: none;
+  
+  /* Rolled up cover state */
   clip-path: inset(0 0 0 0);
   -webkit-clip-path: inset(0 0 0 0);
+  
+  /* Smooth unrolling transition */
+  transition: clip-path 1.6s cubic-bezier(0.23, 1, 0.32, 1),
+              -webkit-clip-path 1.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Beautiful unrolling reveal when slide snapped/active */
-.screen.active img {
-  clip-path: inset(0 0 0 0);
-  -webkit-clip-path: inset(0 0 0 0);
+/* When the screen is snapped/active, the cover clears out from top to bottom, unrolling only the text */
+.screen.active .scroll-cover {
+  clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
 }
 
 /* Double door reveal */
@@ -321,22 +327,27 @@ html,body {
 
     <div class="screen" id="s2" data-i="1">
       <img src="assets/slide2_engagement.jpg?v=2" alt="Engagement Scroll Card" loading="lazy">
+      <div class="scroll-cover"></div>
     </div>
 
     <div class="screen" id="s3" data-i="2">
       <img src="assets/slide3_haldi.jpg?v=2" alt="Haldi Scroll Card" loading="lazy">
+      <div class="scroll-cover"></div>
     </div>
 
     <div class="screen" id="s4" data-i="3">
       <img src="assets/slide4_mehendi_sangeet.jpg?v=2" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <div class="scroll-cover"></div>
     </div>
 
     <div class="screen" id="s5" data-i="4">
       <img src="assets/slide5_wedding.jpg?v=2" alt="Wedding Scroll Card" loading="lazy">
+      <div class="scroll-cover"></div>
     </div>
 
     <div class="screen" id="s6" data-i="5">
       <img src="assets/slide6_reception.jpg?v=2" alt="Reception Scroll Card" loading="lazy">
+      <div class="scroll-cover"></div>
     </div>
 
   </div>

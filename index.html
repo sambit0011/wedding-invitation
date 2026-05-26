@@ -69,7 +69,7 @@ html,body {
 #env-back {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=6') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=7') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
   z-index: 1;
@@ -80,7 +80,7 @@ html,body {
 #env-lower {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=6') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=7') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 58%, 50% 73.5%, 100% 58%, 100% 100%, 0% 100%);
   z-index: 2;
@@ -91,7 +91,7 @@ html,body {
 #env-upper {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=6') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=7') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
   z-index: 4;
@@ -366,9 +366,7 @@ html,body {
   pointer-events: none;
 }
 .revealed-heart {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 4px 8px rgba(189, 105, 56, 0.25));
+  display: none; /* Hidden completely so that the beautiful hand-painted background heart image is fully visible! */
 }
 .revealed-text {
   position: absolute;
@@ -435,14 +433,14 @@ html,body {
   <div id="gallery">
 
     <div class="screen" id="s1" data-i="0">
-      <img src="assets/slide1_intro.jpg?v=6" alt="Akanksha & Sambit Introduction Card" loading="eager">
+      <img src="assets/slide1_intro.jpg?v=7" alt="Akanksha & Sambit Introduction Card" loading="eager">
     </div>
 
     <!-- NEW Screen: Date Scratch & Save the Date Countdown -->
     <div class="screen" id="s_scratch_countdown" data-i="1">
       <!-- Screen Phase 1: Date 1 Scratch Card -->
       <div class="scratch-container active" id="scratch-screen">
-        <img src="assets/date1_scratch.jpg?v=6" alt="Reveal Our Big Day" loading="lazy">
+        <img src="assets/date1_scratch_blank.jpg?v=7" alt="Reveal Our Big Day" loading="lazy">
         
         <!-- Responsive Overlay for canvas & values -->
         <div class="scratch-overlay-wrapper">
@@ -483,7 +481,7 @@ html,body {
 
       <!-- Screen Phase 2: Date 2 Save the Date Countdown -->
       <div class="countdown-container" id="countdown-screen">
-        <img src="assets/date2_countdown.jpg?v=6" alt="Save the Date" loading="lazy">
+        <img src="assets/date2_countdown.jpg?v=7" alt="Save the Date" loading="lazy">
         
         <!-- Responsive Overlay for dynamic countdown numbers -->
         <div class="countdown-overlay-wrapper">
@@ -504,23 +502,23 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="2">
-      <img src="assets/slide2_engagement.jpg?v=6" alt="Engagement Scroll Card" loading="lazy">
+      <img src="assets/slide2_engagement.jpg?v=7" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s3" data-i="3">
-      <img src="assets/slide3_haldi.jpg?v=6" alt="Haldi Scroll Card" loading="lazy">
+      <img src="assets/slide3_haldi.jpg?v=7" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s4" data-i="4">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=6" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=7" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s5" data-i="5">
-      <img src="assets/slide5_wedding.jpg?v=6" alt="Wedding Scroll Card" loading="lazy">
+      <img src="assets/slide5_wedding.jpg?v=7" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s6" data-i="6">
-      <img src="assets/slide6_reception.jpg?v=6" alt="Reception Scroll Card" loading="lazy">
+      <img src="assets/slide6_reception.jpg?v=7" alt="Reception Scroll Card" loading="lazy">
     </div>
 
   </div>
@@ -588,7 +586,7 @@ function initScratchCards() {
   ];
 
   const bgImg = new Image();
-  bgImg.src = 'assets/date1_scratch.jpg?v=6';
+  bgImg.src = 'assets/date1_scratch.jpg?v=7';
   bgImg.onload = () => {
     cards.forEach(card => {
       const canvas = document.getElementById(card.canvasId);
@@ -796,7 +794,7 @@ dots.forEach((d, i) => {
 /* ── Preload ── */
 setTimeout(() => {
   ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
-    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=6`; });
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=7`; });
 }, 800);
 </script>
 

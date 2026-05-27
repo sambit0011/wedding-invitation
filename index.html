@@ -331,20 +331,20 @@ html,body {
 }
 
 /* Scratch Card styling */
-.scratch-card {
+.scratch-card-rect {
   position: absolute;
-  top: 67.5%;
+  top: 73.0%; /* Perfectly centered vertically over the silver rectangle */
+  left: 50.0%; /* Perfectly centered horizontally */
   transform: translate(-50%, -50%);
-  width: 24%; /* Responsive width perfectly covering background Ganesha hearts */
-  aspect-ratio: 1 / 1;
+  width: 60.4%; /* Matches the exact width of the silver rectangle */
+  height: 16.7%; /* Matches the exact height of the silver rectangle */
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: all;
+  border-radius: 12px; /* Smooth rounded corners matching the card design */
+  overflow: hidden; /* Keeps canvas clipping perfectly clean */
 }
-#card1 { left: 25.6%; }
-#card2 { left: 50.8%; }
-#card3 { left: 75.2%; }
 
 .scratch-canvas {
   position: absolute;
@@ -357,33 +357,33 @@ html,body {
   transition: opacity 0.5s ease;
 }
 
-.scratch-value {
+.scratch-value-rect {
   position: absolute;
   inset: 0;
+  background: #fdf0e2; /* Seamless gold/beige card background color */
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
-.revealed-heart {
-  display: none; /* Hidden completely so that the beautiful hand-painted background heart image is fully visible! */
-}
-.revealed-text {
-  position: absolute;
-  font-family: 'Didot', 'Georgia', serif;
-  font-size: 1.25rem;
+
+.revealed-date-text {
+  font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
+  font-size: 2.2rem; /* Elegant large size */
   font-weight: 700;
-  color: #8c2d19;
-  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+  color: #8c2d19; /* Maroon color! */
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  white-space: nowrap;
 }
 
 /* Countdown dynamic overlay boxes */
 .countdown-live-box {
   position: absolute;
-  top: 72.3%; /* Centered vertically over the new white boxes */
+  top: 72.7%; /* Perfectly centered vertically over the printed countdown boxes */
   transform: translate(-50%, -50%);
   width: 13.5%;
-  height: 7.8%; /* Spans the full height of the white box interior */
+  height: 8.2%; /* Spans the full height of the white box interior */
   background: none; /* Transparent, displaying text directly on printed boxes */
   display: flex;
   align-items: center;
@@ -440,41 +440,16 @@ html,body {
     <div class="screen" id="s_scratch_countdown" data-i="1">
       <!-- Screen Phase 1: Date 1 Scratch Card -->
       <div class="scratch-container active" id="scratch-screen">
-        <img src="assets/date1_scratch_blank.jpg?v=7" alt="Reveal Our Big Day" loading="lazy">
+        <img src="assets/date1_scratch.jpg?v=7" alt="Reveal Our Big Day" loading="lazy">
         
         <!-- Responsive Overlay for canvas & values -->
         <div class="scratch-overlay-wrapper">
-          <!-- Heart 1 -->
-          <div class="scratch-card" id="card1">
-            <div class="scratch-value">
-              <svg viewBox="0 0 24 24" class="revealed-heart">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z" fill="#fdf0e2" stroke="#bd6938" stroke-width="0.8"/>
-              </svg>
-              <div class="revealed-text">21</div>
+          <!-- Single Rectangular Scratch Box -->
+          <div class="scratch-card-rect" id="scratch-card-main">
+            <div class="scratch-value-rect">
+              <div class="revealed-date-text">22 Nov 2026</div>
             </div>
-            <canvas class="scratch-canvas" id="canvas1"></canvas>
-          </div>
-
-          <!-- Heart 2 -->
-          <div class="scratch-card" id="card2">
-            <div class="scratch-value">
-              <svg viewBox="0 0 24 24" class="revealed-heart">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z" fill="#fdf0e2" stroke="#bd6938" stroke-width="0.8"/>
-              </svg>
-              <div class="revealed-text">Nov</div>
-            </div>
-            <canvas class="scratch-canvas" id="canvas2"></canvas>
-          </div>
-
-          <!-- Heart 3 -->
-          <div class="scratch-card" id="card3">
-            <div class="scratch-value">
-              <svg viewBox="0 0 24 24" class="revealed-heart">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 11.54L12 21.35z" fill="#fdf0e2" stroke="#bd6938" stroke-width="0.8"/>
-              </svg>
-              <div class="revealed-text">2026</div>
-            </div>
-            <canvas class="scratch-canvas" id="canvas3"></canvas>
+            <canvas class="scratch-canvas" id="scratch-canvas-main"></canvas>
           </div>
         </div>
       </div>
@@ -485,16 +460,16 @@ html,body {
         
         <!-- Responsive Overlay for dynamic countdown numbers -->
         <div class="countdown-overlay-wrapper">
-          <div class="countdown-live-box" style="left: 23.5%;">
+          <div class="countdown-live-box" style="left: 24.0%;">
             <div class="countdown-live-number" id="countdown-days">--</div>
           </div>
-          <div class="countdown-live-box" style="left: 41.1%;">
+          <div class="countdown-live-box" style="left: 41.0%;">
             <div class="countdown-live-number" id="countdown-hours">--</div>
           </div>
-          <div class="countdown-live-box" style="left: 58.5%;">
+          <div class="countdown-live-box" style="left: 58.1%;">
             <div class="countdown-live-number" id="countdown-minutes">--</div>
           </div>
-          <div class="countdown-live-box" style="left: 75.9%;">
+          <div class="countdown-live-box" style="left: 75.1%;">
             <div class="countdown-live-number" id="countdown-seconds">--</div>
           </div>
         </div>
@@ -579,45 +554,33 @@ let allScratchedTriggered = false;
 let countdownInterval;
 
 function initScratchCards() {
-  const cards = [
-    { canvasId: 'canvas1', pctX: 25.6 },
-    { canvasId: 'canvas2', pctX: 50.8 },
-    { canvasId: 'canvas3', pctX: 75.2 }
-  ];
+  const canvas = document.getElementById('scratch-canvas-main');
+  if (!canvas) return;
 
   const bgImg = new Image();
   bgImg.src = 'assets/date1_scratch.jpg?v=7';
   bgImg.onload = () => {
-    cards.forEach(card => {
-      const canvas = document.getElementById(card.canvasId);
-      if (!canvas) return;
-      const ctxScratch = canvas.getContext('2d');
-      
-      // Set actual pixel dimensions based on element size to prevent blurring
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * window.devicePixelRatio;
-      canvas.height = rect.height * window.devicePixelRatio;
-      ctxScratch.scale(window.devicePixelRatio, window.devicePixelRatio);
-      
-      const w = rect.width;
-      const h = rect.height;
-      
-      // Crop exact background image region (from 576x1024 source image)
-      const srcW = 576;
-      const srcH = 1024;
-      
-      // Card width in CSS is 24% (so we crop exactly 24% width & height)
-      const cropW = srcW * 0.24;
-      const cropH = srcW * 0.24; // 1:1 square
-      
-      const sx = srcW * (card.pctX / 100) - cropW / 2;
-      const sy = srcH * 0.675 - cropH / 2;
-      
-      // Draw pixel-perfect crop onto canvas
-      ctxScratch.drawImage(bgImg, sx, sy, cropW, cropH, 0, 0, w, h);
-      
-      setupScratchEvents(canvas, ctxScratch);
-    });
+    const ctxScratch = canvas.getContext('2d');
+    
+    // Set actual pixel dimensions based on element size to prevent blurring
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    ctxScratch.scale(window.devicePixelRatio, window.devicePixelRatio);
+    
+    const w = rect.width;
+    const h = rect.height;
+    
+    // Crop coordinates for the silver metallic rectangle from the 576x1024 source image
+    const sx = 114;
+    const sy = 662;
+    const sWidth = 348;
+    const sHeight = 171;
+    
+    // Draw pixel-perfect crop onto canvas
+    ctxScratch.drawImage(bgImg, sx, sy, sWidth, sHeight, 0, 0, w, h);
+    
+    setupScratchEvents(canvas, ctxScratch);
   };
 }
 

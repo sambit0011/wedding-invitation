@@ -6,7 +6,7 @@
 <title>Sambit &amp; Akanksha — Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 <style>
 
 /* ── Reset ── */
@@ -314,40 +314,33 @@ html,body {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px; /* Perfect spacing between elements */
   pointer-events: none;
-  
-  /* Breathtaking double gold border frame and soft inner shadow for a high-end scratch card look! */
-  border: 3px double rgba(212, 175, 55, 0.65);
-  border-radius: 12px;
-  box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
-.revealed-date-text {
-  font-family: 'Cinzel Decorative', 'Playfair Display', serif;
-  font-size: 2.3rem; /* Luxurious display size */
+.revealed-date-num {
+  font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
+  font-size: 2.5rem; /* Elegant large numbers matching style */
   font-weight: 700;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  
-  /* Stylish gold-maroon metallic gradient and rich drop shadow */
-  background: linear-gradient(135deg, #8c2d19 0%, #aa2d19 40%, #d4af37 60%, #8c2d19 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0px 2px 3px rgba(140, 45, 25, 0.2));
-  
-  /* Rhythmic reveal scaling micro-animation */
-  animation: dateRevealPulse 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  color: #0b2240; /* Deep navy blue color! */
+  letter-spacing: 0.02em;
 }
 
-@keyframes dateRevealPulse {
-  0% {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.revealed-date-sep {
+  font-family: serif;
+  font-size: 1.2rem; /* Delicate separator diamond */
+  color: #8c9ba5; /* Silver-gray matching the image */
+  line-height: 1;
+}
+
+.revealed-date-month {
+  font-family: 'Pinyon Script', 'Great Vibes', 'Alex Brush', cursive;
+  font-size: 3.4rem; /* Graceful cursive script Month */
+  font-weight: 400;
+  color: #7f8c8d; /* Silver-gray script color */
+  margin-top: -6px; /* Baseline adjustment for premium cursive flow */
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 /* Countdown dynamic overlay boxes */
@@ -447,7 +440,11 @@ html,body {
           <!-- Single Rectangular Scratch Box -->
           <div class="scratch-card-rect" id="scratch-card-main">
             <div class="scratch-value-rect">
-              <div class="revealed-date-text">22 Nov 2026</div>
+              <span class="revealed-date-num">22</span>
+              <span class="revealed-date-sep">♦</span>
+              <span class="revealed-date-month">Nov</span>
+              <span class="revealed-date-sep">♦</span>
+              <span class="revealed-date-num">2026</span>
             </div>
             <canvas class="scratch-canvas" id="scratch-canvas-main"></canvas>
           </div>

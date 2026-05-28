@@ -69,7 +69,7 @@ html,body {
 #env-back {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=7') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=8') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
   z-index: 1;
@@ -80,7 +80,7 @@ html,body {
 #env-lower {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=7') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=8') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 58%, 50% 73.5%, 100% 58%, 100% 100%, 0% 100%);
   z-index: 2;
@@ -91,7 +91,7 @@ html,body {
 #env-upper {
   position: absolute;
   inset: 0;
-  background: url('assets/envelope_start.jpg?v=7') no-repeat center center;
+  background: url('assets/envelope_start.jpg?v=8') no-repeat center center;
   background-size: 100% 100%;
   clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
   z-index: 4;
@@ -399,6 +399,37 @@ html,body {
   text-shadow: none; /* Clean solid look on light background */
 }
 
+/* Venues map links overlay */
+.venues-overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  aspect-ratio: 576 / 1024;
+  width: auto;
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.venue-map-link {
+  position: absolute;
+  left: 72.7%; /* Aligned perfectly with center of VIEW ON MAP */
+  transform: translate(-50%, -50%);
+  width: 28%; /* Covers the VIEW ON MAP button area nicely */
+  height: 6%;  /* Spans the button height comfortably */
+  display: block;
+  pointer-events: all;
+  cursor: pointer;
+  background: rgba(255, 0, 0, 0); /* Invisible but clickable */
+  border-radius: 20px; /* Matching the circular button shape */
+  transition: background-color 0.2s ease;
+}
+
+.venue-map-link:active {
+  background: rgba(140, 45, 25, 0.15); /* Soft maroon overlay tap feedback */
+}
+
 </style>
 </head>
 <body>
@@ -433,14 +464,14 @@ html,body {
   <div id="gallery">
 
     <div class="screen" id="s1" data-i="0">
-      <img src="assets/slide1_intro.jpg?v=7" alt="Akanksha & Sambit Introduction Card" loading="eager">
+      <img src="assets/slide1_intro.jpg?v=8" alt="Akanksha & Sambit Introduction Card" loading="eager">
     </div>
 
     <!-- NEW Screen: Date Scratch & Save the Date Countdown -->
     <div class="screen" id="s_scratch_countdown" data-i="1">
       <!-- Screen Phase 1: Date 1 Scratch Card -->
       <div class="scratch-container active" id="scratch-screen">
-        <img src="assets/date1_scratch.jpg?v=7" alt="Reveal Our Big Day" loading="lazy">
+        <img src="assets/date1_scratch.jpg?v=8" alt="Reveal Our Big Day" loading="lazy">
         
         <!-- Responsive Overlay for canvas & values -->
         <div class="scratch-overlay-wrapper">
@@ -456,7 +487,7 @@ html,body {
 
       <!-- Screen Phase 2: Date 2 Save the Date Countdown -->
       <div class="countdown-container" id="countdown-screen">
-        <img src="assets/date2_countdown.jpg?v=7" alt="Save the Date" loading="lazy">
+        <img src="assets/date2_countdown.jpg?v=8" alt="Save the Date" loading="lazy">
         
         <!-- Responsive Overlay for dynamic countdown numbers -->
         <div class="countdown-overlay-wrapper">
@@ -477,23 +508,40 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="2">
-      <img src="assets/slide2_engagement.jpg?v=7" alt="Engagement Scroll Card" loading="lazy">
+      <img src="assets/slide2_engagement.jpg?v=8" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s3" data-i="3">
-      <img src="assets/slide3_haldi.jpg?v=7" alt="Haldi Scroll Card" loading="lazy">
+      <img src="assets/slide3_haldi.jpg?v=8" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s4" data-i="4">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=7" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=8" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s5" data-i="5">
-      <img src="assets/slide5_wedding.jpg?v=7" alt="Wedding Scroll Card" loading="lazy">
+      <img src="assets/slide5_wedding.jpg?v=8" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s6" data-i="6">
-      <img src="assets/slide6_reception.jpg?v=7" alt="Reception Scroll Card" loading="lazy">
+      <img src="assets/slide6_reception.jpg?v=8" alt="Reception Scroll Card" loading="lazy">
+    </div>
+
+    <!-- NEW Screen: Dress Code & Venues list slide after reception -->
+    <div class="screen" id="s7" data-i="7">
+      <img src="assets/slide7_dresscode_venues.jpg?v=8" alt="Dress Code & Venues Scroll Card" loading="lazy">
+      <!-- Responsive Overlay for Map Pins -->
+      <div class="venues-overlay-wrapper">
+        <!-- DM Convention Map Pin Button -->
+        <a class="venue-map-link" href="https://maps.google.com/?q=DM+Convention+Aiginia+Bhubaneswar" target="_blank" rel="noopener noreferrer" style="top: 73.9%;"></a>
+        <!-- Shreenika DM Signature Map Pin Button -->
+        <a class="venue-map-link" href="https://maps.google.com/?q=Shreenika+DM+Signature+Aiginia+Bhubaneswar" target="_blank" rel="noopener noreferrer" style="top: 86.5%;"></a>
+      </div>
+    </div>
+
+    <!-- NEW Screen: Closing slide at the end -->
+    <div class="screen" id="s8" data-i="8">
+      <img src="assets/slide8_closing.jpg?v=8" alt="Closing Scroll Card" loading="lazy">
     </div>
 
   </div>
@@ -507,6 +555,8 @@ html,body {
     <div class="dot"     data-go="4"></div>
     <div class="dot"     data-go="5"></div>
     <div class="dot"     data-go="6"></div>
+    <div class="dot"     data-go="7"></div>
+    <div class="dot"     data-go="8"></div>
   </div>
 
 </div><!-- /app -->
@@ -558,7 +608,7 @@ function initScratchCards() {
   if (!canvas) return;
 
   const bgImg = new Image();
-  bgImg.src = 'assets/date1_scratch.jpg?v=7';
+  bgImg.src = 'assets/date1_scratch.jpg?v=8';
   bgImg.onload = () => {
     const ctxScratch = canvas.getContext('2d');
     
@@ -756,8 +806,8 @@ dots.forEach((d, i) => {
 
 /* ── Preload ── */
 setTimeout(() => {
-  ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception']
-    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=7`; });
+  ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception', 'slide7_dresscode_venues', 'slide8_closing']
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=8`; });
 }, 800);
 </script>
 

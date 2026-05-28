@@ -77,6 +77,19 @@ html,body {
   image-rendering: auto;
 }
 
+#env-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 5; /* Sits above base image but below glowing seal click target */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
 .seal {
   position: absolute;
@@ -377,6 +390,10 @@ html,body {
   <div id="env">
     <div id="env-wrapper">
       <img id="env-base-img" src="assets/envelope_start.jpg?v=9" alt="Wedding Invitation Envelope" loading="eager">
+      <!-- Premium envelope opening video -->
+      <video id="env-video" playsinline webkit-playsinline preload="auto">
+        <source src="assets/video.MOV?v=9" type="video/quicktime">
+      </video>
       <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
       <div class="seal" id="seal"></div>
     </div>
@@ -511,23 +528,26 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  const envBaseImg = document.getElementById('env-base-img');
+  const video = document.getElementById('env-video');
 
   // 1. Seal disappears with a premium spin/scale effect
   seal.classList.add('spinning');
   
-  // 2. Transition background image to Step 1 (slightly open) after 400ms (when seal finishes shrinking)
-  setTimeout(() => {
-    if (envBaseImg) envBaseImg.src = 'assets/envelope_open_step1.jpg?v=9';
-  }, 400);
-
-  // 3. Transition to Step 2 (open more) after 1400ms (1.0 second wait)
-  setTimeout(() => {
-    if (envBaseImg) envBaseImg.src = 'assets/envelope_open_step2.jpg?v=9';
-  }, 1400);
-
-  // 4. Smoothly crossfade envelope screen into the gallery after 2600ms (1.2 seconds wait)
-  setTimeout(() => {
+  // 2. Play the transition video
+  if (video) {
+    video.style.opacity = '1';
+    video.play().catch(err => {
+      console.warn('Auto-play failed, skipping directly to gallery', err);
+      skipToGallery();
+    });
+    
+    // Automatically skip to the gallery once the video finishes playing
+    video.addEventListener('ended', skipToGallery);
+  } else {
+    skipToGallery();
+  }
+  
+  function skipToGallery() {
     // Reveal gallery & dots in the background (so they are ready and fully transparent)
     gallery.classList.add('show');
     gallery.scrollTop = 0;
@@ -543,7 +563,7 @@ function openInvitation() {
       // Initialize the scratch canvases now that the gallery is visible and rendered!
       initScratchCards();
     }, 1000);
-  }, 2600);
+  }
 }
 
 seal.addEventListener('click', openInvitation);
@@ -756,7 +776,7 @@ dots.forEach((d, i) => {
 
 /* ── Preload ── */
 setTimeout(() => {
-  ['envelope_open_step1', 'envelope_open_step2', 'date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception', 'slide7_dresscode_venues', 'slide8_closing']
+  ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception', 'slide7_dresscode_venues', 'slide8_closing']
     .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=9`; });
 }, 800);
 </script>

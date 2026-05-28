@@ -13,3 +13,6 @@ ehthumbs.db
 .idea/
 .vscode/
 *.log
+
+# Root media ignore
+/video.MOV

@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Sambit &amp; Akanksha — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
 
 /* ── Reset ── */
@@ -312,16 +315,39 @@ html,body {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  
+  /* Breathtaking double gold border frame and soft inner shadow for a high-end scratch card look! */
+  border: 3px double rgba(212, 175, 55, 0.65);
+  border-radius: 12px;
+  box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
 }
 
 .revealed-date-text {
-  font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
-  font-size: 2.2rem; /* Elegant large size */
+  font-family: 'Cinzel Decorative', 'Playfair Display', serif;
+  font-size: 2.3rem; /* Luxurious display size */
   font-weight: 700;
-  color: #8c2d19; /* Maroon color! */
-  letter-spacing: 0.05em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  letter-spacing: 0.08em;
   white-space: nowrap;
+  
+  /* Stylish gold-maroon metallic gradient and rich drop shadow */
+  background: linear-gradient(135deg, #8c2d19 0%, #aa2d19 40%, #d4af37 60%, #8c2d19 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 2px 3px rgba(140, 45, 25, 0.2));
+  
+  /* Rhythmic reveal scaling micro-animation */
+  animation: dateRevealPulse 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes dateRevealPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Countdown dynamic overlay boxes */

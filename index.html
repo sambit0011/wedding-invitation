@@ -50,98 +50,31 @@ html,body {
   background: #fcefe3; /* Seamless peach envelope fallback */
   z-index: 200;
   overflow: hidden;
-  perspective: 1000px; /* Enable 3D transitions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.0s ease; /* Smooth premium crossfade into gallery */
 }
 
-/* Aspect-ratio locked wrapper to align all layers pixel-perfectly on any device */
+/* Aspect-ratio locked wrapper to align the envelope cover pixel-perfectly on any device */
 #env-wrapper {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   height: 100%;
   aspect-ratio: 576 / 1024;
   width: auto;
   max-width: 100%;
-  perspective: 1000px;
 }
 
-#env-back {
-  position: absolute;
-  inset: 0;
-  background: url('assets/envelope_start.jpg?v=8') no-repeat center center;
-  background-size: 100% 100%;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 58%, 0% 58%);
-  z-index: 1;
+#env-base-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: auto;
-}
-
-#env-lower {
-  position: absolute;
-  inset: 0;
-  background: url('assets/envelope_start.jpg?v=8') no-repeat center center;
-  background-size: 100% 100%;
-  clip-path: polygon(0% 58%, 50% 73.5%, 100% 58%, 100% 100%, 0% 100%);
-  z-index: 2;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: auto;
-}
-
-#env-upper {
-  position: absolute;
-  inset: 0;
-  background: url('assets/envelope_start.jpg?v=8') no-repeat center center;
-  background-size: 100% 100%;
-  clip-path: polygon(0% 58%, 100% 58%, 50% 73.5%);
-  z-index: 4;
-  transform-origin: center 58%; /* Hinge perfectly along the top crease of the pocket */
-  transition: transform 3.0s cubic-bezier(0.25, 1, 0.5, 1);
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: auto;
-}
-
-/* Triangular flap folds upwards in 3D around the crease line */
-#env-upper.open {
-  transform: rotateX(115deg);
-}
-
-/* Peach mask to hide printed Ganesha wax coin on lower pocket body instantly upon opening */
-#seal-mask {
-  position: absolute;
-  top: 73.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: #fcefe3; /* Matches peach card interior */
-  z-index: 2.5; /* Sits above pocket but below rotating flap when closed */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-#seal-mask.show {
-  opacity: 1;
-}
-
-/* Peach mask inside rotating flap to hide printed Ganesha wax coin on upper flap instantly */
-#seal-mask-upper {
-  position: absolute;
-  top: 73.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: #fcefe3; /* Matches peach card interior */
-  z-index: 5; /* Sits on top of the flap's image content */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-#seal-mask-upper.show {
-  opacity: 1;
 }
 
 /* Premium gold breathing glow click target exactly aligned with Ganesha wax seal */
@@ -163,6 +96,7 @@ html,body {
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.8),
               inset 0 0 10px rgba(212, 175, 55, 0.4);
   animation: sealGlowPulse 2.0s infinite ease-in-out;
+  transition: opacity 0.4s ease, transform 0.4s ease-out;
 }
 @keyframes sealGlowPulse {
   0% {
@@ -442,15 +376,7 @@ html,body {
   <!-- ── Envelope Screen ── -->
   <div id="env">
     <div id="env-wrapper">
-      <!-- Split layers using the same image via clip-path -->
-      <div id="env-back"></div>
-      <div id="env-lower"></div>
-      <div id="env-upper">
-        <!-- Peach mask inside rotating flap to cover the upper half of the printed wax coin -->
-        <div id="seal-mask-upper"></div>
-      </div>
-      <!-- Seamless peach mask to cover the printed wax coin on the pocket upon click -->
-      <div id="seal-mask"></div>
+      <img id="env-base-img" src="assets/envelope_start.jpg?v=9" alt="Wedding Invitation Envelope" loading="eager">
       <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
       <div class="seal" id="seal"></div>
     </div>
@@ -471,7 +397,7 @@ html,body {
     <div class="screen" id="s_scratch_countdown" data-i="1">
       <!-- Screen Phase 1: Date 1 Scratch Card -->
       <div class="scratch-container active" id="scratch-screen">
-        <img src="assets/date1_scratch.jpg?v=8" alt="Reveal Our Big Day" loading="lazy">
+        <img src="assets/date1_scratch.jpg?v=9" alt="Reveal Our Big Day" loading="lazy">
         
         <!-- Responsive Overlay for canvas & values -->
         <div class="scratch-overlay-wrapper">
@@ -487,7 +413,7 @@ html,body {
 
       <!-- Screen Phase 2: Date 2 Save the Date Countdown -->
       <div class="countdown-container" id="countdown-screen">
-        <img src="assets/date2_countdown.jpg?v=8" alt="Save the Date" loading="lazy">
+        <img src="assets/date2_countdown.jpg?v=9" alt="Save the Date" loading="lazy">
         
         <!-- Responsive Overlay for dynamic countdown numbers -->
         <div class="countdown-overlay-wrapper">
@@ -508,23 +434,23 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="2">
-      <img src="assets/slide2_engagement.jpg?v=8" alt="Engagement Scroll Card" loading="lazy">
+      <img src="assets/slide2_engagement.jpg?v=9" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s3" data-i="3">
-      <img src="assets/slide3_haldi.jpg?v=8" alt="Haldi Scroll Card" loading="lazy">
+      <img src="assets/slide3_haldi.jpg?v=9" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s4" data-i="4">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=8" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=9" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s5" data-i="5">
-      <img src="assets/slide5_wedding.jpg?v=8" alt="Wedding Scroll Card" loading="lazy">
+      <img src="assets/slide5_wedding.jpg?v=9" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s6" data-i="6">
-      <img src="assets/slide6_reception.jpg?v=8" alt="Reception Scroll Card" loading="lazy">
+      <img src="assets/slide6_reception.jpg?v=9" alt="Reception Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s7" data-i="7">
@@ -540,7 +466,7 @@ html,body {
 
     <!-- NEW Screen: Closing slide at the end -->
     <div class="screen" id="s8" data-i="8">
-      <img src="assets/slide8_closing.jpg?v=8" alt="Closing Scroll Card" loading="lazy">
+      <img src="assets/slide8_closing.jpg?v=9" alt="Closing Scroll Card" loading="lazy">
     </div>
 
   </div>
@@ -585,14 +511,39 @@ function openInvitation() {
   if (opened) return;
   opened = true;
 
-  // Load the gallery & dots instantly
-  envEl.style.display = 'none';
-  gallery.classList.add('show');
-  dotsEl.classList.add('show');
-  gallery.scrollTop = 0;
+  const envBaseImg = document.getElementById('env-base-img');
+
+  // 1. Seal disappears with a premium spin/scale effect
+  seal.classList.add('spinning');
   
-  // Initialize the scratch canvases now that the gallery is visible and rendered!
-  initScratchCards();
+  // 2. Transition background image to Step 1 (slightly open) after 400ms (when seal finishes shrinking)
+  setTimeout(() => {
+    if (envBaseImg) envBaseImg.src = 'assets/envelope_open_step1.jpg?v=9';
+  }, 400);
+
+  // 3. Transition to Step 2 (open more) after 1400ms (1.0 second wait)
+  setTimeout(() => {
+    if (envBaseImg) envBaseImg.src = 'assets/envelope_open_step2.jpg?v=9';
+  }, 1400);
+
+  // 4. Smoothly crossfade envelope screen into the gallery after 2600ms (1.2 seconds wait)
+  setTimeout(() => {
+    // Reveal gallery & dots in the background (so they are ready and fully transparent)
+    gallery.classList.add('show');
+    gallery.scrollTop = 0;
+
+    // Smoothly fade out the envelope screen
+    envEl.style.opacity = '0';
+    
+    // Wait for the fade-out transition to complete (1.0 second)
+    setTimeout(() => {
+      envEl.style.display = 'none';
+      dotsEl.classList.add('show');
+      
+      // Initialize the scratch canvases now that the gallery is visible and rendered!
+      initScratchCards();
+    }, 1000);
+  }, 2600);
 }
 
 seal.addEventListener('click', openInvitation);
@@ -607,7 +558,7 @@ function initScratchCards() {
   if (!canvas) return;
 
   const bgImg = new Image();
-  bgImg.src = 'assets/date1_scratch.jpg?v=8';
+  bgImg.src = 'assets/date1_scratch.jpg?v=9';
   bgImg.onload = () => {
     const ctxScratch = canvas.getContext('2d');
     
@@ -805,8 +756,8 @@ dots.forEach((d, i) => {
 
 /* ── Preload ── */
 setTimeout(() => {
-  ['date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception', 'slide7_dresscode_venues', 'slide8_closing']
-    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=8`; });
+  ['envelope_open_step1', 'envelope_open_step2', 'date1_scratch', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception', 'slide7_dresscode_venues', 'slide8_closing']
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=9`; });
 }, 800);
 </script>
 

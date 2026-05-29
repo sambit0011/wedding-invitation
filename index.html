@@ -392,10 +392,10 @@ html,body {
   <!-- ── Envelope Screen ── -->
   <div id="env">
     <div id="env-wrapper">
-      <img id="env-base-img" src="assets/envelope_start.jpg?v=14" alt="Wedding Invitation Envelope" loading="eager">
+      <img id="env-base-img" src="assets/envelope_start.jpg?v=15" alt="Wedding Invitation Envelope" loading="eager">
       <!-- Premium envelope opening video (universally compatible MP4, muted for mobile autoplay) -->
       <video id="env-video" playsinline webkit-playsinline preload="auto" muted>
-        <source src="assets/video.mp4?v=14" type="video/mp4">
+        <source src="assets/video.mp4?v=15" type="video/mp4">
       </video>
       <!-- Transparent click/touch target perfectly aligned with Ganesha wax seal in the center -->
       <div class="seal" id="seal"></div>
@@ -410,14 +410,14 @@ html,body {
   <div id="gallery">
 
     <div class="screen" id="s1" data-i="0">
-      <img src="assets/slide1_intro.jpg?v=14" alt="Akanksha & Sambit Introduction Card" loading="eager">
+      <img src="assets/slide1_intro.jpg?v=15" alt="Akanksha & Sambit Introduction Card" loading="eager">
     </div>
 
     <!-- NEW Screen: Date Scratch & Save the Date Countdown -->
     <div class="screen" id="s_scratch_countdown" data-i="1">
       <!-- Screen Phase 1: Date 1 Scratch Card -->
       <div class="scratch-container active" id="scratch-screen">
-        <img src="assets/date1_scratch_revealed.jpg?v=14" alt="Reveal Our Big Day" loading="lazy">
+        <img src="assets/date1_scratch_revealed.jpg?v=15" alt="Reveal Our Big Day" loading="lazy">
         
         <!-- Responsive Overlay for canvas & values -->
         <div class="scratch-overlay-wrapper">
@@ -430,7 +430,7 @@ html,body {
 
       <!-- Screen Phase 2: Date 2 Save the Date Countdown -->
       <div class="countdown-container" id="countdown-screen">
-        <img src="assets/date2_countdown.jpg?v=14" alt="Save the Date" loading="lazy">
+        <img src="assets/date2_countdown.jpg?v=15" alt="Save the Date" loading="lazy">
         
         <!-- Responsive Overlay for dynamic countdown numbers -->
         <div class="countdown-overlay-wrapper">
@@ -451,27 +451,27 @@ html,body {
     </div>
 
     <div class="screen" id="s2" data-i="2">
-      <img src="assets/slide2_engagement.jpg?v=14" alt="Engagement Scroll Card" loading="lazy">
+      <img src="assets/slide2_engagement.jpg?v=15" alt="Engagement Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s3" data-i="3">
-      <img src="assets/slide3_haldi.jpg?v=14" alt="Haldi Scroll Card" loading="lazy">
+      <img src="assets/slide3_haldi.jpg?v=15" alt="Haldi Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s4" data-i="4">
-      <img src="assets/slide4_mehendi_sangeet.jpg?v=14" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
+      <img src="assets/slide4_mehendi_sangeet.jpg?v=15" alt="Mehendi & Sangeet Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s5" data-i="5">
-      <img src="assets/slide5_wedding.jpg?v=14" alt="Wedding Scroll Card" loading="lazy">
+      <img src="assets/slide5_wedding.jpg?v=15" alt="Wedding Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s6" data-i="6">
-      <img src="assets/slide6_reception.jpg?v=14" alt="Reception Scroll Card" loading="lazy">
+      <img src="assets/slide6_reception.jpg?v=15" alt="Reception Scroll Card" loading="lazy">
     </div>
 
     <div class="screen" id="s7" data-i="7">
-      <img src="assets/slide7_dresscode_venues.jpg?v=14" alt="Dress Code & Venues Scroll Card" loading="lazy">
+      <img src="assets/slide7_dresscode_venues.jpg?v=15" alt="Dress Code & Venues Scroll Card" loading="lazy">
       <!-- Responsive Overlay for Map Pins -->
       <div class="venues-overlay-wrapper">
         <!-- DM Convention Map Pin Button -->
@@ -483,7 +483,7 @@ html,body {
 
     <!-- NEW Screen: Closing slide at the end -->
     <div class="screen" id="s8" data-i="8">
-      <img src="assets/slide8_closing.jpg?v=14" alt="Closing Scroll Card" loading="lazy">
+      <img src="assets/slide8_closing.jpg?v=15" alt="Closing Scroll Card" loading="lazy">
     </div>
 
   </div>
@@ -578,7 +578,7 @@ function initScratchCards() {
   if (!canvas) return;
 
   const bgImg = new Image();
-  bgImg.src = 'assets/date1_scratch.jpg?v=14';
+  bgImg.src = 'assets/date1_scratch.jpg?v=15';
   bgImg.onload = () => {
     const ctxScratch = canvas.getContext('2d');
     
@@ -777,7 +777,7 @@ dots.forEach((d, i) => {
 /* ── Preload ── */
 setTimeout(() => {
   ['date1_scratch', 'date1_scratch_revealed', 'date2_countdown', 'slide2_engagement','slide3_haldi','slide4_mehendi_sangeet','slide5_wedding','slide6_reception', 'slide7_dresscode_venues', 'slide8_closing']
-    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=14`; });
+    .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg?v=15`; });
 }, 800);
 </script>
 
